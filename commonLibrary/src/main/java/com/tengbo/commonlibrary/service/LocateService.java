@@ -32,7 +32,7 @@ public class LocateService extends Service {
 
     public class LocateBinder extends Binder {
         public LocateService getService(){
-          return  LocateService.this;
+            return  LocateService.this;
         }
 
 //        public void startJob() {
