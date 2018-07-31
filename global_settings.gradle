@@ -1,0 +1,163 @@
+import java.util.regex.Pattern
+
+//先加载local.properties文件
+Properties localProperties = new Properties()
+try {
+    def localFile = project.rootProject.file('local.properties')
+    if (localFile != null && localFile.exists()) {
+        localProperties.load(localFile.newDataInputStream())
+    }
+} catch (Exception ignored) {
+    println("local.properties not found")
+}
+
+//在module的gradle中配置runAsModule=true/false,可以切换编译模式
+def runAsApp = ext.has('runAsApp')
+if (runAsApp) {
+    runAsApp = ext.runAsApp
+} else if (ext.has('mainApp') && ext.mainApp) { //ext.mainApp为true时，代表以app方式运行
+    runAsApp = true
+} else {
+    //也可以集中在local.properties中以module_name=true/false的形式配置
+    runAsApp = 'true' == localProperties.getProperty(project.name)
+}
+
+//设置到ext中，供module的build.gradle使用（例如用于设置sourceSets配置）
+//调用方式为project.ext.runAsApp
+ext.runAsApp = runAsApp
+if (runAsApp) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+//对组件库的依赖格式： addComponent dependencyName
+ext.addComponent = { dependencyName, realDependency = null ->
+    //当前task是否为给本module打apk包
+    def curModuleIsBuildingApk = false
+    def taskNames = project.gradle.startParameter.taskNames
+    def regex = "((.*:)?${project.name.toUpperCase()}:)?((ASSEMBLE)|(INSTALL)).*"
+    def taskBuildApkPattern = Pattern.compile(regex)
+    for (String task : taskNames) {
+        if (taskBuildApkPattern.matcher(task.toUpperCase()).matches()) {
+            curModuleIsBuildingApk = true
+            break
+        }
+    }
+    //组件单独运行，则不依赖此组件
+    if (!curModuleIsBuildingApk)
+        return
+    def componentProject = rootProject.subprojects.find { it.name == dependencyName }
+    def app  //dependencyName指定的module是否为配置为以application方式编译
+    if (componentProject && componentProject.ext.has('runAsApp')) {
+        app = componentProject.ext.runAsApp
+    } else if (componentProject && componentProject.ext.has('mainApp') && componentProject.ext.mainApp) {
+        //仅ext.mainApp为true时，确定为application方式编译，若为false，则读取local.properties中的配置
+        app = true
+    } else {
+        //local.properties中配置为true代表该module以application方式编译
+        app = 'true' == localProperties.getProperty(dependencyName)
+    }
+    if (!app) {
+        def dependencyMode = (project.gradle.gradleVersion as float) >= 4.1F ? 'api' : 'compile'
+        if (realDependency) {
+            //通过参数传递的依赖方式，如：
+            // project(':moduleName')
+            // 或
+            // 'com.billy.demo:demoA:1.1.0'
+            project.dependencies.add(dependencyMode, realDependency)
+            println "CC >>>> add $realDependency to ${project.name}'s dependencies"
+
+        } else if (componentProject) {
+            //第二个参数未传，默认为按照module来进行依赖
+            project.dependencies.add(dependencyMode, project(":$dependencyName"))
+            println "CC >>>> add project(\":$dependencyName\") to ${project.name}'s dependencies"
+        } else {
+            throw new RuntimeException(
+                    "CC >>>> add dependency by [ addComponent '$dependencyName' ] occurred an error:" +
+                            "\n'$dependencyName' is not a module in current project" +
+                            " and the 2nd param is not specified for realDependency" +
+                            "\nPlease make sure the module name is '$dependencyName'" +
+                            "\nelse" +
+                            "\nyou can specify the real dependency via add the 2nd param, for example: " +
+                            "addComponent '$dependencyName', 'com.billy.demo:demoB:1.1.0'")
+        }
+    }
+}
+repositories {
+    maven { url rootProject.file("repo-local") }
+    jcenter()
+}
+
+//所有的module在组件模式下的文件（清单，java文件，资源文件..）都放到main->debug文件夹下，集成模式下会删除这个文件夹
+android {
+    sourceSets {
+        main {
+            //默认的作为application运行时Manifest文件路径
+            def debugManifest = 'src/main/debug/AndroidManifest.xml'
+            if (runAsApp && project.file(debugManifest).exists()) {
+                manifest.srcFile debugManifest
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下自动排除debug文件夹中的所有Java文件
+                // 可以将debug代码放在这个包内，例如：Application子类
+                java {
+                    exclude 'debug/**'
+                }
+            }
+            // 将组件单独以app运行时的测试代码及资源放到src/main/debug/目录下
+            if (runAsApp) {
+                //debug模式下，如果存在src/main/debug/assets，则自动将其添加到assets源码目录
+                if (project.file('src/main/debug/assets').exists()) {
+                    assets.srcDirs = ['src/main/assets', 'src/main/debug/assets']
+                }
+                //debug模式下，如果存在src/main/debug/java，则自动将其添加到java源码目录
+                if (project.file('src/main/debug/java').exists()) {
+                    java.srcDirs = ['src/main/java', 'src/main/debug/java']
+                }
+                //debug模式下，如果存在src/main/debug/res，则自动将其添加到资源目录
+                if (project.file('src/main/debug/res').exists()) {
+                    res.srcDirs = ['src/main/res', 'src/main/debug/res']
+                }
+            }
+        }
+    }
+}
+
+//添加CC组件化通信框架
+def dependencyMode = (project.gradle.gradleVersion as float) >= 4.1F ? 'api' : 'compile'
+project.dependencies.add(dependencyMode, "com.billy.android:cc:1.1.0")
+//project.dependencies.add(dependencyMode, ":basicLibrary")
+//project.dependencies.add('api', "com.tengbo.drivertransport.basicLibrary:1.0.0")
+//project.dependencies.add('api', "com.tengbo.drivertransport.commonLibrary:1.0.0")
+
+//cc 自动祖册组件
+project.apply plugin: 'auto-register'
+project.ext.registerInfoList = [
+        [ //自动注册组件
+          'scanInterface'          : 'com.billy.cc.core.component.IComponent'
+          , 'codeInsertToClassName': 'com.billy.cc.core.component.ComponentManager'
+          , 'registerMethodName'   : 'registerComponent'
+          , 'exclude'              : [//排除的类，支持正则表达式（包分隔符需要用/表示，不能用.）
+                                      'com.billy.cc.core.component.'.replaceAll("\\.", "/") + ".*"
+        ]
+        ], [//自动注册全局拦截器
+            'scanInterface'          : 'com.billy.cc.core.component.IGlobalCCInterceptor'
+            , 'codeInsertToClassName': 'com.billy.cc.core.component.GlobalCCInterceptorManager'
+            , 'registerMethodName'   : 'registerGlobalInterceptor'
+            , 'exclude'              : [//排除的类，支持正则表达式（包分隔符需要用/表示，不能用.）
+                                        'com.billy.cc.core.component.'.replaceAll("\\.", "/") + ".*"
+]
+        ], [//自动注册跨进程通信时自定义类型的json转换器，可以用Gson、FastJson等工具来实现
+            // 参考： demo_base/src/main/java/com.billy.cc.demo.base.GsonParamConverter
+            'scanInterface'          : 'com.billy.cc.core.component.IParamJsonConverter'
+            , 'codeInsertToClassName': 'com.billy.cc.core.component.RemoteParamUtil'
+            , 'registerMethodName'   : 'initRemoteCCParamJsonConverter'
+            , 'exclude'              : [//排除的类，支持正则表达式（包分隔符需要用/表示，不能用.）
+                                        'com.billy.cc.core.component.'.replaceAll("\\.", "/") + ".*"
+]
+        ]
+]
+autoregister {
+    registerInfo = registerInfoList
+}

@@ -1,0 +1,56 @@
+//标识该组件是工程主module
+ext.mainApp = true
+apply from: rootProject.file('global_settings.gradle')
+
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    defaultConfig {
+        applicationId "com.tengbo.drivertransport"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode app_version.code
+        versionName app_version.name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            buildConfigField "boolean", "LEO_DEBUG", "false"
+            //是否zip对齐
+            zipAlignEnabled true
+            // 缩减resource文件
+            shrinkResources true
+            //Proguard
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名
+//            signingConfig signingConfigs.release
+        }
+
+        debug {
+            //给applicationId添加后缀“.debug”
+            applicationIdSuffix ".debug"
+            //manifestPlaceholders = [app_icon: "@drawable/launch_beta"]
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            zipAlignEnabled false
+            shrinkResources false
+            minifyEnabled false
+            debuggable true
+        }
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation dependence.support.multidex
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    implementation project(':basicLibrary')
+    implementation project(':commonLibrary')
+
+    /**
+     * 不需要引入CC自动注册插件的依赖使用implementation或者api，否则使用addComponent
+    * addComponent module_name -> implementation project(':module_name'),
+    * 切换library或者application编译方式只需要在local.properties中设置module_name=true/false
+    */
+    addComponent 'module_example'
+}

@@ -1,0 +1,4 @@
+include ':app',
+        ':basicLibrary',
+        ':commonLibrary',
+        ':module_example'

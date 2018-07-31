@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode basic_version.code
+        versionName basic_version.name
+    }
+
+
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            zipAlignEnabled false
+            shrinkResources false
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+
+
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    //glide
+    implementation dependence.glide
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
+    //retrofit+rxjava
+    api 'com.tamic.novate:novate:1.5.0'
+
+    api dependence.support.recyclerview
+
+    api dependence.logger
+
+    api 'com.jakewharton:butterknife:8.8.1'
+
+    api('com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40')
+
+
+    api('com.github.hotchemi:permissionsdispatcher:3.0.0')
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.0.0"
+
+
+
+
+}
