@@ -4,6 +4,14 @@ apply from: rootProject.file('global_settings.gradle')
 
 
 android {
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('C:/Users/yk_de/.android/debug.keystore')
+            storePassword 'android'
+        }
+    }
     compileSdkVersion build_versions.compile_sdk
     defaultConfig {
         applicationId "com.tengbo.drivertransport"
@@ -29,28 +37,27 @@ android {
 
         debug {
             //给applicationId添加后缀“.debug”
-            applicationIdSuffix ".debug"
+//            applicationIdSuffix ".debug"
             //manifestPlaceholders = [app_icon: "@drawable/launch_beta"]
             buildConfigField "boolean", "LOG_DEBUG", "true"
             zipAlignEnabled false
             shrinkResources false
             minifyEnabled false
             debuggable true
+            signingConfig signingConfigs.debug
         }
     }
 }
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation dependence.support.multidex
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
-
     /**
      * 不需要引入CC自动注册插件的依赖使用implementation或者api，否则使用addComponent
-    * addComponent module_name -> implementation project(':module_name'),
-    * 切换library或者application编译方式只需要在local.properties中设置module_name=true/false
-    */
+     * addComponent module_name -> implementation project(':module_name'),
+     * 切换library或者application编译方式只需要在local.properties中设置module_name=true/false
+     */
     addComponent 'module_example'
 }

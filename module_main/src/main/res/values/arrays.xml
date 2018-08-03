@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="homeTabTitle">
+        <item>任务</item>
+        <item>历史</item>
+        <item>进行中</item>
+        <item>我的</item>
+    </string-array>
+</resources>

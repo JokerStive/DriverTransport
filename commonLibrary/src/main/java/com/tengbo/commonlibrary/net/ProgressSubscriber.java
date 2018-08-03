@@ -9,7 +9,9 @@ import com.tengbo.basiclibrary.widget.RxProgressDialog;
 
 import java.lang.ref.WeakReference;
 
-public abstract class ProgressSubscriber<T> extends BaseSubscriber<T> {
+import rx.Subscriber;
+
+public abstract class ProgressSubscriber<T> extends Subscriber<T> {
 
     private WeakReference<Activity> activity;
     private boolean needProgressBar;
@@ -56,14 +58,14 @@ public abstract class ProgressSubscriber<T> extends BaseSubscriber<T> {
     }
 
     protected  abstract  void on_next(T t);
-    protected  abstract  void on_error(Throwable e);
+    protected  void on_error(ApiException e){}
 
     @Override
-    public void onError(Throwable e) {
-       hideDialog();
-       on_error(e);
+    public void onError(java.lang.Throwable e) {
+        if (e instanceof ApiException){
+            on_error((ApiException) e);
+        }
     }
-
 
     private void hideDialog() {
         if (needProgressBar) {

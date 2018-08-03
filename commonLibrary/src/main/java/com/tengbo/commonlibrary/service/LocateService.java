@@ -10,6 +10,11 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -25,29 +30,89 @@ public class LocateService extends Service {
     private static int bestThreadCount;
     private static final int DO_JOB = 1;
     private static final int REMOVE_JOB = 0;
-    private static final int DELAY_TIME_MILLION = 5000;
-
+    private static final int DELAY_TIME_MILLION = 1000;
     private LocateBinder mBinder;
+
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mExecutor = new ThreadPoolExecutor(
+                calculateBestThreadCount(),
+                calculateBestThreadCount(),
+                0,
+                TimeUnit.MILLISECONDS,
+                new PriorityBlockingQueue<Runnable>()
+        );
+        mBinder = new LocateBinder();
+
+        initBaiduLocation();
+    }
+
+    private void initBaiduLocation() {
+        mLocationClient = new LocationClient(getApplicationContext());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+
+        LocationClientOption option = new LocationClientOption();
+
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+
+        option.setCoorType("bd09ll");
+
+        option.setScanSpan(DELAY_TIME_MILLION);
+
+        option.setOpenGps(true);
+
+        option.setLocationNotify(true);
+
+        option.setIgnoreKillProcess(false);
+
+        option.SetIgnoreCacheException(false);
+
+        option.setWifiCacheTimeOut(5 * 60 * 1000);
+
+        option.setEnableSimulateGps(false);
+
+        mLocationClient.setLocOption(option);
+    }
+
+    public class MyLocationListener extends BDAbstractLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取经纬度相关（常用）的结果信息
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+
+            int responseCode = location.getLocType();
+            Log.d("yk","获取到定位"+responseCode);
+            if(responseCode==61){
+                double latitude = location.getLatitude();    //获取纬度信息
+                double longitude = location.getLongitude();    //获取经度信息
+                mExecutor.execute(new LocateAndPushTask(latitude, longitude));
+
+                Log.d("yk","关闭定位功能");
+//                mLocationClient.stop();
+            }
+
+        }
+    }
 
 
     public class LocateBinder extends Binder {
-        public LocateService getService(){
-            return  LocateService.this;
+        public LocateService getService() {
+            return LocateService.this;
         }
-
-//        public void startJob() {
-//            LocateService.this.startJob(0);
-//        }
-//
-//        public void cancelJob() {
-//            LocateService.this.cancelJob();
-//        }
     }
 
     private static class MainThreadCallback implements Handler.Callback {
 
         @SuppressWarnings("WeakerAccess")
         MainThreadCallback() {
+
         }
 
         @Override
@@ -68,7 +133,8 @@ public class LocateService extends Service {
 
 
     private void doJob() {
-        mExecutor.execute(new LocateAndPushTask());
+        Log.d("yk","开启定位功能");
+        mLocationClient.start();
     }
 
 
@@ -86,19 +152,6 @@ public class LocateService extends Service {
         MAIN_THREAD_HANDLER.sendMessage(message);
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mExecutor = new ThreadPoolExecutor(
-                calculateBestThreadCount(),
-                calculateBestThreadCount(),
-                0,
-                TimeUnit.MILLISECONDS,
-                new PriorityBlockingQueue<Runnable>()
-        );
-
-        mBinder = new LocateBinder();
-    }
 
     public static int calculateBestThreadCount() {
         if (bestThreadCount == 0) {
@@ -109,13 +162,21 @@ public class LocateService extends Service {
     }
 
 
-    private static class LocateAndPushTask implements Runnable {
+    private class LocateAndPushTask implements Runnable {
+        private final double longitude;
+        private final double latitude;
+
+        LocateAndPushTask(double latitude, double longitude) {
+            this.longitude = longitude;
+            this.latitude = latitude;
+        }
+
         @Override
         public void run() {
             try {
-                Log.d("yk", Thread.currentThread().getName() + "locating");
-                Thread.sleep(10000);
-                Log.d("yk", Thread.currentThread().getName() + "located");
+                Log.d("yk", "精度" + latitude + "---" + "维度" + longitude + "---upload");
+                Thread.sleep(2000);
+                Log.d("yk", "精度" + latitude + "---" + "维度" + longitude + "---success");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -125,7 +186,8 @@ public class LocateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        startJob(0);
+//        startJob(0);
+        doJob();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -141,5 +203,6 @@ public class LocateService extends Service {
     public void onDestroy() {
         super.onDestroy();
         cancelJob();
+        mLocationClient.stop();
     }
 }

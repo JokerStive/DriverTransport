@@ -18,20 +18,6 @@ public class HttpInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        NetHelper.getInstance()
-                .getApi()
-                .getMe()
-                .compose(RxUtils.handleResult())
-                .compose(RxUtils.applySchedule())
-                .subscribe(new ProgressSubscriber<Account>() {
-                    @Override
-                    protected void on_next(Account account) {
-
-                    }
-                });
-
-
-
 
         Request request = chain.request();
 
