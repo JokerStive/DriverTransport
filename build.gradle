@@ -7,7 +7,7 @@ buildscript {
         //cc自动注册插件
         classpath 'com.billy.android:autoregister:1.3.0'
         classpath 'com.android.tools.build:gradle:3.1.3'
-
+//        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:1.1.1'
     }
 }
 
