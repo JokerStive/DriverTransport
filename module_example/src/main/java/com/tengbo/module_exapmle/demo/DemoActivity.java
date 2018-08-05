@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 
 import com.tengbo.commonlibrary.base.BaseMvpActivity;
 import com.tengbo.commonlibrary.service.LocateService;
-import com.tengbo.drivertransport.R;
+import com.tengbo.module_exapmle.R;
 
 
 public class DemoActivity extends BaseMvpActivity<DemoContract.Presenter> implements DemoContract.View {

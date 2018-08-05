@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.tengbo.commonlibrary.widget.TakePhotoDialogFragment;
 
 
@@ -20,14 +21,37 @@ public class HomeActivity extends AppCompatActivity {
 
 
     public void trans(View v) {
-        CCResult ccResult = CC.obtainBuilder("y").
-                setActionName("startActivity")
-                .addParam("requestCode", 3)
-                .build().call();
-
-
-        Log.d("yk", ccResult.getCode() + "");
+//        CCResult ccResult = CC.obtainBuilder("y").
+//                setActionName("startActivity")
+//                .addParam("requestCode", 3)
+//                .build().call();
+//
+//
+//        Log.d("yk", ccResult.getCode() + "");
+        CC cc = CC.obtainBuilder("UpdatePasswordComponent")
+                .setActionName("openUpdatePasswordActivity")
+                .build();
+        CCResult result = cc.call();
+        if (cc != null && result != null) {
+            showResult(cc, result);
+        }
     }
+
+    IComponentCallback printResultCallback = new IComponentCallback() {
+        @Override
+        public void onResult(CC cc, CCResult result) {
+            showResult(cc, result);
+        }
+    };
+    private void showResult(CC cc, CCResult result) {
+        Log.e("RESULT", cc.toString());
+        Log.e("RESULT", result.toString());
+//        String text = "result:\n" + JsonFormat.format(result.toString());
+//        text += "\n\n---------------------\n\n";
+//        text += "cc:\n" + JsonFormat.format(cc.toString());
+//        Log.e("RESULT", text);
+    }
+
 
 
     public void getData(View v) {
