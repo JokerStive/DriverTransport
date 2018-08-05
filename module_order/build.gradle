@@ -4,8 +4,8 @@ apply from: rootProject.file('global_settings.gradle')
 android {
     compileSdkVersion 28
     defaultConfig {
-        if(runAsApp){
-            applicationId "com.tengbo.module_example"
+        if (runAsApp) {
+            applicationId "com.tengbo.module_order"
         }
         minSdkVersion 16
         targetSdkVersion 28
@@ -32,4 +32,5 @@ dependencies {
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
 }

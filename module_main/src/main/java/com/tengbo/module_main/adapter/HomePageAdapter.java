@@ -13,7 +13,6 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
     private final ArrayList<Fragment> fragments;
     private final FragmentManager fm;
     private String[] tabTitles;
-    private static final int FRAGMENT_COUNT = 4;
 
     public HomePageAdapter(FragmentManager fm, ArrayList<Fragment> fragments, String[] tabTitles) {
         super(fm);
@@ -29,7 +28,7 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return FRAGMENT_COUNT;
+        return tabTitles.length;
     }
 
     @Nullable

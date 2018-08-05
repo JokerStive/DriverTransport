@@ -21,6 +21,8 @@ public class HttpInterceptor implements Interceptor {
 
         Request request = chain.request();
 
+        // TODO 这里做添加token和刷新token的操作
+        // TODO 1.如何判定token失效，2.如何同步刷新token让用户无感 3.刷新token期间其他request拒绝
         String token = getToken();
         if (!TextUtils.isEmpty(token)) {
             request = request.newBuilder().addHeader("Authorization", token).build();

@@ -63,7 +63,6 @@ ext.addComponent = { dependencyName, realDependency = null ->
         if (realDependency) {
             //通过参数传递的依赖方式，如：
             // project(':moduleName')
-            // 或
             // 'com.billy.demo:demoA:1.1.0'
             project.dependencies.add(dependencyMode, realDependency)
             println "CC >>>> add $realDependency to ${project.name}'s dependencies"
@@ -91,6 +90,11 @@ repositories {
 
 //所有的module在组件模式下的文件（清单，java文件，资源文件..）都放到main->debug文件夹下，集成模式下会删除这个文件夹
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     sourceSets {
         main {
             //默认的作为application运行时Manifest文件路径

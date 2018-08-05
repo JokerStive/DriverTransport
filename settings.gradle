@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':module_main', ':module_order',
         ':basicLibrary',
         ':commonLibrary',
         ':module_example'

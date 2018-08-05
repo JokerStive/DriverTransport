@@ -14,15 +14,13 @@ import com.tengbo.commonlibrary.service.LocateService;
 import com.tengbo.drivertransport.R;
 
 
-public class DemoActivity extends BaseMvpActivity<DemoContract.Presenter> implements DemoContract.View{
+public class DemoActivity extends BaseMvpActivity<DemoContract.Presenter> implements DemoContract.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exapmle1);
-
-
-
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -34,19 +32,17 @@ public class DemoActivity extends BaseMvpActivity<DemoContract.Presenter> implem
 
     }
 
-    public void startService(View v){
-        ServiceConnection connection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                LocateService.LocateBinder locateBinder =  (LocateService.LocateBinder)iBinder;
-            }
+    public void startService(View v) {
+        startService(new Intent(this, LocateService.class));
+    }
 
-            @Override
-            public void onServiceDisconnected(ComponentName componentName) {
+    public void stopService(View v) {
+        stopService(new Intent(this, LocateService.class));
+    }
 
-            }
-        };
-        bindService(new Intent(this,LocateService.class),connection, Context.BIND_ALLOW_OOM_MANAGEMENT);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tengbo.module_exapmle">
 
+
     <application android:theme="@style/AppTheme">
         <activity android:name=".demo.DemoActivity">
         </activity>
-        <service android:name="com.tengbo.commonlibrary.service.LocateService"/>
     </application>
 
 </manifest>

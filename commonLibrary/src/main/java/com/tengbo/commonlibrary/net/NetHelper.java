@@ -11,6 +11,9 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -73,5 +76,31 @@ public class NetHelper {
         return null;
     }
 
+
+    public static <T> Observable.Transformer<BaseResponse<T>, T> handleResult() {
+        return responseObservable -> responseObservable.map(baseResponse -> {
+            if (!baseResponse.isSuccess()) {
+                throw new ApiException(baseResponse.getCode(), baseResponse.getMessage());
+            } else {
+                return baseResponse.getData();
+            }
+        });
+    }
+
+
+
+    public static <T> Observable<T> dealObservable(Observable<BaseResponse<T>> observable) {
+        return observable.compose(handleResult())
+                .compose(applySchedule());
+    }
+
+
+    /**
+     * 统一线程处理
+     */
+    public static <T> Observable.Transformer<T, T> applySchedule() {
+        return observable -> observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
 }

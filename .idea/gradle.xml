@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$/basicLibrary" />
             <option value="$PROJECT_DIR$/commonLibrary" />
             <option value="$PROJECT_DIR$/module_example" />
+            <option value="$PROJECT_DIR$/module_main" />
+            <option value="$PROJECT_DIR$/module_order" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -51,7 +51,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation dependence.support.multidex
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
     /**
@@ -60,4 +59,6 @@ dependencies {
      * 切换library或者application编译方式只需要在local.properties中设置module_name=true/false
      */
     addComponent 'module_example'
+    addComponent 'module_main'
+    addComponent 'module_order'
 }
