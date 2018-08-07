@@ -5,4 +5,20 @@
     <string name="please_re_input_new_password">请再次输入新密码:</string>
     <string name="please_input_valid_code">请输入验证码:</string>
     <string name="refresh">刷新</string>
+    <string name="upload_avatar">上传头像</string>
+    <string name="demo_username">张三</string>
+    <string name="update_bank_card_info">银行卡信息更改</string>
+    <string name="update_password">密码修改</string>
+    <string name="logout">退出登录</string>
+    <string name="update_bank_card_info_hint">请注意，银行卡必须为司机本人开户的卡号。修改后即可修改系统中的信息，请注意此后的收款情况。</string>
+    <string name="origin_back_card_info">原银行卡信息</string>
+    <string name="bank_of_account">开户行:</string>
+    <string name="name_of_account">开户人姓名:</string>
+    <string name="bank_card_num">银行卡号:</string>
+    <string name="please_input_login_password">请输入登录密码:</string>
+    <string name="please_input_id_card_num">请输入身份证号码:</string>
+    <string name="please_input_bank_of_account">请输入开户银行:</string>
+    <string name="please_input_name_of_account">请输入开户人姓名:</string>
+    <string name="please_input_bank_card_num">请输入银行卡号:</string>
+    <string name="demo_phone">13856781234</string>
 </resources>

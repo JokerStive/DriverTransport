@@ -14,6 +14,7 @@ import com.tengbo.commonlibrary.mvp.BasePresenter;
 import com.tengbo.commonlibrary.mvp.IView;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment implements IView{
 
@@ -22,6 +23,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
     protected FragmentManager mSupportFragmentManager;
     protected FragmentActivity mFragmentActivity;
     private T mPresent;
+    private Unbinder mUnbinder;
 
 
     @Override
@@ -51,7 +53,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(getLayoutId(), container, false);
-            ButterKnife.bind(this, mRootView);
+            mUnbinder = ButterKnife.bind(this, mRootView);
             initView();
         }
 
@@ -72,4 +74,9 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
         mPresent.unBindView();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
 }

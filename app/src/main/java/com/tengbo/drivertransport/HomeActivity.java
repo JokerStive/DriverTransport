@@ -28,13 +28,6 @@ public class HomeActivity extends AppCompatActivity {
 //
 //
 //        Log.d("yk", ccResult.getCode() + "");
-        CC cc = CC.obtainBuilder("UpdatePasswordComponent")
-                .setActionName("openUpdatePasswordActivity")
-                .build();
-        CCResult result = cc.call();
-        if (cc != null && result != null) {
-            showResult(cc, result);
-        }
     }
 
     IComponentCallback printResultCallback = new IComponentCallback() {

@@ -10,11 +10,13 @@ import com.tengbo.commonlibrary.mvp.IPresenter;
 import com.tengbo.commonlibrary.mvp.IView;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatActivity implements IView {
 
     protected P mPresent;
+    private Unbinder mUnbinder;
 
     @Override
     public void onAttachedToWindow() {
@@ -24,7 +26,7 @@ public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatAct
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);
 
         if (getIntent() != null) {
             onIntent(getIntent());
@@ -45,8 +47,7 @@ public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mUnbinder.unbind();
         mPresent.unBindView();
-
-
     }
 }

@@ -1,6 +1,8 @@
 //标识该组件是工程主module
 ext.mainApp = true
 apply from: rootProject.file('global_settings.gradle')
+//apply plugin: 'kotlin-android'
+//apply plugin: 'com.jakewharton.butterknife'
 
 
 android {
@@ -21,7 +23,7 @@ android {
         versionName app_version.name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    compileOptions{
+    compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
@@ -58,6 +60,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
+//    implementation 'com.jakewharton:butterknife:8.8.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     /**
      * 不需要引入CC自动注册插件的依赖使用implementation或者api，否则使用addComponent
      * addComponent module_name -> implementation project(':module_name'),
@@ -67,4 +72,8 @@ dependencies {
     addComponent 'module_main'
     addComponent 'module_order'
     addComponent 'module_personal_center'
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

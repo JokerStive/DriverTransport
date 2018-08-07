@@ -4,7 +4,6 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
 import com.tengbo.commonlibrary.common.ComponentConfig;
-import com.tengbo.commonlibrary.common.Config;
 import com.tengbo.module_order.history.HistoryOrderFragment;
 
 public class ComponentOrder implements IComponent {

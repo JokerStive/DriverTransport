@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
 
     private View mRootView;
     protected FragmentManager mSupportFragmentManager;
     protected FragmentActivity mFragmentActivity;
+    private Unbinder mUnbinder;
 
 
     @Override
@@ -46,7 +48,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(getLayoutId(), container, false);
-            ButterKnife.bind(this, mRootView);
+            mUnbinder = ButterKnife.bind(this, mRootView);
             initView();
         }
 
@@ -59,5 +61,9 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void getTransferData(Bundle arguments);
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
 }

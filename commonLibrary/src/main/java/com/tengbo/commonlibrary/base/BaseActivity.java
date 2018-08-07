@@ -10,11 +10,13 @@ import com.tengbo.basiclibrary.widget.RxProgressDialog;
 import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity  {
 
     private WeakReference<BaseActivity> baseActivityWeakReference;
     private RxProgressDialog dialog;
+    private Unbinder mUnbinder;
 
     @Override
     public void onAttachedToWindow() {
@@ -26,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);
 
         if(getIntent()!=null){
             onIntent(getIntent());
@@ -61,6 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mUnbinder.unbind();
         baseActivityWeakReference.clear();
     }
 }
