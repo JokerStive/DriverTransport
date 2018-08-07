@@ -133,6 +133,7 @@ ext.dependence = dependence
 
 
 static def addRepos(RepositoryHandler handler) {
+    // TODO google()被屏蔽了，会被重定向到"https://dl.google.com/dl/android/maven2/"，但是这个重定向的地址可能随时会变
     handler.google()
     handler.jcenter()
     handler.mavenCentral()

@@ -1,8 +1,9 @@
-package com.tengbo.module_main;
+package com.tengbo.module_main.ui.login;
 
 import android.os.Bundle;
 
 import com.tengbo.commonlibrary.base.BaseFragment;
+import com.tengbo.module_main.R;
 
 public class HistoryOrderFragment extends BaseFragment {
 

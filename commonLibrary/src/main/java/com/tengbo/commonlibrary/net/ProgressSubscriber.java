@@ -8,6 +8,7 @@ import com.tamic.novate.Throwable;
 import com.tengbo.basiclibrary.widget.RxProgressDialog;
 
 import java.lang.ref.WeakReference;
+import java.util.logging.Logger;
 
 import rx.Subscriber;
 
@@ -31,8 +32,9 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
     @Override
     public void onStart() {
         super.onStart();
+        com.orhanobut.logger.Logger.d("rx onStart");
         if (needProgressBar) {
-            if (Looper.getMainLooper()==Looper.myLooper()) {
+            if (Looper.getMainLooper() == Looper.myLooper()) {
                 if (activity != null) {
                     if (dialog == null) {
                         dialog = new RxProgressDialog(activity.get());
@@ -48,21 +50,27 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
+        com.orhanobut.logger.Logger.d("rx onComplete");
         hideDialog();
     }
 
     @Override
     public void onNext(T t) {
+        com.orhanobut.logger.Logger.d("rx onNext");
         hideDialog();
         on_next(t);
     }
 
-    protected  abstract  void on_next(T t);
-    protected  void on_error(ApiException e){}
+    protected abstract void on_next(T t);
+
+    protected void on_error(ApiException e) {
+    }
 
     @Override
     public void onError(java.lang.Throwable e) {
-        if (e instanceof ApiException){
+        hideDialog();
+        com.orhanobut.logger.Logger.d("rx onError");
+        if (e instanceof ApiException) {
             on_error((ApiException) e);
         }
     }

@@ -1,4 +1,3 @@
 include ':app',':module_main', ':module_order',':module_personal_center',
         ':basicLibrary',
-        ':commonLibrary',
-        ':module_example'
+        ':commonLibrary'
