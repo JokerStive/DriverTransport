@@ -4,6 +4,7 @@ import com.tamic.novate.callback.RxResultCallback;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.commonBean.Account;
 
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -27,9 +28,9 @@ public class Novate {
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     //添加拦截器
-                    .addInterceptor(null)
+                    .addInterceptor(new HttpLoggingInterceptor())
                     //添加网络拦截器
-                    .addNetworkInterceptor(null)
+                    .addNetworkInterceptor(new HttpInterceptor())
 
                     .build();
 

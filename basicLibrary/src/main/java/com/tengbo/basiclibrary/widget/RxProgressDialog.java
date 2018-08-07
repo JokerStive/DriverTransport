@@ -37,6 +37,7 @@ public class RxProgressDialog extends Dialog {
         mModalOutAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                
             }
 
             @Override

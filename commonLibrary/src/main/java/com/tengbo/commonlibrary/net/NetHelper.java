@@ -63,7 +63,7 @@ public class NetHelper {
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(new HttpInterceptor())
-                .sslSocketFactory(getSslSocketFactory(), getTrustManager())
+//                .sslSocketFactory(getSslSocketFactory(), getTrustManager())
                 .build();
     }
 
@@ -76,31 +76,5 @@ public class NetHelper {
         return null;
     }
 
-
-    public static <T> Observable.Transformer<BaseResponse<T>, T> handleResult() {
-        return responseObservable -> responseObservable.map(baseResponse -> {
-            if (!baseResponse.isSuccess()) {
-                throw new ApiException(baseResponse.getCode(), baseResponse.getMessage());
-            } else {
-                return baseResponse.getData();
-            }
-        });
-    }
-
-
-
-    public static <T> Observable<T> dealObservable(Observable<BaseResponse<T>> observable) {
-        return observable.compose(handleResult())
-                .compose(applySchedule());
-    }
-
-
-    /**
-     * 统一线程处理
-     */
-    public static <T> Observable.Transformer<T, T> applySchedule() {
-        return observable -> observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
 
 }

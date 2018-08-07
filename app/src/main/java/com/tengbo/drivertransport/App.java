@@ -14,7 +14,7 @@ public class App extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         initCC();
-        initLogger();
+//        initLogger();
     }
 
     private void initLogger() {
