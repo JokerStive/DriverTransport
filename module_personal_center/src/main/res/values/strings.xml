@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">personal_center</string>
-    <string name="please_input_old_password">请输入旧密码:</string>
-    <string name="please_input_new_password">请输入新密码:</string>
-    <string name="please_re_input_new_password">请再次输入新密码:</string>
-    <string name="please_input_valid_code">请输入验证码:</string>
+    <string name="please_input_old_password">请输入旧密码!</string>
+    <string name="please_input_new_password">请输入新密码!</string>
+    <string name="please_re_input_new_password">请再次输入新密码!</string>
+    <string name="please_input_valid_code">请输入验证码!</string>
     <string name="refresh">刷新</string>
     <string name="upload_avatar">上传头像</string>
     <string name="demo_username">张三</string>

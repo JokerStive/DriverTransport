@@ -1,18 +1,13 @@
 package com.tengbo.module_personal_center.activity;
 
-import android.graphics.Color;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.module_personal_center.R;
+import com.tengbo.module_personal_center.R2;
 import com.tengbo.module_personal_center.custom.view.NoEmojiEditText;
 import com.tengbo.module_personal_center.utils.ToastUtils;
 
@@ -24,18 +19,16 @@ import butterknife.OnClick;
  */
 public class UpdatePasswordActivity extends BaseActivity implements View.OnClickListener {
 
-    @BindView(R.id.neet_old_password)
+    @BindView(R2.id.neet_old_password)
     NoEmojiEditText neetOldPassword;
-    @BindView(R.id.neet_new_password)
+    @BindView(R2.id.neet_new_password)
     NoEmojiEditText neetNewPassword;
-    @BindView(R.id.neet_re_new_password)
+    @BindView(R2.id.neet_re_new_password)
     NoEmojiEditText neetReNewPassword;
-    @BindView(R.id.neet_valid_code)
+    @BindView(R2.id.neet_valid_code)
     NoEmojiEditText neetValidCode;
-    @BindView(R.id.iv_valid_code)
+    @BindView(R2.id.iv_valid_code)
     ImageView ivValidCode;
-    @BindView(R.id.tv_refresh_valid_code)
-    TextView tvRefreshValidCode;
 
     private CodeGeneUtils mCodeGeneUtils;
 
@@ -47,10 +40,6 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         mCodeGeneUtils = CodeGeneUtils.getInstance();
         // 初始化验证码
         ivValidCode.setImageBitmap(mCodeGeneUtils.createBitmap());
-        SpannableString ss = new SpannableString(getString(R.string.refresh));
-        ss.setSpan(new UnderlineSpan(), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(Color.BLUE), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvRefreshValidCode.setText(ss);
     }
 
     private String getText(NoEmojiEditText neet) {
@@ -64,7 +53,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     /**
      * 处理按钮点击事件
      */
-    @OnClick({R.id.btn_submit, R.id.btn_cancel, R.id.iv_valid_code, R.id.tv_refresh_valid_code})
+    @OnClick({R2.id.btn_submit, R2.id.btn_cancel, R2.id.iv_valid_code, R2.id.tv_refresh_valid_code})
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -80,8 +69,16 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
             if (TextUtils.isEmpty(oldPassword)) {
                 showToast("请先输入旧密码");
                 return;
+            } else if (oldPassword.length() < 6) {
+                // 判断旧密码是否小于6位
+                showToast("旧密码最少6位");
+                return;
             } else if (TextUtils.isEmpty(newPassword)) {
                 showToast("请先输入新密码");
+                return;
+            } else if (newPassword.length() < 6) {
+                // 判断新密码是否小于6位
+                showToast("新密码最少6位");
                 return;
             } else if (TextUtils.isEmpty(reNewPassword)) {
                 showToast("请再次输入新密码");
@@ -94,22 +91,18 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
             // 判断两次新密码输入是否一致
             if (!newPassword.equals(reNewPassword)) {
                 showToast("两次输入的新密码不一致");
-                refreshValidCode();
                 return;
             }
 
             // 判断新、旧密码是否相同
-            if(oldPassword.equals(newPassword))
-            {
+            if (oldPassword.equals(newPassword)) {
                 showToast("新密码不能和旧密码相同");
-                refreshValidCode();
                 return;
             }
 
             // 判断验证码是否正确
             if (!inputValidCode.equals(validCode)) {
                 showToast("验证码错误");
-                refreshValidCode();
                 return;
             }
 
@@ -125,9 +118,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    private void refreshValidCode()
-    {
-        neetValidCode.setText("");
+    private void refreshValidCode() {
         ivValidCode.setImageBitmap(mCodeGeneUtils.createBitmap());
     }
 

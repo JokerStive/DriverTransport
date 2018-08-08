@@ -18,7 +18,7 @@ public class PersonalCenterComponent implements IComponent {
         switch (actionName)
         {
             case ComponentConfig.PersonalCenterComponentConfig.ACTION_GET_PERSONAL_CENTER_FRAGMENT:
-                CC.sendCCResult(cc.getCallId(), CCResult.success(ComponentConfig.OrderComponentConfig.ACTION_GET_HISTORY_FRAGMENT, PersonalCenterFragment.newInstance()));
+                CC.sendCCResult(cc.getCallId(), CCResult.success(ComponentConfig.PersonalCenterComponentConfig.ACTION_GET_PERSONAL_CENTER_FRAGMENT, PersonalCenterFragment.newInstance()));
                 break;
         }
         return false;

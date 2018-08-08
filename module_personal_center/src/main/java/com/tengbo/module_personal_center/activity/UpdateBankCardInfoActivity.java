@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.module_personal_center.R;
+import com.tengbo.module_personal_center.R2;
 import com.tengbo.module_personal_center.custom.view.NoEmojiEditText;
 import com.tengbo.module_personal_center.utils.ToastUtils;
 
@@ -22,28 +23,28 @@ import butterknife.OnClick;
 
 public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnClickListener {
 
-    @BindView(R.id.et_bank_of_account)
+    @BindView(R2.id.et_bank_of_account)
     EditText et_bank_of_account;
-    @BindView(R.id.et_name_of_account)
+    @BindView(R2.id.et_name_of_account)
     EditText et_name_of_account;
-    @BindView(R.id.et_bank_card_num)
+    @BindView(R2.id.et_bank_card_num)
     EditText et_bank_card_num;
 
-    @BindView(R.id.neet_password)
+    @BindView(R2.id.neet_password)
     NoEmojiEditText neet_password;
-    @BindView(R.id.neet_id_card_num)
+    @BindView(R2.id.neet_id_card_num)
     NoEmojiEditText neet_id_card_num;
-    @BindView(R.id.neet_bank_of_account)
+    @BindView(R2.id.neet_bank_of_account)
     NoEmojiEditText neet_bank_of_account;
-    @BindView(R.id.neet_name_of_account)
+    @BindView(R2.id.neet_name_of_account)
     NoEmojiEditText neet_name_of_account;
-    @BindView(R.id.neet_bank_card_num)
+    @BindView(R2.id.neet_bank_card_num)
     NoEmojiEditText neet_bank_card_num;
-    @BindView(R.id.neet_valid_code)
+    @BindView(R2.id.neet_valid_code)
     NoEmojiEditText neet_valid_code;
-    @BindView(R.id.iv_valid_code)
+    @BindView(R2.id.iv_valid_code)
     ImageView iv_valid_code;
-    @BindView(R.id.tv_refresh_valid_code)
+    @BindView(R2.id.tv_refresh_valid_code)
     TextView tv_refresh_valid_code;
 
     CodeGeneUtils mCodeGeneUtils;
@@ -78,7 +79,7 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
      * 处理点击事件
      * @param view
      */
-    @OnClick({R.id.btn_submit, R.id.btn_cancel, R.id.iv_valid_code, R.id.tv_refresh_valid_code})
+    @OnClick({R2.id.btn_submit, R2.id.btn_cancel, R2.id.iv_valid_code, R2.id.tv_refresh_valid_code})
     @Override
     public void onClick(View view) {
         int id = view.getId();
