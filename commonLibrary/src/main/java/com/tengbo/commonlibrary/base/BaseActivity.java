@@ -11,17 +11,18 @@ import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.subscriptions.CompositeSubscription;
 
-public abstract class BaseActivity extends AppCompatActivity  {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private WeakReference<BaseActivity> baseActivityWeakReference;
+    protected CompositeSubscription mSubscriptionManager = new CompositeSubscription();
     private RxProgressDialog dialog;
     private Unbinder mUnbinder;
 
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        baseActivityWeakReference = new WeakReference<>(this);
     }
 
     @Override
@@ -29,20 +30,22 @@ public abstract class BaseActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         mUnbinder = ButterKnife.bind(this);
+        baseActivityWeakReference = new WeakReference<>(this);
 
-        if(getIntent()!=null){
+
+        if (getIntent() != null) {
             onIntent(getIntent());
         }
-
         initView();
 
     }
 
     protected abstract int getLayoutId();
+
     protected abstract void initView();
-    protected  void onIntent(Intent intent){}
 
-
+    protected void onIntent(Intent intent) {
+    }
 
 
     protected void showProgressDialog() {
@@ -65,6 +68,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
         super.onDestroy();
         mUnbinder.unbind();
         baseActivityWeakReference.clear();
+        if (mSubscriptionManager.hasSubscriptions() && !mSubscriptionManager.isUnsubscribed()) {
+            mSubscriptionManager.unsubscribe();
+        }
     }
 }
 

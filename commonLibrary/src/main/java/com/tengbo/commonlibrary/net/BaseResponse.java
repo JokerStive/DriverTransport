@@ -2,11 +2,11 @@ package com.tengbo.commonlibrary.net;
 
 public class BaseResponse<T> {
     private int code;
-    private String message;
+    private String msg;
     private T data;
 
-    public boolean isSuccess(){
-        return true;
+    public boolean isSuccess() {
+        return code == 200;
     }
 
     public int getCode() {
@@ -18,11 +18,11 @@ public class BaseResponse<T> {
     }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.msg = message;
     }
 
     public T getData() {

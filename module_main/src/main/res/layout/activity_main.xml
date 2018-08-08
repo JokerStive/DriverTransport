@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <LinearLayout
@@ -20,11 +21,12 @@
 
         <View
             style="@style/line"
-            android:layout_height="@dimen/dp_1"
-            android:background="#ddffff" />
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
+            android:padding="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -34,13 +36,29 @@
     </LinearLayout>
 
 
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:drawableTop="@drawable/main_processing_selected"
+        android:layout_marginTop="@dimen/dp_4"
+        android:text="执行中"
+        android:id="@+id/tv_name"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/selector_tab_blue" />
+
     <ImageView
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/dp_30"
         android:id="@+id/iv_processing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_30"
         android:src="@drawable/main_processing_selected" />
 
 </RelativeLayout>

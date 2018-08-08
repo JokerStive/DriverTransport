@@ -7,16 +7,18 @@ import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.commonBean.Account;
 
 import java.io.IOException;
+import java.net.URL;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 /**
-*@author yk
-*@Descriptcion okHttp网络拦截器
-*/
+ * @author yk
+ * @Descriptcion okHttp网络拦截器
+ */
 public class HttpInterceptor implements Interceptor {
 
 
@@ -33,8 +35,6 @@ public class HttpInterceptor implements Interceptor {
         String token = getToken();
         if (!TextUtils.isEmpty(token)) {
             request = request.newBuilder().addHeader(HEADER_TOKEN_KEY, token).build();
-        } else {
-            toLogin();
         }
 
         Response response = chain.proceed(request);
@@ -68,8 +68,6 @@ public class HttpInterceptor implements Interceptor {
         }
         return getTokenFromResponseAndSave(response);
     }
-
-
 
 
     private String getTokenFromResponseAndSave(Response response) {

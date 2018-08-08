@@ -17,6 +17,6 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("login")
-    Observable<BaseResponse<Token>> login(@Field("f_account_name") String username ,@Field("f_login_pwd") String password);
+    Observable<BaseResponse<Token>> login(@Field("faccountName") String username ,@Field("faccountName") String password);
 
 }

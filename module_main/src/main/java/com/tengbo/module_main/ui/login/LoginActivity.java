@@ -2,8 +2,10 @@ package com.tengbo.module_main.ui.login;
 
 import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -11,19 +13,24 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
+import com.tengbo.basiclibrary.utils.LogUtil;
+import com.tengbo.basiclibrary.utils.SelectorFactory;
+import com.tengbo.basiclibrary.utils.UiUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
+import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.commonBean.Token;
+import com.tengbo.commonlibrary.net.ApiException;
 import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.module_main.R;
 import com.tengbo.module_main.ui.home.MainActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
+import rx.Subscription;
 import utils.ToastUtils;
 
 public class LoginActivity extends BaseActivity {
@@ -38,9 +45,10 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        if (intent == null && !TextUtils.isEmpty(User.getAccessToken())) {
-            goMainActivity();
-        }
+        goMainActivity();
+//        if (intent == null && !TextUtils.isEmpty(User.getAccessToken())) {
+//            goMainActivity();
+//        }
     }
 
     @Override
@@ -48,6 +56,7 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void initView() {
         etUsername = findViewById(R.id.et_username);
@@ -55,13 +64,25 @@ public class LoginActivity extends BaseActivity {
         etVerification = findViewById(R.id.et_verification);
         ivCreateVerification = findViewById(R.id.iv_create_verification);
         tvAutoLogin = findViewById(R.id.tv_auto_login);
-
+        tvAutoLogin.setSelected(true);
+        Button btnLogin = findViewById(R.id.btn_login);
+        btnLogin.setBackground(SelectorFactory.newShapeSelector()
+                .setDefaultBgColor(BaseApplication.get().getResources().getColor(com.tengbo.commonlibrary.R.color.basic_blue))
+                .setPressedBgColor(BaseApplication.get().getResources().getColor(com.tengbo.commonlibrary.R.color.basic_blue_deep))
+                .setCornerRadius(UiUtils.dp2px(BaseApplication.get(),20))
+                .create()
+        );
         refreshVerification();
 
     }
 
     public void login(View v) {
         login();
+    }
+
+
+    public void isAutoLogin(View v) {
+        tvAutoLogin.setSelected(!tvAutoLogin.isSelected());
     }
 
     public void refreshVerificationCode(View v) {
@@ -91,26 +112,32 @@ public class LoginActivity extends BaseActivity {
         String realVerification = CodeGeneUtils.getInstance().getCode();
         if (!TextUtils.equals(verification, realVerification)) {
             ToastUtils.show(this, "验证码错误，请重新输入");
+            refreshVerification();
             return;
         }
-//        goMainActivity();
 
 
-        NetHelper.getInstance().getApi()
+        Subscription subscription = NetHelper.getInstance().getApi()
                 .login(username, password)
                 .compose(RxUtils.handleResult())
                 .compose(RxUtils.applySchedule())
                 .subscribe(new ProgressSubscriber<Token>(this) {
                     @Override
                     protected void on_next(Token token) {
+                        Logger.d(token.getAccessToken() + "-------" + token.getRefreshToken());
                         User.saveToken(token.getAccessToken(), token.getRefreshToken());
                         User.saveAutoLogin(tvAutoLogin.isSelected());
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
+
+                    @Override
+                    protected void on_error(ApiException e) {
+                        super.on_error(e);
+                        refreshVerification();
+                    }
                 });
-
-
+        mSubscriptionManager.add(subscription);
     }
 
     private void goMainActivity() {
@@ -119,6 +146,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void refreshVerification() {
+        etVerification.setText(null);
         ivCreateVerification.setImageBitmap(CodeGeneUtils.getInstance().createBitmap());
     }
 }

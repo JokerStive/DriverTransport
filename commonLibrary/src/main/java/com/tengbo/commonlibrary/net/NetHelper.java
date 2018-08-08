@@ -63,6 +63,7 @@ public class NetHelper {
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(new HttpInterceptor())
+                .addInterceptor(new LogInterceptor(new HttpLogger()))
 //                .sslSocketFactory(getSslSocketFactory(), getTrustManager())
                 .build();
     }

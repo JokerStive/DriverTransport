@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_27">27dp</dimen>
+    <dimen name="dp_33">33dp</dimen>
     <dimen name="dp_87">87dp</dimen>
     <dimen name="dp_14">14dp</dimen>
     <dimen name="dp_70">70dp</dimen>

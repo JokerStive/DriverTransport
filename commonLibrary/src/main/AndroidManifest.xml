@@ -44,7 +44,21 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="QomY3aVlxC2eRMxXQzN0M1O5gG0n0N97"/>
+
+        //android 7.0文件访问权限控制
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.tengbo.commonlibrary"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
+
+
 
 
 </manifest>

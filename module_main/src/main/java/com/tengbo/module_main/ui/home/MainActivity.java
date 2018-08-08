@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
     private NoScrollViewPager mViewPager;
     private Fragment fragment;
     private TabLayout mTabLayout;
-    private String[] mTabTitles = new String[]{"任务", "历史订单", "进行中", "消息", "我的"};
+    private String[] mTabTitles = new String[]{"任务", "历史订单", "", "消息", "我的"};
     private int[] mTabImages = new int[]{R.drawable.selector_tab_task, R.drawable.selector_tab_history,
             R.drawable.selector_tab_info, R.drawable.selector_tab_personal};
 
@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity {
         mViewPager = findViewById(R.id.viewPager);
         mTabLayout = findViewById(R.id.tabLayout);
         View mIvProcessing = findViewById(R.id.iv_processing);
-        mIvProcessing.setOnClickListener(view -> mViewPager.setCurrentItem(2,true));
+        mIvProcessing.setOnClickListener(view -> mViewPager.setCurrentItem(2, true));
 
         ArrayList<Fragment> fragments = getFragmentByComponent();
         if (fragments.size() == 0)
@@ -77,25 +77,36 @@ public class MainActivity extends BaseActivity {
 
     private ArrayList<Fragment> getFragmentByComponent() {
         ArrayList<Fragment> fragments = new ArrayList<>();
-        CCResult ccResult = CC.obtainBuilder(ComponentConfig.OrderComponentConfig.COMPONENT_NAME)
-                .setActionName(ComponentConfig.OrderComponentConfig.ACTION_GET_HISTORY_FRAGMENT)
-                .addParam("fragment", fragment)
-                .build()
-                .call();
-        boolean success = ccResult.isSuccess();
-        Logger.d(ccResult.getCode());
-        if (success) {
-            Fragment fragment1 = ccResult.getDataItem(ComponentConfig.OrderComponentConfig.ACTION_GET_HISTORY_FRAGMENT);
-            HistoryOrderFragment fragment2 = HistoryOrderFragment.newInstance();
-            HistoryOrderFragment fragment3 = HistoryOrderFragment.newInstance();
-            HistoryOrderFragment fragment4 = HistoryOrderFragment.newInstance();
-            HistoryOrderFragment fragment5 = HistoryOrderFragment.newInstance();
-            fragments.add(fragment1);
-            fragments.add(fragment2);
-            fragments.add(fragment3);
-            fragments.add(fragment4);
-            fragments.add(fragment5);
-        }
+        HistoryOrderFragment target1 = HistoryOrderFragment.newInstance();
+        HistoryOrderFragment target2 = HistoryOrderFragment.newInstance();
+        HistoryOrderFragment target3 = HistoryOrderFragment.newInstance();
+        HistoryOrderFragment target4 = HistoryOrderFragment.newInstance();
+        HistoryOrderFragment target5 = HistoryOrderFragment.newInstance();
+        fragments.add(target1);
+        fragments.add(target2);
+        fragments.add(target3);
+        fragments.add(target4);
+        fragments.add(target5);
+
+//        CCResult ccResult = CC.obtainBuilder(ComponentConfig.OrderComponentConfig.COMPONENT_NAME)
+//                .setActionName(ComponentConfig.OrderComponentConfig.ACTION_GET_HISTORY_FRAGMENT)
+//                .addParam("fragment", fragment)
+//                .build()
+//                .call();
+//        boolean success = ccResult.isSuccess();
+//        Logger.d(ccResult.getCode());
+//        if (success) {
+//            Fragment fragment1 = ccResult.getDataItem(ComponentConfig.OrderComponentConfig.ACTION_GET_HISTORY_FRAGMENT);
+//            HistoryOrderFragment fragment2 = HistoryOrderFragment.newInstance();
+//            HistoryOrderFragment fragment3 = HistoryOrderFragment.newInstance();
+//            HistoryOrderFragment fragment4 = HistoryOrderFragment.newInstance();
+//            HistoryOrderFragment fragment5 = HistoryOrderFragment.newInstance();
+//            fragments.add(fragment1);
+//            fragments.add(fragment2);
+//            fragments.add(fragment3);
+//            fragments.add(fragment4);
+//            fragments.add(fragment5);
+//        }
 
         return fragments;
     }
