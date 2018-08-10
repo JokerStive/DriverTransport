@@ -32,12 +32,12 @@ public class NetHelper {
         private static final NetHelper INSTANCE = new NetHelper();
     }
 
-    public Retrofit.Builder getRetrofitBuilder() {
+    public Retrofit.Builder getRetrofitBuilder(String baseUrl) {
         return new Retrofit.Builder()
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(Config.BASE_URL);
+                .baseUrl(baseUrl);
     }
 
 
