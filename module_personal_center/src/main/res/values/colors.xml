@@ -6,4 +6,5 @@
     <color name="colorAccentBak">#FF4081</color>
     <color name="a_99_black">#99000000</color>
     <color name="module_base_color">#5483E3</color>
+    <color name="hint_text_color">#999999</color>
 </resources>

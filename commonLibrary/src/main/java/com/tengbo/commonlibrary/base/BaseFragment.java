@@ -14,12 +14,16 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.subscriptions.CompositeSubscription;
 
 public abstract class BaseFragment extends Fragment {
 
     private View mRootView;
     protected FragmentManager mSupportFragmentManager;
     protected FragmentActivity mFragmentActivity;
+
+
+    protected CompositeSubscription mSubscriptionManager = new CompositeSubscription();
     private Unbinder mUnbinder;
 
 
@@ -65,5 +69,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+        if (mSubscriptionManager.hasSubscriptions() && !mSubscriptionManager.isUnsubscribed()) {
+            mSubscriptionManager.unsubscribe();
+        }
     }
 }

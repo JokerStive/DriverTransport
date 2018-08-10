@@ -1,15 +1,27 @@
 package com.tengbo.module_personal_center.activity;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
+import com.tengbo.commonlibrary.common.Config;
+import com.tengbo.commonlibrary.net.ApiException;
+import com.tengbo.commonlibrary.net.BaseResponse;
+import com.tengbo.commonlibrary.net.NetHelper;
+import com.tengbo.commonlibrary.net.ProgressSubscriber;
+import com.tengbo.commonlibrary.net.RxUtils;
+import com.tengbo.commonlibrary.net.UpdatePasswordService;
 import com.tengbo.module_personal_center.R;
 import com.tengbo.module_personal_center.R2;
 import com.tengbo.module_personal_center.custom.view.NoEmojiEditText;
+import com.tengbo.module_personal_center.utils.ResponseCode;
 import com.tengbo.module_personal_center.utils.ToastUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,11 +65,14 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     /**
      * 处理按钮点击事件
      */
-    @OnClick({R2.id.btn_submit, R2.id.btn_cancel, R2.id.iv_valid_code, R2.id.tv_refresh_valid_code})
+    @OnClick({R2.id.btn_submit, R2.id.btn_cancel, R2.id.iv_valid_code, R2.id.tv_refresh_valid_code, R2.id.tv_back})
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_submit) {
+        if (id == R.id.tv_back) {
+            // 关闭本页面
+            finish();
+        } else if (id == R.id.btn_submit) {
             // 处理提交
             // 获取各个输入框的值
             String oldPassword = getText(neetOldPassword);
@@ -107,7 +122,69 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
             }
 
             // 网络校验旧密码、修改密码
+            // 请求个人信息
+            Map<String, String> map = new HashMap<>();
+            map.put("oldFLoginPwd", oldPassword);
+            map.put("newFLoginPwd", newPassword);
+            mSubscriptionManager.add(NetHelper.getInstance().getRetrofitBuilder(Config.LOGIN_BASE_URL).build().create(UpdatePasswordService.class)
+                    .updatePassword(1, map)
+                    .compose(RxUtils.applySchedule())
+                    .subscribe(new ProgressSubscriber<BaseResponse>(this) {
 
+                        @Override
+                        protected void on_next(BaseResponse baseResponse) {
+                            Log.e("gg", "pwd " + baseResponse.getCode());
+                            Log.e("gg", "pwd " + baseResponse.getMessage());
+                            Log.e("gg", "pwd " + baseResponse.getData());
+                            int code = baseResponse.getCode();
+                            switch (code) {
+                                case ResponseCode.STATUS_OK: // 请求成功
+                                    showToast("密码修改成功");
+                                    break;
+
+                                case ResponseCode.USER_NOT_EXIST: // 用户名不存在
+                                    showToast("用户名不存在");
+                                    break;
+
+                                case ResponseCode.PASSWORD_ERROR: // 密码错误
+                                    showToast("密码错误");
+                                    break;
+
+                                case ResponseCode.SYSTEM_ERROR: // 系统错误
+                                    showToast("系统错误，请稍候再试");
+                                    break;
+                            }
+                            refreshValidCode();
+                        }
+
+                        @Override
+                        protected void on_error(ApiException e) {
+                            int errorCode = e.getErrorCode();
+                            String errorMessage = e.getErrorMessage();
+                            // TODO 处理具体错误
+                            Log.e("gg", "eee " + errorCode);
+                            Log.e("gg", "eee " + errorMessage);
+                        }
+
+                        @Override
+                        protected void on_net_error(Throwable e) {
+                            String message = e.getMessage();
+                            String totalMsg = e.toString();
+                            if (message.contains("404")) {
+                                showToast("密码修改失败，请稍候再试");
+                                refreshValidCode();
+                            }
+                            if (totalMsg.contains("SocketTimeoutException")) {
+                                showToast("请求超时，请稍候再试");
+                                refreshValidCode();
+                            } else if (totalMsg.contains("ConnectException")) {
+                                showToast("连接失败，请稍候再试");
+                            }
+                            Log.e("gg", "hahah " + e.getMessage());
+                            Log.e("gg", "hahah " + e.getLocalizedMessage());
+                            Log.e("gg", "hahah " + e.toString());
+                        }
+                    }));
 
         } else if (id == R.id.btn_cancel) {
             // 处理取消，关闭本页面
@@ -119,6 +196,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     }
 
     private void refreshValidCode() {
+        neetValidCode.setText("");
         ivValidCode.setImageBitmap(mCodeGeneUtils.createBitmap());
     }
 

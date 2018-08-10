@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    
+
     <style name="UpdatePasswordEditText">
         <item name="android:fontFamily">@font/pingfang_sc_bold</item>
         <item name="android:layout_marginRight">75dp</item>
@@ -17,6 +17,7 @@
         <item name="android:drawableBottom">@drawable/underline</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/module_base_color</item>
     </style>
 
 </resources>

@@ -67,6 +67,11 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
 
     }
 
+    protected void on_net_error(java.lang.Throwable e)
+    {
+
+    }
+
     @Override
     public void onError(java.lang.Throwable e) {
         hideDialog();
@@ -78,7 +83,9 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
             LogUtil.d(apiException.getErrorCode() + "----" + apiException.getErrorMessage());
             ToastUtils.show(BaseApplication.get(), ((ApiException) e).getErrorMessage());
             on_error((ApiException) e);
-        }
+        }else
+        on_net_error(e);
+
     }
 
     private void hideDialog() {
