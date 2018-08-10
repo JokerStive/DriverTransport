@@ -1,5 +1,6 @@
 package com.tengbo.commonlibrary.net;
 
+import retrofit2.Response;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -24,9 +25,8 @@ public class RxUtils {
     }
 
 
-
     public static <T> Observable<T> dealObservable(Observable<BaseResponse<T>> observable) {
-       return observable.compose(handleResult())
+        return observable.compose(handleResult())
                 .compose(applySchedule());
     }
 

@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.blankj.utilcode.util.FileUtils;
+
 import java.util.Random;
 
 /**
@@ -28,12 +30,12 @@ public class CodeGeneUtils {
     //private static final int DEFAULT_CODE_LENGTH = 6;//验证码的长度  这里是6位
     private static final int DEFAULT_CODE_LENGTH = 4;//验证码的长度  这里是4位
     private static final int DEFAULT_FONT_SIZE = 60;//字体大小
-    private static final int DEFAULT_LINE_NUMBER = 3;//多少条干扰线
-    private static final int BASE_PADDING_LEFT = 40; //左边距
+    private static final int DEFAULT_LINE_NUMBER = 0;//多少条干扰线
+    private static final int BASE_PADDING_LEFT = 30; //左边距
     private static final int RANGE_PADDING_LEFT = 30;//左边距范围值
     private static final int BASE_PADDING_TOP = 70;//上边距
     private static final int RANGE_PADDING_TOP = 15;//上边距范围值
-    private static final int DEFAULT_WIDTH = 300;//默认宽度.图片的总宽
+    private static final int DEFAULT_WIDTH = 200;//默认宽度.图片的总宽
     private static final int DEFAULT_HEIGHT = 100;//默认高度.图片的总高
     private static final int DEFAULT_COLOR = 0xDF;//默认背景颜色值
 
@@ -122,7 +124,7 @@ public class CodeGeneUtils {
             mBuilder.append(haxString);
         }
 
-        return Color.parseColor("#" + mBuilder.toString());
+        return Color.parseColor("#5483e3");
     }
 
     //随机文本样式
@@ -137,7 +139,7 @@ public class CodeGeneUtils {
 
     //随机间距
     private void randomPadding() {
-        mPaddingLeft += BASE_PADDING_LEFT + mRandom.nextInt(RANGE_PADDING_LEFT);
-        mPaddingTop = BASE_PADDING_TOP + mRandom.nextInt(RANGE_PADDING_TOP);
+        mPaddingLeft += BASE_PADDING_LEFT ;
+        mPaddingTop = BASE_PADDING_TOP ;
     }
 }

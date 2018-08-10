@@ -83,10 +83,10 @@ ext.addComponent = { dependencyName, realDependency = null ->
         }
     }
 }
-repositories {
-    maven { url rootProject.file("repo-local") }
-    jcenter()
-}
+//repositories {
+////    maven { url rootProject.file("repo-local") }
+////    jcenter()
+//}
 
 //所有的module在组件模式下的文件（清单，java文件，资源文件..）都放到main->debug文件夹下，集成模式下会删除这个文件夹
 android {

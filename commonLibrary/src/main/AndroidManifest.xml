@@ -34,6 +34,8 @@
 
     <application>
 
+
+        <activity android:name=".widget.takePhoto.crop.CropImageActivity" />
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -44,13 +46,27 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="QomY3aVlxC2eRMxXQzN0M1O5gG0n0N97"/>
+        <!-- 图片选择Activity -->
+        <activity android:name=".widget.takePhoto.imageselector.ImageSelectorActivity"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:configChanges="orientation|keyboardHidden|screenSize"/>
 
-        //android 7.0文件访问权限控制
+        <!-- 图片预览Activity -->
+        <activity android:name=".widget.takePhoto.imageselector.PreviewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <!-- 图片剪切Activity -->
+        <activity
+            android:name=".widget.takePhoto.imageselector.ClipImageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- Android 7.0 文件共享配置，必须配置 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.tengbo.commonlibrary"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />

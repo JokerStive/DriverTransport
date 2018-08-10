@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">CommonLibrary</string>
+    <string name="confirm">确定</string>
+    <string name="image">图片</string>
+    <string name="preview">预览</string>
+    <string name="select">选择</string>
+
+
+    <string name="crop_cancel">取消</string>
+    <string name="crop__done">完成</string>
 
 </resources>

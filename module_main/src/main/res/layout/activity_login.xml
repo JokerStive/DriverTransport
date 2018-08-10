@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#ffffff">
 
 
@@ -22,6 +22,7 @@
             android:textSize="@dimen/sp_20" />
 
         <ImageView
+            android:id="@+id/iv_logo"
             android:layout_width="@dimen/dp_87"
             android:layout_height="@dimen/dp_87"
             android:layout_gravity="center_horizontal"
@@ -58,8 +59,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginStart="@dimen/dp_20">
+                android:layout_marginEnd="@dimen/dp_60"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_60"
+                android:layout_marginStart="@dimen/dp_18">
 
 
                 <EditText
@@ -112,8 +115,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginStart="@dimen/dp_20">
+                android:layout_marginEnd="@dimen/dp_60"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_60"
+                android:layout_marginStart="@dimen/dp_18">
 
 
                 <EditText
@@ -164,21 +169,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginStart="@dimen/dp_20">
+                android:layout_marginLeft="@dimen/dp_18"
+                android:layout_marginStart="@dimen/dp_18">
 
                 <EditText
                     android:id="@+id/et_verification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@null"
                     android:hint="@string/point_input_verification"
                     android:inputType="text"
                     android:paddingLeft="@dimen/dp_14"
                     android:paddingRight="@dimen/dp_14"
-                    android:layout_marginEnd="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
                     android:textColorHint="#999999"
                     android:textCursorDrawable="@drawable/shape_cursor_color"
                     android:textSize="@dimen/sp_14" />
@@ -186,10 +191,10 @@
                 <View
                     style="@style/line"
                     android:layout_height="@dimen/dp_1"
-                    android:layout_marginTop="@dimen/dp_10"
                     android:layout_alignEnd="@id/et_verification"
                     android:layout_alignRight="@id/et_verification"
                     android:layout_below="@id/et_verification"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:background="@color/basic_blue" />
 
                 <ImageView
@@ -198,8 +203,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_toRightOf="@id/et_verification"
-                    tools:src="@drawable/selector_tab_history"
-                    android:textColor="@color/basic_blue" />
+                    android:textColor="@color/basic_blue"
+                    tools:src="@drawable/selector_tab_history" />
 
             </RelativeLayout>
 
@@ -218,7 +223,6 @@
 
 
         <TextView
-            android:onClick="isAutoLogin"
             android:id="@+id/tv_auto_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -230,6 +234,7 @@
             android:drawablePadding="@dimen/dp_30"
             android:drawableStart="@drawable/selector_auto_login"
             android:gravity="center_vertical"
+            android:onClick="isAutoLogin"
             android:text="@string/auto_login"
             android:textColor="@color/basic_blue"
             android:textSize="@dimen/sp_14" />
@@ -240,14 +245,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_30"
             android:onClick="login"
-            android:text="@string/login_immediately"
-            android:layout_marginBottom="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_10"
             android:paddingLeft="@dimen/dp_87"
             android:paddingRight="@dimen/dp_87"
             android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
+            android:text="@string/login_immediately"
             android:textColor="#ffffff"
             android:textSize="@dimen/sp_14" />
 

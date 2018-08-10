@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
 import com.tengbo.basiclibrary.utils.LogUtil;
@@ -23,12 +25,17 @@ import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.commonBean.Token;
 import com.tengbo.commonlibrary.net.ApiException;
+import com.tengbo.commonlibrary.net.BaseResponse;
 import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
+import com.tengbo.commonlibrary.widget.takePhoto.TakePhotoDialogFragment;
 import com.tengbo.module_main.R;
 import com.tengbo.module_main.ui.home.MainActivity;
 
+
+import java.io.File;
+import java.util.List;
 
 import rx.Subscription;
 import utils.ToastUtils;
@@ -45,10 +52,10 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        goMainActivity();
-//        if (intent == null && !TextUtils.isEmpty(User.getAccessToken())) {
-//            goMainActivity();
-//        }
+//        goMainActivity();
+        if (intent == null && !TextUtils.isEmpty(User.getAccessToken())) {
+            goMainActivity();
+        }
     }
 
     @Override
@@ -69,10 +76,37 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setBackground(SelectorFactory.newShapeSelector()
                 .setDefaultBgColor(BaseApplication.get().getResources().getColor(com.tengbo.commonlibrary.R.color.basic_blue))
                 .setPressedBgColor(BaseApplication.get().getResources().getColor(com.tengbo.commonlibrary.R.color.basic_blue_deep))
-                .setCornerRadius(UiUtils.dp2px(BaseApplication.get(),20))
+                .setCornerRadius(UiUtils.dp2px(BaseApplication.get(), 20))
                 .create()
         );
         refreshVerification();
+
+
+        ImageView ivLogo = findViewById(R.id.iv_logo);
+        ivLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TakePhotoDialogFragment takePhotoDialogFragment = TakePhotoDialogFragment.newInstance(1, true);
+                takePhotoDialogFragment.setOnResultListener(new TakePhotoDialogFragment.TakePhotoCallBack() {
+                    @Override
+                    public void onSuccess(List<File> files) {
+                        takePhotoDialogFragment.dismiss();
+                        File file = files.get(0);
+                        LogUtil.d(file.getPath());
+                        Glide.with(LoginActivity.this).load(file)
+                                .into(ivLogo);
+                    }
+
+                    @Override
+                    public void onError() {
+                        takePhotoDialogFragment.dismiss();
+                        ToastUtils.show(BaseApplication.get(), "加载失败");
+                    }
+                });
+
+                takePhotoDialogFragment.show(getSupportFragmentManager(), "");
+            }
+        });
 
     }
 
@@ -116,28 +150,39 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-
-        Subscription subscription = NetHelper.getInstance().getApi()
+        NetHelper.getInstance().getApi()
                 .login(username, password)
-                .compose(RxUtils.handleResult())
                 .compose(RxUtils.applySchedule())
+                .compose(RxUtils.handleResult())
                 .subscribe(new ProgressSubscriber<Token>(this) {
                     @Override
                     protected void on_next(Token token) {
-                        Logger.d(token.getAccessToken() + "-------" + token.getRefreshToken());
-                        User.saveToken(token.getAccessToken(), token.getRefreshToken());
-                        User.saveAutoLogin(tvAutoLogin.isSelected());
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
-                    }
-
-                    @Override
-                    protected void on_error(ApiException e) {
-                        super.on_error(e);
-                        refreshVerification();
+                        LogUtil.d("success");
                     }
                 });
-        mSubscriptionManager.add(subscription);
+
+        return;
+//        Subscription subscription = NetHelper.getInstance().getApi()
+//                .login(username, password)
+//                .compose(RxUtils.handleResult())
+//                .compose(RxUtils.applySchedule())
+//                .subscribe(new ProgressSubscriber<Token>(this) {
+//                    @Override
+//                    protected void on_next(Token token) {
+//                        Logger.d(token.getAccessToken() + "-------" + token.getRefreshToken());
+//                        User.saveToken(token.getAccessToken(), token.getRefreshToken());
+//                        User.saveAutoLogin(tvAutoLogin.isSelected());
+//                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    protected void on_error(ApiException e) {
+//                        super.on_error(e);
+//                        refreshVerification();
+//                    }
+//                });
+//        mSubscriptionManager.add(subscription);
     }
 
     private void goMainActivity() {
@@ -148,5 +193,16 @@ public class LoginActivity extends BaseActivity {
     private void refreshVerification() {
         etVerification.setText(null);
         ivCreateVerification.setImageBitmap(CodeGeneUtils.getInstance().createBitmap());
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+//        getSupportFragmentManager().g
+        for (Fragment fragment : fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

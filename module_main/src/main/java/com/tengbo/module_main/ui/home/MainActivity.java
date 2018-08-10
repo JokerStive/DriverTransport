@@ -1,33 +1,39 @@
 package com.tengbo.module_main.ui.home;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.orhanobut.logger.Logger;
+import com.tengbo.basiclibrary.utils.LogUtil;
+import com.tengbo.basiclibrary.utils.UiUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
-import com.tengbo.commonlibrary.common.ComponentConfig;
+import com.tengbo.commonlibrary.base.BaseApplication;
+import com.tengbo.commonlibrary.widget.takePhoto.TakePhotoDialogFragment;
 import com.tengbo.module_main.R;
 import com.tengbo.module_main.adapter.HomePageAdapter;
 import com.tengbo.module_main.ui.login.HistoryOrderFragment;
 import com.tengbo.module_main.widget.NoScrollViewPager;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ *
+ */
 public class MainActivity extends BaseActivity {
 
     private NoScrollViewPager mViewPager;
     private Fragment fragment;
-    private TabLayout mTabLayout;
-    private String[] mTabTitles = new String[]{"任务", "历史订单", "", "消息", "我的"};
-    private int[] mTabImages = new int[]{R.drawable.selector_tab_task, R.drawable.selector_tab_history,
-            R.drawable.selector_tab_info, R.drawable.selector_tab_personal};
+    private String[] mTabTitles = new String[]{"任务", "历史订单", "进行中", "消息", "我的"};
+    private LinearLayout llTab;
 
 
     @Override
@@ -38,43 +44,60 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         mViewPager = findViewById(R.id.viewPager);
-        mTabLayout = findViewById(R.id.tabLayout);
-        View mIvProcessing = findViewById(R.id.iv_processing);
-        mIvProcessing.setOnClickListener(view -> mViewPager.setCurrentItem(2, true));
+        llTab = findViewById(R.id.ll_tab);
+        findViewById(R.id.iv_processing).setOnClickListener(v -> mViewPager.setCurrentItem(2));
+
 
         ArrayList<Fragment> fragments = getFragmentByComponent();
         if (fragments.size() == 0)
             return;
+        initViewPager(fragments);
+
+        initTab();
+
+
+    }
+
+    private void initTab() {
+        int childCount = llTab.getChildCount();
+        llTab.getChildAt(2).setSelected(true);
+        for (int i = 0; i < childCount; i++) {
+            TextView childAt = (TextView) llTab.getChildAt(i);
+            int finalI = i;
+            childAt.setOnClickListener(view -> {
+                LogUtil.d(finalI + "--被点击了");
+                mutuallyExclusiveSelect(finalI);
+            });
+        }
+    }
+
+    /**互斥select
+     * @param selectIndex 当前选中的tab
+     */
+    private void mutuallyExclusiveSelect(int selectIndex) {
+        int childCount = llTab.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            TextView childAt = (TextView) llTab.getChildAt(i);
+            childAt.setSelected(selectIndex == i);
+        }
+        mViewPager.setCurrentItem(selectIndex);
+    }
+
+
+    /**
+     * @param fragments 需要显示的fragment
+     */
+    private void initViewPager(ArrayList<Fragment> fragments) {
         HomePageAdapter homePageAdapter = new HomePageAdapter(getSupportFragmentManager(), fragments, mTabTitles);
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(homePageAdapter);
         mViewPager.setCurrentItem(2);
-
-        mTabLayout.setSelectedTabIndicatorHeight(0);
-        mTabLayout.setupWithViewPager(mViewPager);
-
-        for (int i = 0; i < mTabTitles.length; i++) {
-            //获得到对应位置的Tab
-            TabLayout.Tab itemTab = mTabLayout.getTabAt(i);
-            if (itemTab != null) {
-                itemTab.setCustomView(R.layout.item_tab);
-                assert itemTab.getCustomView() != null;
-                TextView textView = itemTab.getCustomView().findViewById(R.id.tv_name);
-                textView.setText(mTabTitles[i]);
-                if (i == 2) {
-                    continue;
-                }
-                ImageView imageView = itemTab.getCustomView().findViewById(R.id.iv_img);
-                imageView.setImageResource(i > 2 ? mTabImages[i - 1] : mTabImages[i]);
-            }
-
-        }
-        TabLayout.Tab tabAt0 = mTabLayout.getTabAt(0);
-        assert tabAt0 != null;
-        assert tabAt0.getCustomView() != null;
-        tabAt0.getCustomView().setSelected(true);
     }
 
+
+    /**组件间通讯传递fragment
+     * @return 需要显示在首页的fragments
+     */
     private ArrayList<Fragment> getFragmentByComponent() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         HistoryOrderFragment target1 = HistoryOrderFragment.newInstance();
@@ -110,6 +133,5 @@ public class MainActivity extends BaseActivity {
 
         return fragments;
     }
-
 
 }

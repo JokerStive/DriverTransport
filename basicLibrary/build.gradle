@@ -45,7 +45,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     //glide
-    implementation dependence.glide
+    api dependence.glide
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
     //retrofit+rxjava
@@ -55,10 +55,19 @@ dependencies {
 
     api dependence.logger
 
+    //包含基础工具类
+    api 'com.blankj:utilcode:1.18.5'
+
     api 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     api('com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40')
+
+
+    api 'top.zibin:Luban:1.1.8'
+
+
+//    api 'com.jph.takephoto:takephoto_library:4.0.3'
 
 
     api('com.github.hotchemi:permissionsdispatcher:3.0.0')

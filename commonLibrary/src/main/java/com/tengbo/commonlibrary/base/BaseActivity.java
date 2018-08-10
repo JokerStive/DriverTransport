@@ -1,13 +1,19 @@
 package com.tengbo.commonlibrary.base;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.tengbo.basiclibrary.widget.RxProgressDialog;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -31,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         mUnbinder = ButterKnife.bind(this);
         baseActivityWeakReference = new WeakReference<>(this);
-
+        setStatusBarColor();
 
         if (getIntent() != null) {
             onIntent(getIntent());
@@ -70,6 +76,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         baseActivityWeakReference.clear();
         if (mSubscriptionManager.hasSubscriptions() && !mSubscriptionManager.isUnsubscribed()) {
             mSubscriptionManager.unsubscribe();
+        }
+    }
+
+
+
+
+    /**
+     * 修改状态栏颜色
+     */
+    private void setStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#ffffff"));
         }
     }
 }

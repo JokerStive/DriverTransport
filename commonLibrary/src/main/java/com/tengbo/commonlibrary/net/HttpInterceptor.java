@@ -2,6 +2,7 @@ package com.tengbo.commonlibrary.net;
 
 import android.text.TextUtils;
 
+import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.commonBean.Account;
@@ -31,11 +32,14 @@ public class HttpInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
 
         Request request = chain.request();
+        String url = request.url().url().toString();
+        LogUtil.d(url + "----start request");
 
         String token = getToken();
         if (!TextUtils.isEmpty(token)) {
             request = request.newBuilder().addHeader(HEADER_TOKEN_KEY, token).build();
         }
+
 
         Response response = chain.proceed(request);
         if (isTokenInvalid(response)) {
@@ -43,14 +47,16 @@ public class HttpInterceptor implements Interceptor {
             if (TextUtils.isEmpty(newToken)) {
                 toLogin();
             } else {
-                request = chain.request()
+                request = request
                         .newBuilder()
                         .removeHeader(HEADER_TOKEN_KEY)
                         .addHeader(HEADER_TOKEN_KEY, newToken)
                         .build();
+                return chain.proceed(request);
             }
         }
-        return chain.proceed(request);
+
+        return response;
     }
 
     private String getNewToken() throws IOException {
@@ -63,7 +69,7 @@ public class HttpInterceptor implements Interceptor {
                 .addHeader(HEADER_TOKEN_KEY, refreshToken)
                 .build();
         Response response = new OkHttpClient().newCall(request).execute();
-        if (response.code() != 201) {
+        if (response.code() != 200) {
             return null;
         }
         return getTokenFromResponseAndSave(response);
