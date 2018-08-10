@@ -1,13 +1,20 @@
 package com.tengbo.commonlibrary.base;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.tengbo.commonlibrary.mvp.BasePresenter;
 import com.tengbo.commonlibrary.mvp.IPresenter;
 import com.tengbo.commonlibrary.mvp.IView;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -27,7 +34,7 @@ public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUnbinder = ButterKnife.bind(this);
-
+        setStatusBarColor();
         if (getIntent() != null) {
             onIntent(getIntent());
         }
@@ -49,5 +56,25 @@ public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatAct
         super.onDestroy();
         mUnbinder.unbind();
         mPresent.unBindView();
+    }
+
+    /**
+     * 修改状态栏颜色
+     */
+    private void setStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#ffffff"));
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

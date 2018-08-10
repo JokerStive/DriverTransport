@@ -184,7 +184,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         LogUtil.d("request--code--" + requestCode);
-        if(requestCode==REQUEST_CODE_CAMERA){
+        if (requestCode == REQUEST_CODE_CAMERA) {
             if (resultCode == RESULT_OK) {
                 if (isCrop) {
                     crop(Uri.fromFile(cameraFile));
@@ -195,7 +195,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
         }
 
 
-        if(requestCode==REQUEST_CODE_GALLERY){
+        if (requestCode == REQUEST_CODE_GALLERY) {
             if (resultCode == RESULT_OK) {
                 ArrayList<String> imagesPath = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
                 if (imagesPath.size() > 0) {
@@ -209,7 +209,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
         }
 
 
-        if(requestCode==Crop.REQUEST_CROP){
+        if (requestCode == Crop.REQUEST_CROP) {
             if (resultCode == RESULT_OK) {
                 compressSignal(BaseApplication.get(), cropOutPutUri.getPath());
             }

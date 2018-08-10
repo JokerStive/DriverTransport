@@ -196,13 +196,5 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-//        getSupportFragmentManager().g
-        for (Fragment fragment : fragments) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
-    }
+
 }
