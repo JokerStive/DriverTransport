@@ -73,6 +73,11 @@ public class LoginActivity extends BaseActivity {
         ivCreateVerification = findViewById(R.id.iv_create_verification);
         tvAutoLogin = findViewById(R.id.tv_auto_login);
         tvAutoLogin.setSelected(true);
+
+
+        testClassLoader();
+
+
         Button btnLogin = findViewById(R.id.btn_login);
         btnLogin.setBackground(SelectorFactory.newShapeSelector()
                 .setDefaultBgColor(BaseApplication.get().getResources().getColor(com.tengbo.commonlibrary.R.color.basic_blue))
@@ -109,6 +114,12 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void testClassLoader() {
+        LogUtil.d("textView的classLoader--"+TextView.class.getClassLoader()+"");
+        LogUtil.d(  "直接获取classLoader---"+getClassLoader());
+        LogUtil.d(ClassLoader.getSystemClassLoader()+"");
     }
 
     public void login(View v) {

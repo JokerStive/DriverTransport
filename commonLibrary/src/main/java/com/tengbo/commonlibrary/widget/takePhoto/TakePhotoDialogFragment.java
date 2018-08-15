@@ -1,10 +1,11 @@
 package com.tengbo.commonlibrary.widget.takePhoto;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
@@ -14,9 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,25 +36,20 @@ import com.tengbo.commonlibrary.widget.takePhoto.imageselector.utils.ImageSelect
 import com.tengbo.commonlibrary.widget.takePhoto.imageselector.utils.ImageSelectorUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
-import rx.Observable;
-import rx.functions.Func1;
+
+import utils.permission.PermissionManager;
+import utils.ToastUtils;
 
 import static android.app.Activity.RESULT_OK;
-
 
 /**
  * @author yk
  * @Description 拍照和详细选择控件，自定义是否裁剪，多选数量，返回经过压缩的文件
  */
-@RuntimePermissions
 public class TakePhotoDialogFragment extends DialogFragment implements View.OnClickListener {
-
 
     private static final int REQUEST_CODE_CAMERA = 0;
     private static final int REQUEST_CODE_GALLERY = 1;
@@ -123,22 +117,59 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
         }
     }
 
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_open_camera) {
-            openCamera();
-            setUserVisibleHint(false);
-//            dismiss();
+            PermissionManager.getInstance(BaseApplication.get())
+                    .setOnRequestPermissionResult(new PermissionManager.RequestPermissionResult() {
+                        @Override
+                        public void onGranted() {
+                            openCamera();
+                        }
+
+                        @Override
+                        public void onDenied(boolean isNotAskAgain) {
+                            dealPermissionDenied(isNotAskAgain);
+                        }
+                    })
+                    .execute(this, Manifest.permission.CAMERA);
+
 
         } else if (i == R.id.tv_open_gallery) {
             openGallery();
-            setUserVisibleHint(false);
-//            dismiss();
         }
     }
 
-    @NeedsPermission({})
+    private void dealPermissionDenied(boolean isNotAskAgain) {
+        if (isNotAskAgain) {
+            showExceptionDialog();
+        } else {
+            ToastUtils.show(BaseApplication.get(), "您拒绝了该权限");
+        }
+    }
+
+
+    /**
+     * 发生没有权限等异常时，显示一个提示dialog.
+     */
+    private void showExceptionDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setCancelable(false)
+                .setTitle("提示")
+                .setMessage("您拒绝了相关权限，请到“设置”>“应用”>“权限”中配置权限。")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
+    }
+
+
     public void openGallery() {
         ImageSelector.builder()
                 .useCamera(false) // 设置是否使用拍照
@@ -147,12 +178,12 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
                 .start(fragmentActivity, REQUEST_CODE_GALLERY); // 打开相册
     }
 
-    @NeedsPermission({Manifest.permission.CAMERA})
     public void openCamera() {
         cameraFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             Uri contentUri = FileProvider.getUriForFile(fragmentActivity, authority, cameraFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         } else {
@@ -179,80 +210,49 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
         void onError();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.getInstance(BaseApplication.get()).onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         LogUtil.d("request--code--" + requestCode);
-        if (requestCode == REQUEST_CODE_CAMERA) {
-            if (resultCode == RESULT_OK) {
-                if (isCrop) {
-                    crop(Uri.fromFile(cameraFile));
-                } else {
-                    compressSignal(BaseApplication.get(), cameraFile.getPath());
-                }
-            }
-        }
-
-
-        if (requestCode == REQUEST_CODE_GALLERY) {
-            if (resultCode == RESULT_OK) {
-                ArrayList<String> imagesPath = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
-                if (imagesPath.size() > 0) {
-                    if (multiChooseSize == 1 && isCrop) {
-                        crop(Uri.fromFile(new File(imagesPath.get(0))));
+        switch (requestCode) {
+            case REQUEST_CODE_CAMERA:
+                if (resultCode == RESULT_OK) {
+                    if (isCrop) {
+                        crop(Uri.fromFile(cameraFile));
                     } else {
-                        compressMulit(BaseApplication.get(), imagesPath);
+                        compressSignal(BaseApplication.get(), cameraFile.getPath());
                     }
+                } else {
+                    dismiss();
                 }
-            }
+                break;
+            case REQUEST_CODE_GALLERY:
+                if (resultCode == RESULT_OK) {
+                    ArrayList<String> imagesPath = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
+                    if (imagesPath.size() > 0) {
+                        if (multiChooseSize == 1 && isCrop) {
+                            crop(Uri.fromFile(new File(imagesPath.get(0))));
+                        } else {
+                            compressMulit(BaseApplication.get(), imagesPath);
+                        }
+                    }
+                } else {
+                    dismiss();
+                }
+                break;
+            case Crop.REQUEST_CROP:
+                if (resultCode == RESULT_OK) {
+                    compressSignal(BaseApplication.get(), cropOutPutUri.getPath());
+                }
+                break;
+
         }
-
-
-        if (requestCode == Crop.REQUEST_CROP) {
-            if (resultCode == RESULT_OK) {
-                compressSignal(BaseApplication.get(), cropOutPutUri.getPath());
-            }
-        }
-
-
-//        dismiss();
-//        switch (requestCode) {
-//            //相机返回
-//            case REQUEST_CODE_CAMERA:
-//                if (resultCode == RESULT_OK) {
-//                    if (isCrop) {
-//                        crop(Uri.fromFile(cameraFile));
-//                    } else {
-//                        compressSignal(BaseApplication.get(), cameraFile.getPath());
-//                    }
-//                }
-//                break;
-//
-//            //相册返回
-//            case REQUEST_CODE_GALLERY:
-//                if (resultCode == RESULT_OK) {
-//                    ArrayList<String> imagesPath = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
-//                    if (imagesPath.size() > 0) {
-//                        if (multiChooseSize == 1 && isCrop) {
-//                            crop(Uri.fromFile(new File(imagesPath.get(0))));
-//                        } else {
-//                            compressMulit(BaseApplication.get(), imagesPath);
-//                        }
-//                    }
-//                }
-//                break;
-//
-//            //裁剪返回
-//            case Crop.REQUEST_CROP:
-//                if (resultCode == RESULT_OK) {
-//                    compressSignal(BaseApplication.get(), cropOutPutUri.getPath());
-//                }
-//                break;
-//
-//            default:
-//                dismiss();
-//        }
 
     }
 

@@ -55,7 +55,6 @@ public class MainActivity extends BaseActivity {
 
         initTab();
 
-
     }
 
     private void initTab() {
@@ -71,7 +70,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    /**互斥select
+    /**
+     * 互斥select
+     *
      * @param selectIndex 当前选中的tab
      */
     private void mutuallyExclusiveSelect(int selectIndex) {
@@ -95,7 +96,9 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    /**组件间通讯传递fragment
+    /**
+     * 组件间通讯传递fragment
+     *
      * @return 需要显示在首页的fragments
      */
     private ArrayList<Fragment> getFragmentByComponent() {

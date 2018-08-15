@@ -11,14 +11,13 @@ android {
             storePassword 'android'
         }
     }
-    compileSdkVersion 27
+    compileSdkVersion 26
     defaultConfig {
-//        applicationId "com.tengbo.module_main"
         if (runAsApp) {
             applicationId "com.tengbo.module_main"
         }
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
 
@@ -29,11 +28,15 @@ android {
     buildTypes {
 
     }
+    buildToolsVersion '28.0.1'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 }
