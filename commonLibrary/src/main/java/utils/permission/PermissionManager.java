@@ -1,4 +1,4 @@
-package utils;
+package utils.permission;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
