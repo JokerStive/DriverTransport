@@ -1,5 +1,6 @@
 package com.tengbo.module_personal_center.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,29 +15,31 @@ import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.common.Config;
 import com.tengbo.commonlibrary.commonBean.BankCardInfo;
 import com.tengbo.commonlibrary.net.ApiException;
-import com.tengbo.commonlibrary.net.BankCardInfoService;
 import com.tengbo.commonlibrary.net.BaseResponse;
 import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
-import com.tengbo.commonlibrary.net.UpdateBankCardInfoService;
 import com.tengbo.module_personal_center.R;
 import com.tengbo.module_personal_center.R2;
 import com.tengbo.module_personal_center.custom.view.NoEmojiEditText;
 import com.tengbo.module_personal_center.utils.BankCardValidUtils;
+import com.tengbo.module_personal_center.utils.Constant;
+import com.tengbo.module_personal_center.utils.DialogUtils;
 import com.tengbo.module_personal_center.utils.IdCardValidUtils;
 import com.tengbo.module_personal_center.utils.ResponseCode;
 import com.tengbo.module_personal_center.utils.ToastUtils;
 
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnClickListener {
+
+    @BindView(R2.id.srl)
+    SwipeRefreshLayout srl;
 
     @BindView(R2.id.tv_origin_bank_card_info)
     TextView tv_origin_bank_card_info;
@@ -66,25 +69,88 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
     ImageView iv_valid_code;
 
     CodeGeneUtils mCodeGeneUtils;
-    String username = "wcc";
-    String oldBankCardNum = "6228480393071280811";
+    String username = "";
+    String oldBankCardNum = "";
 
     @Override
     protected void initView() {
+        // 初始化SwipeRefreshLayout
+        // 初始时不能下拉
+        srl.setEnabled(false);
+        // 进度条颜色
+        srl.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        // 刷新监听器
+        srl.setOnRefreshListener(() -> {
+            // 获取个人信息
+            getOriginBankCardInfo(new Subscriber<BankCardInfo>() {
+
+                @Override
+                public void onNext(BankCardInfo bankCardInfo) {
+                    srl.setRefreshing(false);
+                    srl.setEnabled(false);
+                    username = bankCardInfo.fuserName;
+                    if (!TextUtils.isEmpty(bankCardInfo.fcardCode)) {
+                        tv_origin_bank_card_info.setVisibility(View.VISIBLE);
+                        rl_bank_card_info.setVisibility(View.VISIBLE);
+                        oldBankCardNum = bankCardInfo.fcardCode;
+                        // 存在原银行卡信息
+                        tv_account_name.setText(username);
+                        tv_bank_name.setText(BankCardValidUtils.getDetailNameOfBank(oldBankCardNum));
+                        StringBuilder stringBuilder = new StringBuilder();
+                        int oldBankCardNumLegnth = oldBankCardNum.length();
+                        for (int i = 0; i < oldBankCardNumLegnth; i += 4) {
+                            if (i + 4 < oldBankCardNumLegnth)
+                                stringBuilder.append(oldBankCardNum.substring(i, i + 4));
+                            else
+                                stringBuilder.append(oldBankCardNum.substring(i, oldBankCardNumLegnth));
+                            stringBuilder.append(" ");
+                        }
+                        tv_bank_card_num.setText("银行卡卡号 : " + stringBuilder.toString());
+                    } else {
+                        // 不存在原银行卡信息
+                        // 隐藏原银行卡信息视图
+                        tv_origin_bank_card_info.setVisibility(View.GONE);
+                        rl_bank_card_info.setVisibility(View.GONE);
+                    }
+
+                    Log.e("gg", "ppp " + bankCardInfo.toString());
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    String message = e.getMessage();
+                    String totalMsg = e.toString();
+                    if (message.contains("404") || totalMsg.contains("SocketTimeoutException")
+                            || totalMsg.contains("ConnectException") || totalMsg.contains("RuntimeException")) {
+                        showDialog("获取数据失败\n下拉重新获取", false);
+                        tv_origin_bank_card_info.setVisibility(View.GONE);
+                        rl_bank_card_info.setVisibility(View.GONE);
+                    }
+                    Log.e("gg", "hahah " + e.getMessage());
+                    Log.e("gg", "hahah " + e.getLocalizedMessage());
+                    Log.e("gg", "hahah " + e.toString());
+                }
+
+                @Override
+                public void onCompleted() {
+
+                }
+            });
+        });
         mCodeGeneUtils = CodeGeneUtils.getInstance();
         // 初始化验证码
         iv_valid_code.setImageBitmap(mCodeGeneUtils.createBitmap());
         // TODO 获取原银行卡信息
-        mSubscriptionManager.add(NetHelper.getInstance().getRetrofitBuilder(Config.BASE_URL).build().create(BankCardInfoService.class)
-                .getBankCardInfo(1)
-                .compose(RxUtils.handleResult())
-                .compose(RxUtils.applySchedule())
-                .subscribe(new ProgressSubscriber<BankCardInfo>(this) {
+        getOriginBankCardInfo(new ProgressSubscriber<BankCardInfo>(this) {
 
                     @Override
                     protected void on_next(BankCardInfo bankCardInfo) {
                         username = bankCardInfo.fuserName;
                         if (!TextUtils.isEmpty(bankCardInfo.fcardCode)) {
+                            tv_origin_bank_card_info.setVisibility(View.VISIBLE);
+                            rl_bank_card_info.setVisibility(View.VISIBLE);
                             oldBankCardNum = bankCardInfo.fcardCode;
                             // 存在原银行卡信息
                             tv_account_name.setText(username);
@@ -114,7 +180,9 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                         super.on_error(e);
                         int errorCode = e.getErrorCode();
                         if (errorCode == ResponseCode.SYSTEM_ERROR) {
-                            showToast("用户基本信息错误");
+                            showDialog("获取数据失败\n下拉重新获取", false);
+                            tv_origin_bank_card_info.setVisibility(View.GONE);
+                            rl_bank_card_info.setVisibility(View.GONE);
                         }
                         String errorMessage = e.getErrorMessage();
                         // TODO 处理具体错误
@@ -126,21 +194,17 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                     protected void on_net_error(Throwable e) {
                         String message = e.getMessage();
                         String totalMsg = e.toString();
-                        if (message.contains("404")) {
-                            showToast("获取个人信息失败，请稍候再试");
+                        if (message.contains("404") || totalMsg.contains("SocketTimeoutException")
+                                || totalMsg.contains("ConnectException") || totalMsg.contains("RuntimeException")) {
+                            showDialog("获取数据失败\n下拉重新获取", false);
+                            tv_origin_bank_card_info.setVisibility(View.GONE);
+                            rl_bank_card_info.setVisibility(View.GONE);
                         }
-                        if (totalMsg.contains("SocketTimeoutException")) {
-                            showToast("请求超时，请稍候再试");
-                        } else if (totalMsg.contains("ConnectException")) {
-                            showToast("连接失败，请稍候再试");
-                        }
-                        ConnectException ea;
-                        SocketTimeoutException eb;
                         Log.e("gg", "hahah " + e.getMessage());
                         Log.e("gg", "hahah " + e.getLocalizedMessage());
                         Log.e("gg", "hahah " + e.toString());
                     }
-                }));
+                });
 
 
         // 根据输入银行卡号自动填写开户行
@@ -177,6 +241,26 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                 }
             }
         });
+    }
+
+    private void showDialog(String msg, boolean isSuccess)
+    {
+        int imgId = R.mipmap.right;
+        if(!isSuccess)
+            imgId = R.mipmap.wrong;
+        DialogUtils.show(this, imgId, msg);
+        srl.setEnabled(true);
+        srl.setRefreshing(false);
+    }
+
+    private void getOriginBankCardInfo(Subscriber subscriber)
+    {
+        // 获取原银行卡信息
+        mSubscriptionManager.add(NetHelper.getInstance().getApi(Config.BASE_URL)
+                .getBankCardInfo(Constant.faccountId)
+                .compose(RxUtils.handleResult())
+                .compose(RxUtils.applySchedule())
+                .subscribe(subscriber));
     }
 
     private String getText(NoEmojiEditText neet) {
@@ -276,8 +360,8 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
             map.put("fidNumber", idCardNum);
             map.put("fuserName", nameOfAccount);
             map.put("fcardCode", bankCardNum);
-            mSubscriptionManager.add(NetHelper.getInstance().getRetrofitBuilder(Config.BASE_URL).build().create(UpdateBankCardInfoService.class)
-                    .updateBankCardInfo(1, map)
+            mSubscriptionManager.add(NetHelper.getInstance().getApi(Config.BASE_URL)
+                    .updateBankCardInfo(Constant.faccountId, map)
                     .compose(RxUtils.applySchedule())
                     .subscribe(new ProgressSubscriber<BaseResponse>(this) {
 
@@ -289,7 +373,7 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                             int code = baseResponse.getCode();
                             switch (code) {
                                 case ResponseCode.STATUS_OK: // 请求成功
-                                    showToast("银行卡信息修改成功");
+                                    showDialog("银行卡信息修改成功\n请注意后续付款情况", true);
                                     oldBankCardNum = bankCardNum;
                                     tv_origin_bank_card_info.setVisibility(View.VISIBLE);
                                     rl_bank_card_info.setVisibility(View.VISIBLE);
@@ -308,23 +392,19 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                                     break;
 
                                 case ResponseCode.USER_NOT_EXIST: // 用户名不存在
-                                    showToast("用户名不存在");
+                                    showDialog("账户不存在", false);
                                     break;
 
                                 case ResponseCode.PASSWORD_ERROR: // 密码错误
-                                    showToast("密码错误");
-                                    break;
-
-                                case ResponseCode.USER_BASIC_INFO_ERROR: // 账号被禁用
-                                    showToast("账号被禁用");
+                                    showDialog("密码错误", false);
                                     break;
 
                                 case ResponseCode.SYSTEM_ERROR: // 系统错误
-                                    showToast("系统错误，请稍候再试");
+                                    showDialog("系统错误，请稍候再试", false);
                                     break;
 
                                 case ResponseCode.USER_ID_CARD_NUM_ERROR:// 开户人同用户的身份证号不一致
-                                    showToast("开户人同用户的身份证号不一致");
+                                    showDialog("开户人同用户的身份证号不一致", false);
                                     break;
                             }
                             refreshValidCode();
@@ -343,15 +423,9 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                         protected void on_net_error(Throwable e) {
                             String message = e.getMessage();
                             String totalMsg = e.toString();
-                            if (message.contains("404")) {
-                                showToast("银行卡信息修改失败，请稍候再试");
-                                refreshValidCode();
-                            }
-                            if (totalMsg.contains("SocketTimeoutException")) {
-                                showToast("请求超时，请稍候再试");
-                                refreshValidCode();
-                            } else if (totalMsg.contains("ConnectException")) {
-                                showToast("连接失败，请稍候再试");
+                            if (message.contains("404") || totalMsg.contains("SocketTimeoutException")
+                                    || totalMsg.contains("ConnectException") || totalMsg.contains("RuntimeException")) {
+                                showDialog("银行卡信息更改失败\n请稍候再试", false);
                             }
                             Log.e("gg", "hahah " + e.getMessage());
                             Log.e("gg", "hahah " + e.getLocalizedMessage());

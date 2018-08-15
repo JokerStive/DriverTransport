@@ -22,6 +22,7 @@ import com.tengbo.basiclibrary.utils.SelectorFactory;
 import com.tengbo.basiclibrary.utils.UiUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.base.BaseApplication;
+import com.tengbo.commonlibrary.common.Config;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.commonBean.Token;
 import com.tengbo.commonlibrary.net.ApiException;
@@ -150,7 +151,7 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-        NetHelper.getInstance().getApi()
+        NetHelper.getInstance().getApi(Config.BASE_URL)
                 .login(username, password)
                 .compose(RxUtils.applySchedule())
                 .compose(RxUtils.handleResult())
