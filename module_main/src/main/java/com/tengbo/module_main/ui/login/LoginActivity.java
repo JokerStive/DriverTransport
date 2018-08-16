@@ -75,9 +75,6 @@ public class LoginActivity extends BaseActivity {
         tvAutoLogin.setSelected(true);
 
 
-        testClassLoader();
-
-
         Button btnLogin = findViewById(R.id.btn_login);
         btnLogin.setBackground(SelectorFactory.newShapeSelector()
                 .setDefaultBgColor(BaseApplication.get().getResources().getColor(com.tengbo.commonlibrary.R.color.basic_blue))
@@ -114,12 +111,6 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-    }
-
-    private void testClassLoader() {
-        LogUtil.d("textView的classLoader--"+TextView.class.getClassLoader()+"");
-        LogUtil.d(  "直接获取classLoader---"+getClassLoader());
-        LogUtil.d(ClassLoader.getSystemClassLoader()+"");
     }
 
     public void login(View v) {
@@ -162,18 +153,6 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-        NetHelper.getInstance().getApi(Config.BASE_URL)
-                .login(username, password)
-                .compose(RxUtils.applySchedule())
-                .compose(RxUtils.handleResult())
-                .subscribe(new ProgressSubscriber<Token>(this) {
-                    @Override
-                    protected void on_next(Token token) {
-                        LogUtil.d("success");
-                    }
-                });
-
-        return;
 //        Subscription subscription = NetHelper.getInstance().getApi()
 //                .login(username, password)
 //                .compose(RxUtils.handleResult())

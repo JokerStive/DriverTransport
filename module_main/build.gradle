@@ -11,13 +11,13 @@ android {
             storePassword 'android'
         }
     }
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         if (runAsApp) {
-            applicationId "com.tengbo.module_main"
+            applicationId "com.adyl.main"
         }
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 

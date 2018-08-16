@@ -12,8 +12,6 @@ public class DownLoadUtils {
      * @param savePath
      */
     public void loadFile(String url, String savePath) {
-        Observable<Response> responseObservable = NetHelper.getInstance().getApi()
-                .loadFile(url);
 
     }
 }

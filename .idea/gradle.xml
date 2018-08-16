@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/module_main" />
             <option value="$PROJECT_DIR$/module_order" />
             <option value="$PROJECT_DIR$/module_personal_center" />
+            <option value="$PROJECT_DIR$/module_push_message" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

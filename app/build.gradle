@@ -65,5 +65,5 @@ dependencies {
      */
     addComponent 'module_main'
     addComponent 'module_order'
-    //    addComponent 'module_personal_center'
+    addComponent 'module_personal_center'
 }
