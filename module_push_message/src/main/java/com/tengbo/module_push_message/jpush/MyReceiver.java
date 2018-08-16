@@ -1,10 +1,16 @@
-package com.billy.cc.demo.jpush;
+package com.tengbo.module_push_message.jpush;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+
+import com.tengbo.module_push_message.jpush.ExampleUtil;
+import com.tengbo.module_push_message.jpush.LocalBroadcastManager;
+import com.tengbo.module_push_message.jpush.Logger;
+import com.tengbo.module_push_message.jpush.MainActivity;
+import com.tengbo.module_push_message.jpush.TestActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

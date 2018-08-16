@@ -1,4 +1,4 @@
-package com.billy.cc.demo.jpush;
+package com.tengbo.module_push_message.jpush;
 
 import android.util.Log;
 

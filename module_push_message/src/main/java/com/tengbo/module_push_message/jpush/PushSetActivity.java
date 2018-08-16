@@ -1,4 +1,4 @@
-package com.billy.cc.demo.jpush;
+package com.tengbo.module_push_message.jpush;
 
 import android.app.Notification;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.billy.cc.demo.R;
+import com.tengbo.module_push_message.R;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -23,14 +23,14 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.MultiActionsNotificationBuilder;
 import cn.jpush.android.api.TagAliasCallback;
 
-import static com.billy.cc.demo.jpush.TagAliasOperatorHelper.ACTION_ADD;
-import static com.billy.cc.demo.jpush.TagAliasOperatorHelper.ACTION_CHECK;
-import static com.billy.cc.demo.jpush.TagAliasOperatorHelper.ACTION_CLEAN;
-import static com.billy.cc.demo.jpush.TagAliasOperatorHelper.ACTION_DELETE;
-import static com.billy.cc.demo.jpush.TagAliasOperatorHelper.ACTION_GET;
-import static com.billy.cc.demo.jpush.TagAliasOperatorHelper.ACTION_SET;
-import static com.billy.cc.demo.jpush.TagAliasOperatorHelper.TagAliasBean;
-import static com.billy.cc.demo.jpush.TagAliasOperatorHelper.sequence;
+import static com.tengbo.module_push_message.jpush.TagAliasOperatorHelper.ACTION_ADD;
+import static com.tengbo.module_push_message.jpush.TagAliasOperatorHelper.ACTION_CHECK;
+import static com.tengbo.module_push_message.jpush.TagAliasOperatorHelper.ACTION_CLEAN;
+import static com.tengbo.module_push_message.jpush.TagAliasOperatorHelper.ACTION_DELETE;
+import static com.tengbo.module_push_message.jpush.TagAliasOperatorHelper.ACTION_GET;
+import static com.tengbo.module_push_message.jpush.TagAliasOperatorHelper.ACTION_SET;
+import static com.tengbo.module_push_message.jpush.TagAliasOperatorHelper.TagAliasBean;
+import static com.tengbo.module_push_message.jpush.TagAliasOperatorHelper.sequence;
 
 
 public class PushSetActivity extends InstrumentedActivity implements OnClickListener {
@@ -77,23 +77,23 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.setStyle0:
-                setAddActionsStyle();
-                break;
-            case R.id.setStyle1:
-                setStyleBasic();
-                break;
-            case R.id.setStyle2:
-                setStyleCustom();
-                break;
-            case R.id.bu_setTime:
-                Intent intent = new Intent(PushSetActivity.this, SettingActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                onTagAliasAction(view);
-                break;
+        int i = view.getId();
+        if (i == R.id.setStyle0) {
+            setAddActionsStyle();
+
+        } else if (i == R.id.setStyle1) {
+            setStyleBasic();
+
+        } else if (i == R.id.setStyle2) {
+            setStyleCustom();
+
+        } else if (i == R.id.bu_setTime) {
+            Intent intent = new Intent(PushSetActivity.this, SettingActivity.class);
+            startActivity(intent);
+
+        } else {
+            onTagAliasAction(view);
+
         }
     }
 
@@ -110,7 +110,7 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
      */
     private void setStyleBasic() {
         BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(PushSetActivity.this);
-        builder.statusBarDrawable = R.drawable.ic_launcher;
+        builder.statusBarDrawable = R.mipmap.ic_launcher;
         builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;  //设置为点击后自动消失
         builder.notificationDefaults = Notification.DEFAULT_SOUND;  //设置为铃声（ Notification.DEFAULT_SOUND）或者震动（ Notification.DEFAULT_VIBRATE）
         JPushInterface.setPushNotificationBuilder(1, builder);
@@ -123,7 +123,7 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
      */
     private void setStyleCustom() {
         CustomPushNotificationBuilder builder = new CustomPushNotificationBuilder(PushSetActivity.this, R.layout.customer_notitfication_layout, R.id.icon, R.id.title, R.id.text);
-        builder.layoutIconDrawable = R.drawable.ic_launcher;
+        builder.layoutIconDrawable = R.mipmap.ic_launcher;
         builder.developerArg0 = "developerArg2";
         JPushInterface.setPushNotificationBuilder(2, builder);
         Toast.makeText(PushSetActivity.this, "Custom Builder - 2", Toast.LENGTH_SHORT).show();
@@ -160,71 +160,70 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
         String alias = null;
         int action = -1;
         boolean isAliasAction = false;
-        switch (view.getId()){
-            //设置手机号码:
-            case R.id.bt_setmobileNumber:
-                handleSetMobileNumber();
-                return;
+        int i = view.getId();
+        if (i == R.id.bt_setmobileNumber) {
+            handleSetMobileNumber();
+            return;
             //增加tag
-            case R.id.bt_addtag:
-                tags = getInPutTags();
-                if(tags == null){
-                    return;
-                }
-                action = ACTION_ADD;
-                break;
-            //设置tag
-            case R.id.bt_settag:
-                tags = getInPutTags();
-                if(tags == null){
-                    return;
-                }
-                action = ACTION_SET;
-                break;
-            //删除tag
-            case R.id.bt_deletetag:
-                tags = getInPutTags();
-                if(tags == null){
-                    return;
-                }
-                action = ACTION_DELETE;
-                break;
-            //获取所有tag
-            case R.id.bt_getalltag:
-                action = ACTION_GET;
-                break;
-            //清除所有tag
-            case R.id.bt_cleantag:
-                action = ACTION_CLEAN;
-                break;
-            case R.id.bt_checktag:
-                tags = getInPutTags();
-                if(tags == null){
-                    return;
-                }
-                action = ACTION_CHECK;
-                break;
-            //设置alias
-            case R.id.bt_setalias:
-                alias = getInPutAlias();
-                if(TextUtils.isEmpty(alias)){
-                    return;
-                }
-                isAliasAction = true;
-                action = ACTION_SET;
-                break;
-            //获取alias
-            case R.id.bt_getalias:
-                isAliasAction = true;
-                action = ACTION_GET;
-                break;
-            //删除alias
-            case R.id.bt_deletealias:
-                isAliasAction = true;
-                action = ACTION_DELETE;
-                break;
-            default:
+        } else if (i == R.id.bt_addtag) {
+            tags = getInPutTags();
+            if (tags == null) {
                 return;
+            }
+            action = ACTION_ADD;
+
+            //设置tag
+        } else if (i == R.id.bt_settag) {
+            tags = getInPutTags();
+            if (tags == null) {
+                return;
+            }
+            action = ACTION_SET;
+
+            //删除tag
+        } else if (i == R.id.bt_deletetag) {
+            tags = getInPutTags();
+            if (tags == null) {
+                return;
+            }
+            action = ACTION_DELETE;
+
+            //获取所有tag
+        } else if (i == R.id.bt_getalltag) {
+            action = ACTION_GET;
+
+            //清除所有tag
+        } else if (i == R.id.bt_cleantag) {
+            action = ACTION_CLEAN;
+
+        } else if (i == R.id.bt_checktag) {
+            tags = getInPutTags();
+            if (tags == null) {
+                return;
+            }
+            action = ACTION_CHECK;
+
+            //设置alias
+        } else if (i == R.id.bt_setalias) {
+            alias = getInPutAlias();
+            if (TextUtils.isEmpty(alias)) {
+                return;
+            }
+            isAliasAction = true;
+            action = ACTION_SET;
+
+            //获取alias
+        } else if (i == R.id.bt_getalias) {
+            isAliasAction = true;
+            action = ACTION_GET;
+
+            //删除alias
+        } else if (i == R.id.bt_deletealias) {
+            isAliasAction = true;
+            action = ACTION_DELETE;
+
+        } else {
+            return;
         }
         TagAliasBean tagAliasBean = new TagAliasBean();
         tagAliasBean.action = action;

@@ -1,17 +1,18 @@
 //标识该组件是工程主module
 ext.mainApp = true
 apply from: rootProject.file('global_settings.gradle')
-
+//apply plugin: 'kotlin-android'
+//apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    signingConfigs {
-        debug {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('C:/Users/yk_de/.android/debug.keystore')
-            storePassword 'android'
-        }
-    }
+//    signingConfigs {
+//        debug {
+//            keyAlias 'androiddebugkey'
+//            keyPassword 'android'
+//            storeFile file('C:/Users/yk_de/.android/debug.keystore')
+//            storePassword 'android'
+//        }
+//    }
     compileSdkVersion build_versions.compile_sdk
     defaultConfig {
         applicationId "com.tengbo.drivertransport"
@@ -19,13 +20,25 @@ android {
         targetSdkVersion build_versions.target_sdk
         versionCode app_version.code
         versionName app_version.name
+
+        ndk {
+            // 选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "8fd73ab3fc1d7ee54ffab134", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-    buildTypes {
+//    buildTypes {
 //        release {
 //            buildConfigField "boolean", "LEO_DEBUG", "false"
 //            //是否zip对齐
@@ -35,35 +48,42 @@ android {
 //            //Proguard
 //            minifyEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            签名
-//            signingConfig signingConfigs.release
+//            //签名
+////            signingConfig signingConfigs.release
 //        }
-
-        debug {
-            //给applicationId添加后缀“.debug”
-//            applicationIdSuffix ".debug"
-            //manifestPlaceholders = [app_icon: "@drawable/launch_beta"]
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            zipAlignEnabled false
-            shrinkResources false
-            minifyEnabled false
-            debuggable true
-            signingConfig signingConfigs.debug
-        }
-    }
+//
+//        debug {
+//            //给applicationId添加后缀“.debug”
+////            applicationIdSuffix ".debug"
+//            //manifestPlaceholders = [app_icon: "@drawable/launch_beta"]
+//            buildConfigField "boolean", "LOG_DEBUG", "true"
+//            zipAlignEnabled false
+//            shrinkResources false
+//            minifyEnabled false
+//            debuggable true
+//            signingConfig signingConfigs.debug
+//        }
+//    }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation dependence.support.multidex
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
+    implementation 'cn.jiguang.sdk:jpush:3.1.5'
+    implementation 'cn.jiguang.sdk:jcore:1.2.3'
+
     /**
      * 不需要引入CC自动注册插件的依赖使用implementation或者api，否则使用addComponent
      * addComponent module_name -> implementation project(':module_name'),
      * 切换library或者application编译方式只需要在local.properties中设置module_name=true/false
      */
-    addComponent 'module_main'
-    addComponent 'module_order'
-    //    addComponent 'module_personal_center'
+//    addComponent 'module_main'
+//    addComponent 'module_order'
+    addComponent 'module_personal_center'
+    addComponent 'module_push_message'
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

@@ -41,15 +41,13 @@ public class NetHelper {
     }
 
 
-    public ApiService getApi() {
-        if (apis == null) {
-            apis = new Retrofit.Builder()
-                    .client(getOkHttpClient())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .baseUrl(Config.BASE_URL)
-                    .build().create(ApiService.class);
-        }
+    public ApiService getApi(String baseUrl) {
+        apis = new Retrofit.Builder()
+                .client(getOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(baseUrl)
+                .build().create(ApiService.class);
         return apis;
     }
 

@@ -1,4 +1,4 @@
-package com.tengbo.drivertransport.jpush;
+package com.tengbo.module_push_message.jpush;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
