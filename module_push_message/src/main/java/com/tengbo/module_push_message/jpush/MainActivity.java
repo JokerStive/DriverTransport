@@ -1,4 +1,4 @@
-package com.tengbo.drivertransport.jpush;
+package com.tengbo.module_push_message.jpush;
 
 
 import android.content.BroadcastReceiver;
@@ -13,11 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tengbo.drivertransport.R;
+
+import com.tengbo.module_push_message.R;
 
 import cn.jpush.android.api.InstrumentedActivity;
 import cn.jpush.android.api.JPushInterface;
-
 
 
 public class MainActivity extends InstrumentedActivity implements OnClickListener{
@@ -85,28 +85,28 @@ public class MainActivity extends InstrumentedActivity implements OnClickListene
 	
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.init:
+		int i = v.getId();
+		if (i == R.id.init) {
 			init();
-			break;
-		case R.id.setting:
+
+		} else if (i == R.id.setting) {
 			Intent intent = new Intent(MainActivity.this, PushSetActivity.class);
 			startActivity(intent);
-			break;
-		case R.id.stopPush:
+
+		} else if (i == R.id.stopPush) {
 			JPushInterface.stopPush(getApplicationContext());
-			break;
-		case R.id.resumePush:
+
+		} else if (i == R.id.resumePush) {
 			JPushInterface.resumePush(getApplicationContext());
-			break;
-		case R.id.getRegistrationId:
+
+		} else if (i == R.id.getRegistrationId) {
 			String rid = JPushInterface.getRegistrationID(getApplicationContext());
 			if (!rid.isEmpty()) {
 				mRegId.setText("RegId:" + rid);
 			} else {
 				Toast.makeText(this, "Get registration fail, JPush init failed!", Toast.LENGTH_SHORT).show();
 			}
-			break;
+
 		}
 	}
 	

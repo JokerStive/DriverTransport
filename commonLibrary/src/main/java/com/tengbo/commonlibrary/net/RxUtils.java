@@ -1,6 +1,7 @@
 package com.tengbo.commonlibrary.net;
 
-import retrofit2.Response;
+import android.util.Log;
+
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -16,6 +17,9 @@ import rx.schedulers.Schedulers;
 public class RxUtils {
     public static <T> Observable.Transformer<BaseResponse<T>, T> handleResult() {
         return responseObservable -> responseObservable.map(baseResponse -> {
+            Log.e("gg", "rxx "+baseResponse.getCode());
+            Log.e("gg", "rxx "+baseResponse.getMessage());
+            Log.e("gg", "rxx "+baseResponse.getData());
             if (!baseResponse.isSuccess()) {
                 throw new ApiException(baseResponse.getCode(), baseResponse.getMessage());
             } else {
@@ -23,7 +27,6 @@ public class RxUtils {
             }
         });
     }
-
 
     public static <T> Observable<T> dealObservable(Observable<BaseResponse<T>> observable) {
         return observable.compose(handleResult())

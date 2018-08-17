@@ -1,4 +1,4 @@
-package com.billy.cc.demo.jpush;
+package com.tengbo.module_push_message.jpush;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -13,7 +13,7 @@ import android.widget.CheckBox;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.billy.cc.demo.R;
+import com.tengbo.module_push_message.R;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -89,12 +89,12 @@ public class SettingActivity extends InstrumentedActivity implements OnClickList
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.bu_setTime:
+		int i = v.getId();
+		if (i == R.id.bu_setTime) {
 			v.requestFocus();
 			v.requestFocusFromTouch();
 			setPushTime();
-			break;
+
 		}
 	}
 	
