@@ -2,15 +2,13 @@ package com.tengbo.commonlibrary.mvp;
 
 import java.lang.ref.WeakReference;
 
-public abstract class BasePresenter<M,V>  implements IPresenter<M,V>{
-    protected M mModel;
+public abstract class BasePresenter<V>  implements IPresenter<V>{
 
     protected V mView;
 
     private WeakReference<V> mViewWeakReference;
 
 
-    protected abstract void bindModel();
 
 
     public V getView() {
@@ -27,8 +25,8 @@ public abstract class BasePresenter<M,V>  implements IPresenter<M,V>{
 
     @Override
     public void bindView(V view) {
+        mView = view;
         mViewWeakReference = new WeakReference<>(view);
-        bindModel();
     }
 
     @Override
@@ -37,5 +35,6 @@ public abstract class BasePresenter<M,V>  implements IPresenter<M,V>{
             mViewWeakReference.clear();
             mViewWeakReference = null;
         }
+        mView = null;
     }
 }

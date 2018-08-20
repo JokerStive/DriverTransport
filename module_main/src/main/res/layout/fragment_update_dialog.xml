@@ -20,10 +20,10 @@
             android:src="@drawable/version_bg_top" />
 
         <TextView
-            android:id="@+id/tv_version_desp"
+            android:id="@+id/tv_update_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="#ffffff"
             android:minLines="5"
             android:padding="@dimen/dp_8"
             android:text="当前版本1.1.0   苦  落地有声土著落地有声楳某某霏霏桔柑雸" />
@@ -36,14 +36,14 @@
             >
 
             <TextView
-                android:id="@+id/tv_version_update"
+                android:id="@+id/tv_update_now"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/shape_upload_button"
                 android:gravity="center"
                 android:text="立即更新"
                 android:textColor="#F7631A"
-                android:textSize="@dimen/sp_18"
+                android:textSize="@dimen/dp_18"
                 android:padding="@dimen/dp_10"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
@@ -62,12 +62,11 @@
 
             <TextView
                 android:id="@+id/tv_progress"
-                style="@style/tv_small"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:textColor="#F7631A"
-                tools:text="証字啊更新"
+                tools:text="立即更新"
                 android:padding="@dimen/dp_10"
                 android:visibility="gone"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -85,7 +84,7 @@
 
 
         <ImageView
-            android:id="@+id/ig_version_close"
+            android:id="@+id/iv_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -98,12 +97,5 @@
 
 
 
-    <!--<ProgressBar-->
-    <!--android:id="@+id/progressBar"-->
-    <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:visibility="gone" />-->
 
 </RelativeLayout>

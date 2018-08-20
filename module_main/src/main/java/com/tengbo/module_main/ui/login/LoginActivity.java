@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-//        goMainActivity();
+        goMainActivity();
         if (intent == null && !TextUtils.isEmpty(User.getAccessToken())) {
             goMainActivity();
         }

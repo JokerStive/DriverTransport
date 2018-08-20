@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatActivity implements IView {
+public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatActivity  {
 
     protected P mPresent;
     private Unbinder mUnbinder;
@@ -34,12 +34,15 @@ public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUnbinder = ButterKnife.bind(this);
+        setContentView(getLayoutId());
         setStatusBarColor();
         if (getIntent() != null) {
             onIntent(getIntent());
         }
 
         initView();
+
+        initPresent();
     }
 
     protected abstract int getLayoutId();

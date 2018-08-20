@@ -2,17 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tengbo.module_main">
 
-    <application android:theme="@style/AppTheme">
+    <application
+        android:theme="@style/AppTheme">
         <activity android:name=".ui.home.MainActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <service android:name=".ui.update.DownLoadService"/>
+
+        <meta-data
+            android:name="TINKER_ID"
+            android:value="tinker_id_6235657" />
     </application>
 
 </manifest>

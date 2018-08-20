@@ -1,6 +1,6 @@
 package com.tengbo.commonlibrary.mvp;
 
 
-public interface IView {
+public interface IView<T> {
 
 }

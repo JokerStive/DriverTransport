@@ -1,37 +1,25 @@
 package com.tengbo.module_main.ui.home;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tengbo.basiclibrary.utils.LogUtil;
-import com.tengbo.basiclibrary.utils.UiUtils;
-import com.tengbo.commonlibrary.base.BaseActivity;
-import com.tengbo.commonlibrary.base.BaseApplication;
-import com.tengbo.commonlibrary.widget.takePhoto.TakePhotoDialogFragment;
+import com.tengbo.commonlibrary.base.BaseMvpActivity;
 import com.tengbo.module_main.R;
 import com.tengbo.module_main.adapter.HomePageAdapter;
+import com.tengbo.module_main.bean.UpdateInfo;
 import com.tengbo.module_main.ui.login.HistoryOrderFragment;
+import com.tengbo.module_main.ui.update.UpdateDialogFragment;
 import com.tengbo.module_main.widget.NoScrollViewPager;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseMvpActivity<MainContract.Presenter> implements MainContract.View {
 
     private NoScrollViewPager mViewPager;
-    private Fragment fragment;
     private String[] mTabTitles = new String[]{"任务", "历史订单", "进行中", "消息", "我的"};
     private LinearLayout llTab;
 
@@ -51,11 +39,21 @@ public class MainActivity extends BaseActivity {
         ArrayList<Fragment> fragments = getFragmentByComponent();
         if (fragments.size() == 0)
             return;
+
         initViewPager(fragments);
 
         initTab();
 
+
     }
+
+    @Override
+    protected void initPresent() {
+        mPresent = new MainPresenter();
+        mPresent.bindView(this);
+        mPresent.checkUpdate();
+    }
+
 
     private void initTab() {
         int childCount = llTab.getChildCount();
@@ -64,7 +62,6 @@ public class MainActivity extends BaseActivity {
             TextView childAt = (TextView) llTab.getChildAt(i);
             int finalI = i;
             childAt.setOnClickListener(view -> {
-                LogUtil.d(finalI + "--被点击了");
                 mutuallyExclusiveSelect(finalI);
             });
         }
@@ -137,4 +134,16 @@ public class MainActivity extends BaseActivity {
         return fragments;
     }
 
+
+    @Override
+    public void checkUpdateResult(UpdateInfo updateInfo) {
+        if (updateInfo.isNeedUpdate()){
+            UpdateDialogFragment.newInstance(updateInfo).show(getFragmentManager(),"");
+        }
+    }
+
+    @Override
+    public void installNewApk(String apkPath) {
+
+    }
 }

@@ -1,5 +1,9 @@
 ext.runAsApp=true
 apply from: rootProject.file('global_settings.gradle')
+//tinker插件
+//apply plugin: 'com.tencent.tinker.patch'
+
+
 
 
 android {
@@ -11,6 +15,8 @@ android {
             storePassword 'android'
         }
     }
+
+
     compileSdkVersion 28
     defaultConfig {
         if (runAsApp) {
@@ -28,15 +34,20 @@ android {
     buildTypes {
 
     }
-    buildToolsVersion '28.0.1'
+    buildToolsVersion '28.0.2'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
+
+    //tinker依赖
+//    compileOnly('com.tencent.tinker:tinker-android-anno:1.7.7')
+//    api 'com.tencent.tinker:tinker-android-lib:1.9.1'
 }
