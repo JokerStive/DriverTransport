@@ -1,9 +1,13 @@
 package com.tengbo.module_personal_center.utils;
 
+/**
+ * author WangChenchen
+ * 银行卡校验工具类
+ */
 public class BankCardValidUtils {
 
     /**
-     * //传入卡号 得到银行名称
+     * 传入卡号 得到银行名称
      *
      * @param idCard
      * @return

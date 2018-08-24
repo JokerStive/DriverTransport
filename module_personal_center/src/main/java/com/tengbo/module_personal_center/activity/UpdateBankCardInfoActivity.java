@@ -4,7 +4,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -26,6 +25,7 @@ import com.tengbo.module_personal_center.utils.BankCardValidUtils;
 import com.tengbo.module_personal_center.utils.Constant;
 import com.tengbo.module_personal_center.utils.DialogUtils;
 import com.tengbo.module_personal_center.utils.IdCardValidUtils;
+import com.tengbo.module_personal_center.utils.LogUtils;
 import com.tengbo.module_personal_center.utils.ResponseCode;
 import com.tengbo.module_personal_center.utils.ToastUtils;
 
@@ -36,40 +36,63 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rx.Subscriber;
 
+/**
+ * author WangChenchen
+ * 银行卡信息更改页面
+ */
 public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnClickListener {
 
+    private static final String TAG = "UpdateBankCardInfo";
+
+    // 下拉刷新控件
     @BindView(R2.id.srl)
     SwipeRefreshLayout srl;
 
+    // 原银行卡信息文本视图，用于隐藏和显示控制
     @BindView(R2.id.tv_origin_bank_card_info)
-    TextView tv_origin_bank_card_info;
+    TextView tvOriginBankCardInfo;
+    // 原银行卡信息布局，用于隐藏和显示控制
     @BindView(R2.id.rl_bank_card_info)
-    RelativeLayout rl_bank_card_info;
+    RelativeLayout rlBankCardInfo;
 
+
+    // 原银行名文本视图
     @BindView(R2.id.tv_bank_name)
-    TextView tv_bank_name;
+    TextView tvBankName;
+    // 原银行卡开户姓名文本视图
     @BindView(R2.id.tv_account_name)
-    TextView tv_account_name;
+    TextView tvAccountName;
+    // 原银行卡号文本视图
     @BindView(R2.id.tv_bank_card_num)
-    TextView tv_bank_card_num;
+    TextView tvBankCardNum;
 
+    // 密码输入框
     @BindView(R2.id.neet_password)
-    NoEmojiEditText neet_password;
+    NoEmojiEditText neetPassword;
+    // 身份证号输入框
     @BindView(R2.id.neet_id_card_num)
-    NoEmojiEditText neet_id_card_num;
+    NoEmojiEditText neetIdCardNum;
+    // 开户行输入框
     @BindView(R2.id.neet_bank_of_account)
-    NoEmojiEditText neet_bank_of_account;
+    NoEmojiEditText neetBankOfAccount;
+    // 开户姓名输入框
     @BindView(R2.id.neet_name_of_account)
-    NoEmojiEditText neet_name_of_account;
+    NoEmojiEditText neetNameOfAccount;
+    // 银行卡号输入框
     @BindView(R2.id.neet_bank_card_num)
-    NoEmojiEditText neet_bank_card_num;
+    NoEmojiEditText neetBankCardNum;
+    // 验证码输入框
     @BindView(R2.id.neet_valid_code)
-    NoEmojiEditText neet_valid_code;
+    NoEmojiEditText neetValidCode;
+    // 验证码图片视图
     @BindView(R2.id.iv_valid_code)
-    ImageView iv_valid_code;
+    ImageView ivValidCode;
 
+    // 验证码生成工具类对象
     CodeGeneUtils mCodeGeneUtils;
+    // 原银行卡开户名
     String username = "";
+    // 原银行卡号
     String oldBankCardNum = "";
 
     @Override
@@ -77,45 +100,25 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
         // 初始化SwipeRefreshLayout
         // 初始时不能下拉
         srl.setEnabled(false);
-        // 进度条颜色
+        // 下拉刷新控件进度条颜色
         srl.setColorSchemeResources(android.R.color.holo_blue_light,
                 android.R.color.holo_red_light, android.R.color.holo_orange_light,
                 android.R.color.holo_green_light);
-        // 刷新监听器
+        // 下拉刷新监听器
         srl.setOnRefreshListener(() -> {
-            // 获取个人信息
+            // 获取原银行卡信息
             getOriginBankCardInfo(new Subscriber<BankCardInfo>() {
 
                 @Override
                 public void onNext(BankCardInfo bankCardInfo) {
+                    // 请求结束停止刷新
                     srl.setRefreshing(false);
+                    // 设置下拉刷新控件不可下拉
                     srl.setEnabled(false);
-                    username = bankCardInfo.fuserName;
-                    if (!TextUtils.isEmpty(bankCardInfo.fcardCode)) {
-                        tv_origin_bank_card_info.setVisibility(View.VISIBLE);
-                        rl_bank_card_info.setVisibility(View.VISIBLE);
-                        oldBankCardNum = bankCardInfo.fcardCode;
-                        // 存在原银行卡信息
-                        tv_account_name.setText(username);
-                        tv_bank_name.setText(BankCardValidUtils.getDetailNameOfBank(oldBankCardNum));
-                        StringBuilder stringBuilder = new StringBuilder();
-                        int oldBankCardNumLegnth = oldBankCardNum.length();
-                        for (int i = 0; i < oldBankCardNumLegnth; i += 4) {
-                            if (i + 4 < oldBankCardNumLegnth)
-                                stringBuilder.append(oldBankCardNum.substring(i, i + 4));
-                            else
-                                stringBuilder.append(oldBankCardNum.substring(i, oldBankCardNumLegnth));
-                            stringBuilder.append(" ");
-                        }
-                        tv_bank_card_num.setText("银行卡卡号 : " + stringBuilder.toString());
-                    } else {
-                        // 不存在原银行卡信息
-                        // 隐藏原银行卡信息视图
-                        tv_origin_bank_card_info.setVisibility(View.GONE);
-                        rl_bank_card_info.setVisibility(View.GONE);
-                    }
+                    // 处理原银行卡信息
+                    handleOriginBankCardInfo(bankCardInfo);
 
-                    Log.e("gg", "ppp " + bankCardInfo.toString());
+                    LogUtils.e(TAG, "SwipeRefresh getOriginBankCardInfo onNext " + bankCardInfo.toString());
                 }
 
                 @Override
@@ -124,13 +127,14 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                     String totalMsg = e.toString();
                     if (message.contains("404") || totalMsg.contains("SocketTimeoutException")
                             || totalMsg.contains("ConnectException") || totalMsg.contains("RuntimeException")) {
+                        // 显示提示对话框
                         showDialog("获取数据失败\n下拉重新获取", false);
-                        tv_origin_bank_card_info.setVisibility(View.GONE);
-                        rl_bank_card_info.setVisibility(View.GONE);
+                        // 隐藏原银行卡信息布局
+                        hideOriginBankCarInfoLayout();
                     }
-                    Log.e("gg", "hahah " + e.getMessage());
-                    Log.e("gg", "hahah " + e.getLocalizedMessage());
-                    Log.e("gg", "hahah " + e.toString());
+                    LogUtils.e(TAG, "SwipeRefresh getOriginBankCardInfo onError " + e.getMessage());
+                    LogUtils.e(TAG, "SwipeRefresh getOriginBankCardInfo onError " + e.getLocalizedMessage());
+                    LogUtils.e(TAG, "SwipeRefresh getOriginBankCardInfo onError " + e.toString());
                 }
 
                 @Override
@@ -139,76 +143,56 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                 }
             });
         });
+        // 获取验证码生成类对象
         mCodeGeneUtils = CodeGeneUtils.getInstance();
         // 初始化验证码
-        iv_valid_code.setImageBitmap(mCodeGeneUtils.createBitmap());
-        // TODO 获取原银行卡信息
+        ivValidCode.setImageBitmap(mCodeGeneUtils.createBitmap());
+        // 获取原银行卡信息
         getOriginBankCardInfo(new ProgressSubscriber<BankCardInfo>(this) {
 
-                    @Override
-                    protected void on_next(BankCardInfo bankCardInfo) {
-                        username = bankCardInfo.fuserName;
-                        if (!TextUtils.isEmpty(bankCardInfo.fcardCode)) {
-                            tv_origin_bank_card_info.setVisibility(View.VISIBLE);
-                            rl_bank_card_info.setVisibility(View.VISIBLE);
-                            oldBankCardNum = bankCardInfo.fcardCode;
-                            // 存在原银行卡信息
-                            tv_account_name.setText(username);
-                            tv_bank_name.setText(BankCardValidUtils.getDetailNameOfBank(oldBankCardNum));
-                            StringBuilder stringBuilder = new StringBuilder();
-                            int oldBankCardNumLegnth = oldBankCardNum.length();
-                            for (int i = 0; i < oldBankCardNumLegnth; i += 4) {
-                                if (i + 4 < oldBankCardNumLegnth)
-                                    stringBuilder.append(oldBankCardNum.substring(i, i + 4));
-                                else
-                                    stringBuilder.append(oldBankCardNum.substring(i, oldBankCardNumLegnth));
-                                stringBuilder.append(" ");
-                            }
-                            tv_bank_card_num.setText("银行卡卡号 : " + stringBuilder.toString());
-                        } else {
-                            // 不存在原银行卡信息
-                            // 隐藏原银行卡信息视图
-                            tv_origin_bank_card_info.setVisibility(View.GONE);
-                            rl_bank_card_info.setVisibility(View.GONE);
-                        }
+            @Override
+            protected void on_next(BankCardInfo bankCardInfo) {
+                // 处理原银行卡信息
+                handleOriginBankCardInfo(bankCardInfo);
+                LogUtils.e(TAG, "getOriginBankCardInfo on_next " + bankCardInfo.toString());
+            }
 
-                        Log.e("gg", "ppp " + bankCardInfo.toString());
-                    }
+            @Override
+            protected void on_error(ApiException e) {
+                super.on_error(e);
+                int errorCode = e.getErrorCode();
+                if (errorCode == ResponseCode.SYSTEM_ERROR) {
+                    // 显示提示对话框
+                    showDialog("获取数据失败\n下拉重新获取", false);
+                    // 隐藏原银行卡信息布局
+                    hideOriginBankCarInfoLayout();
+                }
+                String errorMessage = e.getErrorMessage();
+                // 处理具体错误
+                LogUtils.e(TAG, "getOriginBankCardInfo on_error " + errorCode);
+                LogUtils.e(TAG, "getOriginBankCardInfo on_error " + errorMessage);
+            }
 
-                    @Override
-                    protected void on_error(ApiException e) {
-                        super.on_error(e);
-                        int errorCode = e.getErrorCode();
-                        if (errorCode == ResponseCode.SYSTEM_ERROR) {
-                            showDialog("获取数据失败\n下拉重新获取", false);
-                            tv_origin_bank_card_info.setVisibility(View.GONE);
-                            rl_bank_card_info.setVisibility(View.GONE);
-                        }
-                        String errorMessage = e.getErrorMessage();
-                        // TODO 处理具体错误
-                        Log.e("gg", "he " + errorCode);
-                        Log.e("gg", "he " + errorMessage);
-                    }
-
-                    @Override
-                    protected void on_net_error(Throwable e) {
-                        String message = e.getMessage();
-                        String totalMsg = e.toString();
-                        if (message.contains("404") || totalMsg.contains("SocketTimeoutException")
-                                || totalMsg.contains("ConnectException") || totalMsg.contains("RuntimeException")) {
-                            showDialog("获取数据失败\n下拉重新获取", false);
-                            tv_origin_bank_card_info.setVisibility(View.GONE);
-                            rl_bank_card_info.setVisibility(View.GONE);
-                        }
-                        Log.e("gg", "hahah " + e.getMessage());
-                        Log.e("gg", "hahah " + e.getLocalizedMessage());
-                        Log.e("gg", "hahah " + e.toString());
-                    }
-                });
+            @Override
+            protected void on_net_error(Throwable e) {
+                String message = e.getMessage();
+                String totalMsg = e.toString();
+                if (message.contains("404") || totalMsg.contains("SocketTimeoutException")
+                        || totalMsg.contains("ConnectException") || totalMsg.contains("RuntimeException")) {
+                    // 显示提示对话框
+                    showDialog("获取数据失败\n下拉重新获取", false);
+                    // 隐藏原银行卡信息布局
+                    hideOriginBankCarInfoLayout();
+                }
+                LogUtils.e(TAG, "getOriginBankCardInfo on_net_error " + e.getMessage());
+                LogUtils.e(TAG, "getOriginBankCardInfo on_net_error " + e.getLocalizedMessage());
+                LogUtils.e(TAG, "getOriginBankCardInfo on_net_error " + e.toString());
+            }
+        });
 
 
         // 根据输入银行卡号自动填写开户行
-        neet_bank_card_num.addTextChangedListener(new TextWatcher() {
+        neetBankCardNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -221,40 +205,102 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
 
             @Override
             public void afterTextChanged(Editable s) {
-                String cardNum = neet_bank_card_num.getText().toString().trim();
+                // 获取已经输入的文本
+                String cardNum = neetBankCardNum.getText().toString().trim();
+                // 获取已经输入的文本长度
                 int cardNumLength = cardNum.length();
                 if (cardNumLength <= 5) {
-                    neet_bank_of_account.setText("");
+                    // 如果长度不超过5，则设置开户行输入框文本为空
+                    neetBankOfAccount.setText("");
                 } else if (cardNumLength == 6) {
+                    // 如果长度为6，则用银行卡校验工具类获取银行名并设置到开户行输入框
                     String nameOfBank = BankCardValidUtils.getNameOfBank(cardNum);
-                    neet_bank_of_account.setText(nameOfBank);
+                    if (!TextUtils.isEmpty(nameOfBank))
+                        neetBankOfAccount.setText(nameOfBank);
                 } else if (cardNumLength == 8) {
+                    // 如果长度为8，则用银行卡校验工具类获取银行名并设置到开户行输入框
                     String nameOfBank = BankCardValidUtils.getNameOfBank(cardNum);
-                    if (!TextUtils.isEmpty(nameOfBank)) {
-                        neet_bank_of_account.setText(nameOfBank);
-                    }
+                    if (!TextUtils.isEmpty(nameOfBank))
+                        neetBankOfAccount.setText(nameOfBank);
                 } else if (cardNumLength > 15) {
+                    // 如果长度大于15，则用银行卡校验工具类获取银行名并设置到开户行输入框
                     String nameOfBank = BankCardValidUtils.getDetailNameOfBank(cardNum);
-                    if (!TextUtils.isEmpty(nameOfBank)) {
-                        neet_bank_of_account.setText(nameOfBank);
-                    }
+                    if (!TextUtils.isEmpty(nameOfBank))
+                        neetBankOfAccount.setText(nameOfBank);
                 }
             }
         });
     }
 
-    private void showDialog(String msg, boolean isSuccess)
-    {
+    /**
+     * 隐藏原银行卡信息布局
+     */
+    private void hideOriginBankCarInfoLayout() {
+        tvOriginBankCardInfo.setVisibility(View.GONE);
+        rlBankCardInfo.setVisibility(View.GONE);
+    }
+
+    /**
+     * 处理原银行卡信息
+     *
+     * @param bankCardInfo 原银行卡信息
+     */
+    private void handleOriginBankCardInfo(BankCardInfo bankCardInfo) {
+        // 给原银行卡开户姓名赋值，用于对输入的新银行卡开户姓名校验
+        username = bankCardInfo.fuserName;
+        // 首先判断获取到的原银行卡号是否为空
+        if (!TextUtils.isEmpty(bankCardInfo.fcardCode)) {
+            // 原银行卡号不为空，显示原银行卡信息布局
+            tvOriginBankCardInfo.setVisibility(View.VISIBLE);
+            rlBankCardInfo.setVisibility(View.VISIBLE);
+            // 给原银行卡号赋值，用于对输入的新银行卡号校验
+            oldBankCardNum = bankCardInfo.fcardCode;
+            // 设置显示原银行卡信息
+            tvAccountName.setText(username);
+            tvBankName.setText(BankCardValidUtils.getDetailNameOfBank(oldBankCardNum));
+            // 对原银行卡号进行处理，四位一空格，格式化后显示
+            StringBuilder stringBuilder = new StringBuilder();
+            int oldBankCardNumLegnth = oldBankCardNum.length();
+            for (int i = 0; i < oldBankCardNumLegnth; i += 4) {
+                if (i + 4 < oldBankCardNumLegnth)
+                    stringBuilder.append(oldBankCardNum.substring(i, i + 4));
+                else
+                    stringBuilder.append(oldBankCardNum.substring(i, oldBankCardNumLegnth));
+                stringBuilder.append(" ");
+            }
+            tvBankCardNum.setText("银行卡卡号 : " + stringBuilder.toString());
+        } else {
+            // 不存在原银行卡信息
+            // 隐藏原银行卡信息布局
+            tvOriginBankCardInfo.setVisibility(View.GONE);
+            rlBankCardInfo.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 显示提示对话框
+     *
+     * @param msg       对话框显示文本
+     * @param isSuccess 用于选择要显示的图标，true->R.mipmap.right， false->R.mipmap.wrong
+     */
+    private void showDialog(String msg, boolean isSuccess) {
+        // 设置要显示的图标sourceId
         int imgId = R.mipmap.right;
-        if(!isSuccess)
+        if (!isSuccess)
             imgId = R.mipmap.wrong;
         DialogUtils.show(this, imgId, msg);
+        // 设置下拉刷新控件可用
         srl.setEnabled(true);
+        // 停止刷新
         srl.setRefreshing(false);
     }
 
-    private void getOriginBankCardInfo(Subscriber subscriber)
-    {
+    /**
+     * 获取原银行卡信息
+     *
+     * @param subscriber
+     */
+    private void getOriginBankCardInfo(Subscriber subscriber) {
         // 获取原银行卡信息
         mSubscriptionManager.add(NetHelper.getInstance().getApi(Config.BASE_URL)
                 .getBankCardInfo(Constant.faccountId)
@@ -263,10 +309,21 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                 .subscribe(subscriber));
     }
 
+    /**
+     * 获取输入框的文本，并去除两端的空格
+     *
+     * @param neet 输入框
+     * @return
+     */
     private String getText(NoEmojiEditText neet) {
         return neet.getText().toString().trim();
     }
 
+    /**
+     * 显示吐司
+     *
+     * @param text
+     */
     private void showToast(String text) {
         ToastUtils.show(this, text);
     }
@@ -280,17 +337,20 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
     @Override
     public void onClick(View view) {
         int id = view.getId();
+        // 点击返回图标
         if (id == R.id.tv_back) {
             // 关闭本页面
             finish();
-        } else if (id == R.id.btn_submit) {
+        }
+        // 点击提交
+        else if (id == R.id.btn_submit) {
             // 处理提交
             // 获取各个输入框的值
-            String password = getText(neet_password);
-            String idCardNum = getText(neet_id_card_num);
-            String nameOfAccount = getText(neet_name_of_account);
-            String bankCardNum = getText(neet_bank_card_num);
-            String inputValidCode = getText(neet_valid_code).toLowerCase();
+            String password = getText(neetPassword);
+            String idCardNum = getText(neetIdCardNum);
+            String nameOfAccount = getText(neetNameOfAccount);
+            String bankCardNum = getText(neetBankCardNum);
+            String inputValidCode = getText(neetValidCode).toLowerCase();
             String validCode = mCodeGeneUtils.getCode().toLowerCase();
 
             // 判断各个输入框是否为空
@@ -328,7 +388,7 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
             }
 
             // 判断开户人姓名是否是登录用户
-            if (!nameOfAccount.equals(username)) {
+            if (!nameOfAccount.equals(username) && !TextUtils.isEmpty(username)) {
                 showToast("开户人姓名必须和用户名相同");
                 return;
             }
@@ -367,18 +427,24 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
 
                         @Override
                         protected void on_next(BaseResponse baseResponse) {
-                            Log.e("gg", "pwd " + baseResponse.getCode());
-                            Log.e("gg", "pwd " + baseResponse.getMessage());
-                            Log.e("gg", "pwd " + baseResponse.getData());
+                            LogUtils.e(TAG, "updateBankCardInfo on_next " + baseResponse.getCode());
+                            LogUtils.e(TAG, "updateBankCardInfo on_next " + baseResponse.getMessage());
+                            LogUtils.e(TAG, "updateBankCardInfo on_next " + baseResponse.getData());
+                            // 获取返回码
                             int code = baseResponse.getCode();
                             switch (code) {
                                 case ResponseCode.STATUS_OK: // 请求成功
                                     showDialog("银行卡信息修改成功\n请注意后续付款情况", true);
+                                    // 设置原银行卡号，用于更新原银行卡信息布局，并用于用户再次提交修改银行卡信息校验
                                     oldBankCardNum = bankCardNum;
-                                    tv_origin_bank_card_info.setVisibility(View.VISIBLE);
-                                    rl_bank_card_info.setVisibility(View.VISIBLE);
-                                    tv_account_name.setText(username);
-                                    tv_bank_name.setText(BankCardValidUtils.getDetailNameOfBank(oldBankCardNum));
+                                    // 显示原银行卡信息布局
+                                    tvOriginBankCardInfo.setVisibility(View.VISIBLE);
+                                    rlBankCardInfo.setVisibility(View.VISIBLE);
+                                    // 更新原银行卡开户名
+                                    tvAccountName.setText(username);
+                                    // 更新原银行卡开户行
+                                    tvBankName.setText(BankCardValidUtils.getDetailNameOfBank(oldBankCardNum));
+                                    // 更新原银行卡号，对银行卡号进行处理，四位一空格，格式化后显示
                                     StringBuilder stringBuilder = new StringBuilder();
                                     int oldBankCardNumLegnth = oldBankCardNum.length();
                                     for (int i = 0; i < oldBankCardNumLegnth; i += 4) {
@@ -388,10 +454,10 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                                             stringBuilder.append(oldBankCardNum.substring(i, oldBankCardNumLegnth));
                                         stringBuilder.append(" ");
                                     }
-                                    tv_bank_card_num.setText("银行卡卡号 : " + stringBuilder.toString());
+                                    tvBankCardNum.setText("银行卡卡号 : " + stringBuilder.toString());
                                     break;
 
-                                case ResponseCode.USER_NOT_EXIST: // 用户名不存在
+                                case ResponseCode.USER_NOT_EXIST: // 账户不存在
                                     showDialog("账户不存在", false);
                                     break;
 
@@ -414,9 +480,9 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                         protected void on_error(ApiException e) {
                             int errorCode = e.getErrorCode();
                             String errorMessage = e.getErrorMessage();
-                            // TODO 处理具体错误
-                            Log.e("gg", "eee " + errorCode);
-                            Log.e("gg", "eee " + errorMessage);
+                            // 处理具体错误
+                            LogUtils.e(TAG, "updateBankCardInfo on_error " + errorCode);
+                            LogUtils.e(TAG, "updateBankCardInfo on_error " + errorMessage);
                         }
 
                         @Override
@@ -427,28 +493,40 @@ public class UpdateBankCardInfoActivity extends BaseActivity implements View.OnC
                                     || totalMsg.contains("ConnectException") || totalMsg.contains("RuntimeException")) {
                                 showDialog("银行卡信息更改失败\n请稍候再试", false);
                             }
-                            Log.e("gg", "hahah " + e.getMessage());
-                            Log.e("gg", "hahah " + e.getLocalizedMessage());
-                            Log.e("gg", "hahah " + e.toString());
+                            LogUtils.e(TAG, "updateBankCardInfo on_net_error " + e.getMessage());
+                            LogUtils.e(TAG, "updateBankCardInfo on_net_error " + e.getLocalizedMessage());
+                            LogUtils.e(TAG, "updateBankCardInfo on_net_error " + e.toString());
                         }
                     }));
 
-        } else if (id == R.id.btn_cancel) {
+        }
+        // 点击取消
+        else if (id == R.id.btn_cancel) {
             // 处理取消，关闭本页面
             finish();
-        } else if (id == R.id.iv_valid_code || id == R.id.tv_refresh_valid_code) {
+        }
+        // 点击验证码图片或者刷新
+        else if (id == R.id.iv_valid_code || id == R.id.tv_refresh_valid_code) {
             // 处理刷新验证码
             refreshValidCode();
         }
     }
 
+    /**
+     * 获取布局Id
+     *
+     * @return
+     */
     @Override
     protected int getLayoutId() {
         return R.layout.activity_update_bank_card_info;
     }
 
+    /**
+     * 刷新验证码
+     */
     private void refreshValidCode() {
-        neet_valid_code.setText("");
-        iv_valid_code.setImageBitmap(mCodeGeneUtils.createBitmap());
+        neetValidCode.setText("");
+        ivValidCode.setImageBitmap(mCodeGeneUtils.createBitmap());
     }
 }

@@ -2,5 +2,14 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#5483E3</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="light_gray">#E5E5E5</color>
+
+    <color name="white_normal">#ffffffff</color>
+    <color name="login_button_background">#71c297</color>
+    <color name="content_color">#666666</color>
+    <color name="purple">#A88CE4</color>
+    <color name="deep_purple">#662FD1</color>
 </resources>

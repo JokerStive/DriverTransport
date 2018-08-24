@@ -18,7 +18,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         UpdateInfo updateInfo = new UpdateInfo();
         updateInfo.setNeedUpdate(true);
         updateInfo.setFocusUpdate(true);
-        updateInfo.setUpdateDescription("我们对这个版本做了大量的升级，包括稳定性安全性");
+        updateInfo.setUpdateDescription("使用热更新技术来更新，这是一个测试");
         updateInfo.setUpdateUrl(downUrl);
         mView.checkUpdateResult(updateInfo);
     }

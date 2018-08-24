@@ -28,7 +28,10 @@ public class BaseApplication extends Application {
         super.onCreate();
         context = this;
         LogUtil.initLogger();
+
     }
+
+
 
 
 }

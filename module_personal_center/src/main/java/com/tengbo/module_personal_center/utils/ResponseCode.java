@@ -1,5 +1,9 @@
 package com.tengbo.module_personal_center.utils;
 
+/**
+ * author WangChenchen
+ * 返回码常量类
+ */
 public class ResponseCode {
 
     // 请求成功

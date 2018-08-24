@@ -8,10 +8,10 @@ package cn.jpush.client.android;
 
 public final class R {
     public static final class drawable {
-        public static int jpush_ic_richpush_actionbar_back = 0x7f090074;
-        public static int jpush_ic_richpush_actionbar_divider = 0x7f090075;
-        public static int jpush_richpush_btn_selector = 0x7f090077;
-        public static int jpush_richpush_progressbar = 0x7f090078;
+        public static int jpush_ic_richpush_actionbar_back = 0x7f090075;
+        public static int jpush_ic_richpush_actionbar_divider = 0x7f090076;
+        public static int jpush_richpush_btn_selector = 0x7f090078;
+        public static int jpush_richpush_progressbar = 0x7f090079;
     }
     public static final class id {
         public static int actionbarLayoutId = 0x7f0c0017;

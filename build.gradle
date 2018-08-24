@@ -10,6 +10,8 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
 
+//        classpath "com.tencent.bugly:tinker-support:1.1.2"
+
         //接入tinker
 //        classpath ('com.tencent.tinker:tinker-patch-gradle-plugin:1.9.1')
     }

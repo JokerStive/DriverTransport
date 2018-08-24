@@ -2,19 +2,25 @@ package com.tengbo.module_personal_center.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tengbo.module_personal_center.R;
 
+/**
+ * author WangChenchen
+ * 对话框工具类
+ */
 public class DialogUtils {
 
+    /**
+     * 带图标和文本的对话框
+     * @param context
+     * @param imgId
+     * @param msg
+     */
     public static void show(Context context, int imgId, String msg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_with_img, null);
@@ -25,21 +31,18 @@ public class DialogUtils {
         builder.setView(view).setCancelable(true).show();
     }
 
-    public static void show(Context context, String msg, DialogInterface.OnClickListener listener) {
-        new AlertDialog.Builder(context)
-                .setCancelable(false)
-                .setTitle("提示")
-                .setMessage(msg)
-                .setPositiveButton("是", listener)
-                .setNegativeButton("否", null)
-                .show();
+    public interface CallBack {
+        void call();
     }
 
-    public interface LogoutInterface{
-        void logout();
-    }
-
-    public static void show(Context context, String title, String msg, LogoutInterface listener)
+    /**
+     * 带文本和按钮的对话框，可以写回调
+     * @param context
+     * @param title
+     * @param msg
+     * @param callBack
+     */
+    public static void show(Context context, String title, String msg, CallBack callBack)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_with_btn, null);
@@ -53,27 +56,10 @@ public class DialogUtils {
         AlertDialog dialog = builder.setView(view).setCancelable(true).create();
         dialog.show();
         tv_not.setOnClickListener(view1 -> dialog.dismiss());
-        tv_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                if(listener != null)
-                    listener.logout();
-            }
+        tv_yes.setOnClickListener(view12 -> {
+            dialog.dismiss();
+            if(callBack != null)
+                callBack.call();
         });
-    }
-
-    /**
-     * convert dp to its equivalent px
-     */
-    protected static int dp2px(Context context, int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
-    }
-
-    /**
-     * convert sp to its equivalent px
-     */
-    protected static int sp2px(Context context, int sp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
     }
 }
