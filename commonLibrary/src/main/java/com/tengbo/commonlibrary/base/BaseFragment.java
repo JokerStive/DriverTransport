@@ -1,30 +1,29 @@
 package com.tengbo.commonlibrary.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.tengbo.commonlibrary.fragmentation.SupportFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rx.subscriptions.CompositeSubscription;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends SupportFragment {
 
-    private View mRootView;
+    protected View mRootView;
     protected FragmentManager mSupportFragmentManager;
     protected FragmentActivity mFragmentActivity;
 
 
     protected CompositeSubscription mSubscriptionManager = new CompositeSubscription();
-    private Unbinder mUnbinder;
+    private Unbinder mUnBinder;
 
 
     @Override
@@ -52,7 +51,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(getLayoutId(), container, false);
-            mUnbinder = ButterKnife.bind(this, mRootView);
+            mUnBinder = ButterKnife.bind(this, mRootView);
             initView();
         }
 
@@ -65,10 +64,11 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void getTransferData(Bundle arguments);
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mUnbinder.unbind();
+        mUnBinder.unbind();
         if (mSubscriptionManager.hasSubscriptions() && !mSubscriptionManager.isUnsubscribed()) {
             mSubscriptionManager.unsubscribe();
         }

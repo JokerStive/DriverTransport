@@ -1,11 +1,12 @@
-package com.tengbo.module_order.fragment.task;
+package com.tengbo.module_order.fragment.processing;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.tengbo.commonlibrary.base.BaseFragment;
 import com.tengbo.module_order.R;
 
-public class TaskFragment extends BaseFragment {
+public class ProcessingOrderFragment extends BaseFragment {
     @Override
     protected void initView() {
 
@@ -13,7 +14,7 @@ public class TaskFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_task;
+        return R.layout.fragment_processing_order;
     }
 
     @Override

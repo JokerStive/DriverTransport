@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/basic_white"
+    android:orientation="vertical">
+
+    <com.tengbo.module_order.wiget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="历史订单" />
+
+
+    <include
+        layout="@layout/layout_time_picker"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_history_order_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

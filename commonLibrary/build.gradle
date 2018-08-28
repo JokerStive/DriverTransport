@@ -51,6 +51,8 @@ dependencies {
 
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 
+
+    api 'me.yokeyword:fragmentation-core:1.3.6'
     //AOP动态权限
 //    compile 'com.ninetripods:aop-permission:1.0.1'
 

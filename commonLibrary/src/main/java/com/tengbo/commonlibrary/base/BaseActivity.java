@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.tengbo.basiclibrary.widget.RxProgressDialog;
+import com.tengbo.commonlibrary.fragmentation.SupportActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rx.subscriptions.CompositeSubscription;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SupportActivity {
 
     private WeakReference<BaseActivity> baseActivityWeakReference;
     protected CompositeSubscription mSubscriptionManager = new CompositeSubscription();

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.tengbo.commonlibrary.fragmentation.SupportActivity;
 import com.tengbo.commonlibrary.mvp.BasePresenter;
 import com.tengbo.commonlibrary.mvp.IPresenter;
 import com.tengbo.commonlibrary.mvp.IView;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public abstract class BaseMvpActivity<P extends IPresenter> extends AppCompatActivity  {
+public abstract class BaseMvpActivity<P extends IPresenter> extends SupportActivity {
 
     protected P mPresent;
     private Unbinder mUnbinder;

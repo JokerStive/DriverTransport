@@ -1,0 +1,282 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_order_id"
+        style="@style/tv_10sp_blue_bold"
+        android:layout_gravity="center_horizontal"
+        tools:text="订单编号：TBQQ2018080100     直达" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="26dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/shape_radius10_stroke2"
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:id="@+id/tv_driver_name"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:drawablePadding="@dimen/dp_4"
+            android:drawableTop="@drawable/driver"
+            tools:text="张三" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/basic_blue" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_20">
+
+            <TextView
+                android:id="@+id/tv_car_info"
+                style="@style/tv_10sp_blue_bold"
+                android:textSize="@dimen/sp_9"
+                tools:text="执行车辆：渝B 123456" />
+
+
+            <TextView
+                android:id="@+id/tv_driver_name1"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="@dimen/sp_9"
+                tools:text="执行司机：王五" />
+
+            <TextView
+                android:id="@+id/tv_car_license"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="@dimen/sp_9"
+                tools:text="挂车车牌：渝B 123457（挂）" />
+
+            <TextView
+                android:id="@+id/tv_box_number"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="@dimen/sp_9"
+                tools:text="柜号：XYZU12345678" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_start_task"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/start_task" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_14">
+
+        <TextView
+            style="@style/tv_10sp_blue_bold"
+            android:drawableLeft="@drawable/title_hint"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:text="@string/basic_info"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:textStyle="normal"
+            android:id="@+id/tv_departure"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="提货地名称：重庆富士康" />
+
+        <TextView
+            android:id="@+id/tv_departure_contact"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="提货联系人：王琦（18523520173）" />
+
+        <TextView
+            android:id="@+id/tv_destination"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="卸货地名称：重庆中心场站" />
+
+        <TextView
+            android:id="@+id/tv_destination_contact"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="卸货联系人：王琦（18523520173）" />
+
+        <TextView
+            android:id="@+id/tv_goods_name"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="货物名称：打印机" />
+
+        <TextView
+            android:id="@+id/tv_goods_weight"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="货物重量(公斤)：2000" />
+
+        <TextView
+            android:id="@+id/tv_GPS_number"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="GPS号码：   12345678" />
+
+        <TextView
+            android:id="@+id/tv_goods_flight"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="货运班次：   0408" />
+
+
+        <TextView
+            style="@style/tv_10sp_blue_bold"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawableLeft="@drawable/title_hint"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:text="@string/transport_time"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_shipping_time"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="计划装货时间：   8月1日 18:56" />
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="最晚发货时间：   8月1日 18:56" />
+
+
+        <TextView
+            android:id="@+id/tv_arrive_time"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="计划到达时间：   8月1日 18:56" />
+
+
+        <TextView
+            style="@style/tv_10sp_blue_bold"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawableLeft="@drawable/title_hint"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:text="@string/freight"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_driver_fee"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="司机运费（元）：   12000" />
+
+        <TextView
+            android:id="@+id/tv_driver_preFee"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="预付款（元）：   8000 （审核中）" />
+
+        <TextView
+            android:id="@+id/tv_driver_actualFee"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="预付款实际支付（元）：  （备注：支付后显示）" />
+
+        <TextView
+            style="@style/tv_10sp_blue_bold"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawableLeft="@drawable/title_hint"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:text="@string/oil_pay"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_PetroChina"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="中石化卡：1500元（实际支付：200元）" />
+
+        <TextView
+            android:id="@+id/tv_Sinopec"
+            style="@style/tv_10sp_blue_bold"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            tools:text="中石油卡：200元（实际支付：20元）" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_extra_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawableLeft="@drawable/title_hint"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/dp_14"
+                android:text="@string/additional_charges"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/tv_overweight_fee"
+                style="@style/tv_10sp_blue_bold"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/dp_14"
+                tools:text="超重费：   1000元" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

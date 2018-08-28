@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="false" android:drawable="@drawable/shape_task_reject_order_not_clicked" />
-    <item android:state_pressed="true" android:drawable="@drawable/shape_task_reject_order_clicked" />
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#aaffff" />
+            <corners android:bottomRightRadius="@dimen/dp_10" android:topRightRadius="@dimen/dp_10" />
+            <padding android:bottom="@dimen/dp_13" android:top="@dimen/dp_13" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle">
+            <solid android:color="#662fd1" />
+            <corners android:bottomRightRadius="@dimen/dp_10" android:topRightRadius="@dimen/dp_10" />
+            <padding android:bottom="@dimen/dp_13" android:top="@dimen/dp_13" />
+        </shape>
+    </item>
+
+
 </selector>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_20"
+    android:paddingLeft="@dimen/dp_30"
+    android:paddingRight="@dimen/dp_30">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_radius10_stroke2"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_30">
+
+        <ImageView
+            android:id="@+id/iv_order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/not_accept_order" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_radius5_solidBlue"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:background="@drawable/shape_circle_stroke1"
+                android:gravity="center"
+                android:text="@string/start"
+                android:textColor="@color/basic_blue"
+                android:textSize="@dimen/sp_9" />
+
+
+            <TextView
+                android:id="@+id/tv_order_id"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/sp_8"
+                android:textStyle="normal"
+                tools:text="订单编号：TBQQ20180731001" />
+
+
+            <TextView
+                style="@style/tv_radius5_solidBlue"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:background="@drawable/shape_circle_stroke1"
+                android:gravity="center"
+                android:text="@string/end"
+                android:textColor="@color/basic_blue"
+                android:textSize="@dimen/sp_9" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_departure"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_14"
+                android:textSize="@dimen/sp_16"
+                tools:text="湖南娄底" />
+
+            <ImageView
+                android:id="@+id/iv_car"
+                android:layout_width="81dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="16dp"
+                android:layout_toRightOf="@id/tv_departure"
+                android:src="@drawable/truck" />
+
+            <TextView
+                android:id="@+id/tv_destination"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_14"
+                android:layout_toRightOf="@id/iv_car"
+                android:textSize="@dimen/sp_16"
+                tools:text="重庆北站" />
+
+            <TextView
+                android:id="@+id/tv_schedule_time"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_below="@id/tv_departure"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textColor="@color/basic_blue"
+                android:textSize="@dimen/sp_7"
+                android:textStyle="normal"
+                tools:text="计划装货：18/08/08  18:01" />
+
+            <TextView
+                android:id="@+id/tv_latest_time"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_below="@id/tv_schedule_time"
+                android:textColor="@color/basic_blue"
+                android:textSize="@dimen/sp_7"
+                android:textStyle="normal"
+                tools:text="最晚发货：18/09/04  14:01" />
+
+
+            <TextView
+                android:id="@+id/tv_method"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_alignTop="@id/tv_schedule_time"
+                android:layout_below="@id/tv_schedule_time"
+                android:layout_centerInParent="true"
+                android:textColor="@color/basic_blue"
+                android:textSize="@dimen/sp_10"
+                tools:text="直达" />
+
+
+            <TextView
+                android:id="@+id/tv_schdule_arrive_time"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_alignLeft="@id/tv_destination"
+                android:layout_alignTop="@id/tv_schedule_time"
+                android:layout_below="@id/tv_destination"
+                android:textColor="@color/basic_blue"
+                android:textSize="@dimen/sp_7"
+                android:textStyle="normal"
+                tools:text="最晚发货：18/09/04  14:01" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="-1dp"
+        android:src="@drawable/shape_blue_dash_line" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:src="@drawable/shape_blue_dash_line" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_accept_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/accept_order_short"
+            android:background="@drawable/selector_task_accept_order_bg"
+            android:textColor="@drawable/selector_position_text_color"
+            android:textSize="@dimen/sp_10" />
+
+        <Button
+            android:id="@+id/btn_reject_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reject"
+            android:background="@drawable/selector_task_reject_order_bg"
+            android:textColor="@drawable/selector_position_text_color"
+            android:textSize="@dimen/sp_10" />
+
+        <Button
+            android:id="@+id/btn_start_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发车"
+            android:background="@drawable/selector_task_start_order_bg"
+            android:textColor="@drawable/selector_position_text_color"
+            android:textSize="@dimen/sp_10"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

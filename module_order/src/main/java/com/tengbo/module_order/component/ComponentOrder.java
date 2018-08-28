@@ -1,10 +1,10 @@
-package com.tengbo.module_order;
+package com.tengbo.module_order.component;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
 import com.tengbo.commonlibrary.common.ComponentConfig;
-import com.tengbo.module_order.history.HistoryOrderFragment;
+import com.tengbo.module_order.fragment.history.HistoryOrderDetailFragment;
 
 public class ComponentOrder implements IComponent {
 
@@ -25,7 +25,7 @@ public class ComponentOrder implements IComponent {
     }
 
     private void returnFragment(CC cc) {
-        CC.sendCCResult(cc.getCallId(), CCResult.success(ComponentConfig.OrderComponentConfig.ACTION_GET_HISTORY_FRAGMENT, HistoryOrderFragment.newInstance())
+        CC.sendCCResult(cc.getCallId(), CCResult.success(ComponentConfig.OrderComponentConfig.ACTION_GET_HISTORY_FRAGMENT, HistoryOrderDetailFragment.newInstance())
         );
     }
 }

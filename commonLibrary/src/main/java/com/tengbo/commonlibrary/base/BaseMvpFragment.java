@@ -3,27 +3,26 @@ package com.tengbo.commonlibrary.base;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tengbo.commonlibrary.mvp.BasePresenter;
-import com.tengbo.commonlibrary.mvp.IView;
+import com.tengbo.commonlibrary.fragmentation.SupportFragment;
+import com.tengbo.commonlibrary.mvp.IPresenter;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment implements IView{
+public abstract class BaseMvpFragment<T extends IPresenter> extends SupportFragment{
 
 
-    private View mRootView;
+    protected View mRootView;
     protected FragmentManager mSupportFragmentManager;
     protected FragmentActivity mFragmentActivity;
-    private T mPresent;
-    private Unbinder mUnbinder;
+    protected T mPresent;
+    private Unbinder mUnBinder;
 
 
     @Override
@@ -53,7 +52,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(getLayoutId(), container, false);
-            mUnbinder = ButterKnife.bind(this, mRootView);
+            mUnBinder = ButterKnife.bind(this, mRootView);
             initView();
         }
 
@@ -77,6 +76,6 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mUnbinder.unbind();
+        mUnBinder.unbind();
     }
 }

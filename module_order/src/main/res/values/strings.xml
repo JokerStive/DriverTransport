@@ -8,6 +8,7 @@
     <string name="place_of_pick_up_goods">提货地名称:</string>
     <string name="contact_of_pick_up_goods">提货联系人:</string>
     <string name="place_of_unload">卸货地名称:</string>
+    <string name="order_id">订单编号:</string>
     <string name="contact_of_unload">卸货联系人:</string>
     <string name="name_of_goods">货物名称:</string>
     <string name="weight_of_goods">货物重量 (公斤):</string>

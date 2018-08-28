@@ -8,21 +8,21 @@ package cn.jpush.client.android;
 
 public final class R {
     public static final class drawable {
-        public static int jpush_ic_richpush_actionbar_back = 0x7f090075;
-        public static int jpush_ic_richpush_actionbar_divider = 0x7f090076;
-        public static int jpush_richpush_btn_selector = 0x7f090078;
-        public static int jpush_richpush_progressbar = 0x7f090079;
+        public static int jpush_ic_richpush_actionbar_back = 0x7f090079;
+        public static int jpush_ic_richpush_actionbar_divider = 0x7f09007a;
+        public static int jpush_richpush_btn_selector = 0x7f09007c;
+        public static int jpush_richpush_progressbar = 0x7f09007d;
     }
     public static final class id {
         public static int actionbarLayoutId = 0x7f0c0017;
         public static int fullWebView = 0x7f0c005e;
-        public static int imgRichpushBtnBack = 0x7f0c0066;
-        public static int imgView = 0x7f0c0067;
-        public static int popLayoutId = 0x7f0c0096;
-        public static int pushPrograssBar = 0x7f0c009b;
-        public static int rlRichpushTitleBar = 0x7f0c00a1;
-        public static int tvRichpushTitle = 0x7f0c00e4;
-        public static int wvPopwin = 0x7f0c00fc;
+        public static int imgRichpushBtnBack = 0x7f0c0067;
+        public static int imgView = 0x7f0c0068;
+        public static int popLayoutId = 0x7f0c0098;
+        public static int pushPrograssBar = 0x7f0c009d;
+        public static int rlRichpushTitleBar = 0x7f0c00a3;
+        public static int tvRichpushTitle = 0x7f0c00e6;
+        public static int wvPopwin = 0x7f0c00fe;
     }
     public static final class layout {
         public static int jpush_popwin_layout = 0x7f0f0036;

@@ -35,7 +35,7 @@
     </style>
 
     <style name="tv_radius5_solidBlue" >
-        <item name="android:background">@drawable/selector_radius20_solid_blue</item>
+        <item name="android:background">@drawable/selector_position_bg</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/sp_14</item>
