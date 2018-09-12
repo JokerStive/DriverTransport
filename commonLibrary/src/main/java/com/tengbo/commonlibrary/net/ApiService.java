@@ -1,18 +1,23 @@
 package com.tengbo.commonlibrary.net;
 
 
+import com.tengbo.commonlibrary.commonBean.Account;
 import com.tengbo.commonlibrary.commonBean.BankCardInfo;
+import com.tengbo.commonlibrary.commonBean.FileUrl;
+import com.tengbo.commonlibrary.commonBean.LoginInfo;
 import com.tengbo.commonlibrary.commonBean.PersonInfo;
 import com.tengbo.commonlibrary.commonBean.Token;
 
+import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
+import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -22,65 +27,61 @@ import rx.Observable;
  */
 public interface ApiService {
 
-    @FormUrlEncoded
-    @POST("login")
-    Observable<BaseResponse<Token>> login(@Field("faccountName") String username , @Field("faccountName") String password);
 
     /**
-     * 获取个人信息
-     * @param token
-     * @return
+     * 登录
      */
-    @FormUrlEncoded
-    @POST("app/client/driver/liscense/user/info/selectInfo")
-    Observable<BaseResponse<PersonInfo>> getPersonalInfo(@Field("faccountId") int token);
+    @POST("auth/login")
+    Observable<BaseResponse<LoginInfo>> login(@Body RequestBody body);
+
+
+    /**
+     * 测试接口
+     */
+    @POST("auth/hello")
+    Observable<BaseResponse<Object>> hello();
+
 
     /**
      * 修改密码
-     * @param token
-     * @param map
-     * @return
      */
-    @FormUrlEncoded
-    @POST("updatePasswd")
-    Observable<BaseResponse> updatePassword(@Field("faccountId") int token, @FieldMap Map<String, String> map);
+    @POST("permission/updatePassword")
+    Observable<BaseResponse<Object>> updatePassword(@Body RequestBody body);
 
     /**
      * 获取原银行卡信息
-     * @param token
-     * @return
      */
-    @FormUrlEncoded
-    @POST("app/client/driver/liscense/user/bankcard/selectInfo")
-    Observable<BaseResponse<BankCardInfo>> getBankCardInfo(@Field("faccountId") int token);
+    @POST("user/getUserBankcard")
+    Observable<BaseResponse<List<BankCardInfo>>> getBankCardInfos(@Body RequestBody body);
 
     /**
-     * 银行卡信息更改
-     * @param token
-     * @param map
-     * @return
+     * 设置默认银行卡
      */
-    @FormUrlEncoded
-    @POST("app/client/driver/liscense/user/bankcard/updateInfo")
-    Observable<BaseResponse> updateBankCardInfo(@Field("faccountId") int token, @FieldMap Map<String, String> map);
+    @POST("user/getUserBankcard")
+    Observable<BaseResponse<Object>> setDefaultBankCard(@Body RequestBody body);
 
     /**
-     *
-     * @param token
-     * @param params
-     * @return
+     * 修改银行卡
+     */
+    @POST("user/updateAppUserBankcard")
+    Observable<BaseResponse<Object>> updateBankCardInfo(@Body RequestBody body);
+
+    /**
+     * 新增银行卡
+     */
+    @POST("user/addUserBankcard")
+    Observable<BaseResponse<Object>> addBankCardInfo(@Body RequestBody body);
+
+    /**
+     * 上传文件
      */
     @Multipart
     @POST("file/upload")
-    Observable<BaseResponse> uploadAvatar(@Query("faccountId") int token, @PartMap Map<String, RequestBody> params);
+    Observable<BaseResponse<FileUrl>> uploadFiles(@PartMap Map<String, RequestBody> param);
 
     /**
-     * 上传头像地址
-     * @param token
-     * @param address
-     * @return
+     * 修改用户信息
      */
-    @FormUrlEncoded
-    @POST("app/client/driver/liscense/user/info/updateImage")
-    Observable<BaseResponse> uploadAvatarAddress(@Field("faccountId") int token, @Field("fuserAvatar") String address);
+    @POST("user/updateUserSuInfo")
+    Observable<BaseResponse> updateUserInfo(@Body Account account);
 }

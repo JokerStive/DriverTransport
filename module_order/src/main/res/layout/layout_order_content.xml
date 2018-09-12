@@ -30,6 +30,7 @@
             android:layout_marginLeft="20dp"
             android:drawablePadding="@dimen/dp_4"
             android:drawableTop="@drawable/driver"
+            android:gravity="center_horizontal"
             tools:text="张三" />
 
         <View
@@ -94,7 +95,7 @@
 
         <TextView
             style="@style/tv_10sp_blue_bold"
-            android:drawableLeft="@drawable/title_hint"
+            android:drawableLeft="@drawable/shape_line_blue"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
@@ -102,11 +103,11 @@
             android:textSize="@dimen/sp_12" />
 
         <TextView
-            android:textStyle="normal"
             android:id="@+id/tv_departure"
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="提货地名称：重庆富士康" />
 
         <TextView
@@ -114,6 +115,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="提货联系人：王琦（18523520173）" />
 
         <TextView
@@ -121,6 +123,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="卸货地名称：重庆中心场站" />
 
         <TextView
@@ -128,6 +131,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="卸货联系人：王琦（18523520173）" />
 
         <TextView
@@ -135,6 +139,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="货物名称：打印机" />
 
         <TextView
@@ -142,6 +147,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="货物重量(公斤)：2000" />
 
         <TextView
@@ -149,6 +155,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="GPS号码：   12345678" />
 
         <TextView
@@ -156,13 +163,14 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="货运班次：   0408" />
 
 
         <TextView
             style="@style/tv_10sp_blue_bold"
             android:layout_marginTop="@dimen/dp_10"
-            android:drawableLeft="@drawable/title_hint"
+            android:drawableLeft="@drawable/shape_line_blue"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
@@ -174,6 +182,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="计划装货时间：   8月1日 18:56" />
 
         <TextView
@@ -181,6 +190,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="最晚发货时间：   8月1日 18:56" />
 
 
@@ -189,13 +199,14 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="计划到达时间：   8月1日 18:56" />
 
 
         <TextView
             style="@style/tv_10sp_blue_bold"
             android:layout_marginTop="@dimen/dp_10"
-            android:drawableLeft="@drawable/title_hint"
+            android:drawableLeft="@drawable/shape_line_blue"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
@@ -207,6 +218,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="司机运费（元）：   12000" />
 
         <TextView
@@ -214,6 +226,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="预付款（元）：   8000 （审核中）" />
 
         <TextView
@@ -221,12 +234,13 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="预付款实际支付（元）：  （备注：支付后显示）" />
 
         <TextView
             style="@style/tv_10sp_blue_bold"
             android:layout_marginTop="@dimen/dp_10"
-            android:drawableLeft="@drawable/title_hint"
+            android:drawableLeft="@drawable/shape_line_blue"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
@@ -238,6 +252,7 @@
             style="@style/tv_10sp_blue_bold"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="中石化卡：1500元（实际支付：200元）" />
 
         <TextView
@@ -246,6 +261,7 @@
             android:baselineAligned="false"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
             tools:text="中石油卡：200元（实际支付：20元）" />
 
 
@@ -259,7 +275,7 @@
             <TextView
                 style="@style/tv_10sp_blue_bold"
                 android:layout_marginTop="@dimen/dp_10"
-                android:drawableLeft="@drawable/title_hint"
+                android:drawableLeft="@drawable/shape_line_blue"
                 android:drawablePadding="15dp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/dp_14"

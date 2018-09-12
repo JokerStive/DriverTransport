@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/basic_white"
+    >
+
+    <include
+        layout="@layout/layout_order_content"
+        />
+
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:drawableLeft="@drawable/shape_line_blue"
+        android:drawablePadding="15dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:text="业务进度记录"
+        android:textSize="@dimen/sp_12" />
+
+
+
+    <ImageView
+        android:id="@+id/iv_hint"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:src="@drawable/ic_launcher" />
+
+
+
+</LinearLayout>

@@ -22,7 +22,7 @@ public class DownNotification {
         mNotifyBuilder = new NotificationCompat.Builder(mContext, "")
                 .setContentTitle("文件下载中...")
                 .setContentText("下载进度0%")
-                .setSmallIcon(R.drawable.icon_password);
+                .setSmallIcon(R.drawable.main_icon_password);
         manager = (NotificationManager) mContext
                 .getSystemService(Context.NOTIFICATION_SERVICE);
     }

@@ -1,283 +1,283 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
 	package
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:4:5-45
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:4:5-45
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
 	xmlns:tools
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:3:5-51
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:1-157:12
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:2:11-69
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:2:11-69
 permission#com.tengbo.drivertransport.permission.JPUSH_MESSAGE
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:6:5-8:47
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:6:5-8:47
 	android:protectionLevel
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:8:9-44
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:8:9-44
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:7:9-75
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:7:9-75
 application
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:10:5-156:19
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:10:5-156:19
 	android:theme
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:10:18-49
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:10:18-49
 activity#com.tengbo.module_push_message.jpush.MainActivity
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:13:9-17:20
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:13:9-17:20
 	android:label
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:15:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:15:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:14:13-47
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:14:13-47
 activity#com.tengbo.module_push_message.jpush.PushSetActivity
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:19:9-21:47
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:19:9-21:47
 	android:label
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:21:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:21:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:20:13-50
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:20:13-50
 activity#com.tengbo.module_push_message.jpush.SettingActivity
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:23:9-25:47
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:23:9-25:47
 	android:label
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:25:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:25:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:24:13-50
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:24:13-50
 activity#com.tengbo.module_push_message.jpush.TestActivity
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:27:9-34:20
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:27:9-34:20
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:29:13-37
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:29:13-37
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:28:13-47
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:28:13-47
 intent-filter#action:name:jpush.testAction+category:name:jpush.testCategory
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:30:13-33:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:30:13-33:29
 action#jpush.testAction
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:31:17-59
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:31:17-59
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:31:25-56
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:31:25-56
 category#jpush.testCategory
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:32:17-63
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:32:17-63
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:32:27-60
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:32:27-60
 activity#cn.jpush.android.ui.PopWinActivity
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:37:9-40:51
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:37:9-40:51
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:39:13-37
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:39:13-37
 	android:theme
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:40:13-49
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:40:13-49
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:38:13-62
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:38:13-62
 activity#cn.jpush.android.ui.PushActivity
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:43:9-54:20
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:43:9-54:20
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:46:13-37
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:46:13-37
 	android:configChanges
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:45:13-63
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:45:13-63
 	android:theme
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:47:13-60
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:47:13-60
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:44:13-60
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:44:13-60
 intent-filter#action:name:cn.jpush.android.ui.PushActivity+category:name:android.intent.category.DEFAULT+category:name:com.tengbo.drivertransport
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:48:13-53:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:48:13-53:29
 action#cn.jpush.android.ui.PushActivity
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:49:17-75
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:49:17-75
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:49:25-72
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:49:25-72
 category#android.intent.category.DEFAULT
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:51:17-76
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:51:17-76
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:51:27-73
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:51:27-73
 category#com.tengbo.drivertransport
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:52:17-71
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:52:17-71
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:52:27-68
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:52:27-68
 service#cn.jpush.android.service.PushService
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:58:9-69:19
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:58:9-69:19
 	android:process
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:61:13-36
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:61:13-36
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:60:13-37
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:60:13-37
 	tools:replace
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:62:13-62
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:62:13-62
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:59:13-64
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:59:13-64
 intent-filter#action:name:cn.jpush.android.intent.PUSH_TIME+action:name:cn.jpush.android.intent.PushService+action:name:cn.jpush.android.intent.REGISTER+action:name:cn.jpush.android.intent.REPORT
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:63:13-68:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:63:13-68:29
 action#cn.jpush.android.intent.REGISTER
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:64:17-75
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:64:17-75
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:64:25-72
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:64:25-72
 action#cn.jpush.android.intent.REPORT
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:65:17-73
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:65:17-73
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:65:25-70
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:65:25-70
 action#cn.jpush.android.intent.PushService
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:66:17-78
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:66:17-78
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:66:25-75
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:66:25-75
 action#cn.jpush.android.intent.PUSH_TIME
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:67:17-76
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:67:17-76
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:67:25-73
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:67:25-73
 provider#cn.jpush.android.service.DataProvider
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:71:9-75:40
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:71:9-75:40
 	android:authorities
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:74:13-74
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:74:13-74
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:75:13-37
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:75:13-37
 	tools:replace
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:72:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:72:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:73:13-65
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:73:13-65
 service#cn.jpush.android.service.DaemonService
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:79:9-89:19
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:79:9-89:19
 	android:enabled
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:82:13-35
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:82:13-35
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:83:13-36
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:83:13-36
 	tools:replace
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:80:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:80:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:81:13-66
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:81:13-66
 intent-filter#action:name:cn.jpush.android.intent.DaemonService+category:name:com.tengbo.drivertransport
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:84:13-87:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:84:13-87:29
 action#cn.jpush.android.intent.DaemonService
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:85:17-80
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:85:17-80
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:85:25-77
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:85:25-77
 provider#cn.jpush.android.service.DownloadProvider
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:91:9-95:39
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:91:9-95:39
 	android:authorities
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:94:13-78
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:94:13-78
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:95:13-36
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:95:13-36
 	tools:replace
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:92:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:92:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:93:13-69
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:93:13-69
 receiver#cn.jpush.android.service.PushReceiver
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:97:9-117:20
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:97:9-117:20
 	android:enabled
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:100:13-35
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:100:13-35
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:101:13-37
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:101:13-37
 	tools:replace
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:98:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:98:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:99:13-65
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:99:13-65
 intent-filter#action:name:cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY+category:name:com.tengbo.drivertransport
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:102:13-105:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:102:13-105:29
 	android:priority
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:102:28-51
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:102:28-51
 action#cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:103:17-94
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:103:17-94
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:103:25-91
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:103:25-91
 intent-filter#action:name:android.intent.action.USER_PRESENT+action:name:android.net.conn.CONNECTIVITY_CHANGE
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:106:13-109:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:106:13-109:29
 action#android.intent.action.USER_PRESENT
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:107:17-77
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:107:17-77
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:107:25-74
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:107:25-74
 action#android.net.conn.CONNECTIVITY_CHANGE
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:108:17-79
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:108:17-79
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:108:25-76
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:108:25-76
 intent-filter#action:name:android.intent.action.PACKAGE_ADDED+action:name:android.intent.action.PACKAGE_REMOVED+data:scheme:package
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:111:13-116:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:111:13-116:29
 action#android.intent.action.PACKAGE_ADDED
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:112:17-78
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:112:17-78
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:112:25-75
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:112:25-75
 action#android.intent.action.PACKAGE_REMOVED
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:113:17-80
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:113:17-80
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:113:25-77
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:113:25-77
 data
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:115:17-50
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:115:17-50
 	android:scheme
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:115:23-47
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:115:23-47
 receiver#cn.jpush.android.service.AlarmReceiver
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:120:9-123:40
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:120:9-123:40
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:123:13-37
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:123:13-37
 	tools:replace
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:121:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:121:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:122:13-66
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:122:13-66
 receiver#com.tengbo.module_push_message.jpush.JPushReceiver
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:126:9-139:20
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:126:9-139:20
 	android:enabled
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:129:13-35
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:129:13-35
 	android:exported
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:130:13-37
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:130:13-37
 	tools:replace
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:127:13-45
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:127:13-45
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:128:13-48
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:128:13-48
 intent-filter#action:name:cn.jpush.android.intent.CONNECTION+action:name:cn.jpush.android.intent.MESSAGE_RECEIVED+action:name:cn.jpush.android.intent.NOTIFICATION_OPENED+action:name:cn.jpush.android.intent.NOTIFICATION_RECEIVED+action:name:cn.jpush.android.intent.REGISTRATION+category:name:com.tengbo.drivertransport
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:131:13-138:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:131:13-138:29
 action#cn.jpush.android.intent.REGISTRATION
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:132:17-79
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:132:17-79
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:132:25-76
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:132:25-76
 action#cn.jpush.android.intent.MESSAGE_RECEIVED
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:133:17-83
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:133:17-83
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:133:25-80
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:133:25-80
 action#cn.jpush.android.intent.NOTIFICATION_RECEIVED
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:134:17-88
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:134:17-88
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:134:25-85
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:134:25-85
 action#cn.jpush.android.intent.NOTIFICATION_OPENED
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:135:17-86
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:135:17-86
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:135:25-83
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:135:25-83
 action#cn.jpush.android.intent.CONNECTION
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:136:17-77
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:136:17-77
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:136:25-74
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:136:25-74
 receiver#com.tengbo.module_push_message.jpush.MyJPushMessageReceiver
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:142:9-147:20
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:142:9-147:20
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:142:19-63
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:142:19-63
 intent-filter#action:name:cn.jpush.android.intent.RECEIVE_MESSAGE+category:name:com.tengbo.drivertransport
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:143:13-146:29
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:143:13-146:29
 action#cn.jpush.android.intent.RECEIVE_MESSAGE
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:144:17-82
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:144:17-82
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:144:25-79
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:144:25-79
 meta-data#JPUSH_CHANNEL
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:149:9-151:49
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:149:9-151:49
 	android:value
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:151:13-46
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:151:13-46
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:150:13-41
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:150:13-41
 meta-data#JPUSH_APPKEY
-ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:152:9-154:56
+ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:152:9-154:56
 	android:value
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:154:13-53
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:154:13-53
 	android:name
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml:153:13-40
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml:153:13-40
 uses-sdk
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-		ADDED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
-		INJECTED from D:\Application\DriverTransport\module_push_message\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidDeveloperTools\DriverApp-android\module_push_message\src\main\AndroidManifest.xml

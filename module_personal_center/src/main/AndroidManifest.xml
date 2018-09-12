@@ -9,16 +9,11 @@
             android:name=".activity.UpdatePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.DebugActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:name=".activity.AddBankCardInfoActivity"
+            android:screenOrientation="portrait" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
-            android:name=".activity.UpdateBankCardInfoActivity"
+            android:name=".activity.BankCardListActivity"
             android:screenOrientation="portrait" />
     </application>
 

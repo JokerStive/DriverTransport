@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/basic_white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_20"
+    android:paddingLeft="@dimen/dp_40"
+    android:paddingRight="@dimen/dp_40">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_radius10_stroke2"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
+
+
+        <TextView
+            android:id="@+id/tv_inspect_name"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_40"
+            android:textSize="@dimen/sp_10"
+            android:textStyle="normal"
+            tools:text="仪表检查" />
+
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@color/basic_blue" />
+
+
+        <TextView
+            android:id="@+id/tv_inspect_detail"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:maxLines="4"
+            android:textSize="@dimen/sp_8"
+            android:textStyle="normal"
+            tools:text="启动发动机预热1-3分钟运转正常，无异响；各启动发动机预热1-3分钟运转正常，无异响；各" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:text="出车前"
+                android:textSize="@dimen/sp_18" />
+
+            <RadioGroup
+                android:id="@+id/rg_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_first_positive"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_radio_button"
+
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="@string/qualified"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_first_negative"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_radio_button"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="异常"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="normal" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:text="行车中"
+                android:textSize="@dimen/sp_18" />
+
+            <RadioGroup
+                android:id="@+id/rg_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_second_positive"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_radio_button"
+
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="@string/qualified"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_second_negative"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_radio_button"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="异常"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="normal" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:text="出车后"
+                android:textSize="@dimen/sp_18" />
+
+            <RadioGroup
+                android:id="@+id/rg_third"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_third_positive"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_radio_button"
+
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="@string/qualified"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_third_negative"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_radio_button"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="异常"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="normal" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

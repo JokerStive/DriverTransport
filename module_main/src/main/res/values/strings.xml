@@ -2,7 +2,7 @@
     <string name="app_name">Module_main</string>
     <string name="login">登陆</string>
     <string name="login_welcome">Hi，游客</string>
-    <string name="point_input_username">请输入手机号</string>
+    <string name="point_input_username">请输入账号</string>
     <string name="point_input_password">请输入密码</string>
     <string name="point_input_verification">请输入验证码</string>
     <string name="refresh">刷新</string>

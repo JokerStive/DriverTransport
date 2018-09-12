@@ -1,12 +1,19 @@
 package com.tengbo.module_personal_center.activity;
 
+import android.text.InputType;
 import android.text.TextUtils;
+import android.util.JsonReader;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
+import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.Config;
+import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.net.ApiException;
 import com.tengbo.commonlibrary.net.BaseResponse;
 import com.tengbo.commonlibrary.net.NetHelper;
@@ -14,7 +21,9 @@ import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.module_personal_center.R;
 import com.tengbo.module_personal_center.R2;
+import com.tengbo.module_personal_center.custom.view.LineEditText;
 import com.tengbo.module_personal_center.custom.view.NoEmojiEditText;
+import com.tengbo.module_personal_center.utils.BankCardValidUtils;
 import com.tengbo.module_personal_center.utils.Constant;
 import com.tengbo.module_personal_center.utils.DialogUtils;
 import com.tengbo.module_personal_center.utils.LogUtils;
@@ -26,6 +35,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import utils.RequestUtils;
+import widget.TitleBar;
 
 /**
  * author WangChenchen
@@ -33,32 +44,43 @@ import butterknife.OnClick;
  */
 public class UpdatePasswordActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = "UpdatePasswordActivity";
 
     // 旧密码输入框
-    @BindView(R2.id.neet_old_password)
-    NoEmojiEditText neetOldPassword;
+    EditText etOldPassword;
     // 新密码输入框
-    @BindView(R2.id.neet_new_password)
-    NoEmojiEditText neetNewPassword;
+    EditText etNewPassword;
     // 新密码再次输入框
-    @BindView(R2.id.neet_re_new_password)
-    NoEmojiEditText neetReNewPassword;
+    EditText etReNewPassword;
     // 验证码输入框
-    @BindView(R2.id.neet_valid_code)
-    NoEmojiEditText neetValidCode;
+    EditText etValidCode;
     // 验证码视图
-    @BindView(R2.id.iv_valid_code)
     ImageView ivValidCode;
+
+    TitleBar titleBar;
 
     // 验证码生成工具类对象
     private CodeGeneUtils mCodeGeneUtils;
 
-    /**
-     * 初始化视图，在BaseActivity中
-     */
+
     @Override
     protected void initView() {
+
+        titleBar = findViewById(R.id.titleBar);
+        titleBar.setOnBackClickListener(this::finish);
+
+        etOldPassword = findViewById(R.id.et_old_password);
+        etNewPassword = findViewById(R.id.et_new_password);
+        etReNewPassword = findViewById(R.id.et_re_new_password);
+        etValidCode = findViewById(R.id.et_valid_code);
+        ivValidCode = findViewById(R.id.iv_valid_code);
+
+
+        findViewById(R.id.btn_submit).setOnClickListener(this);
+        findViewById(R.id.btn_cancel).setOnClickListener(this);
+        findViewById(R.id.tv_refresh_valid_code).setOnClickListener(this);
+        findViewById(R.id.iv_valid_code).setOnClickListener(this);
+
+
         // 获取验证码生成工具类对象
         mCodeGeneUtils = CodeGeneUtils.getInstance();
         // 初始化验证码
@@ -68,11 +90,10 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
     /**
      * 获取输入框文本，并去除两端空格
      *
-     * @param neet 输入框
      * @return
      */
-    private String getText(NoEmojiEditText neet) {
-        return neet.getText().toString().trim();
+    private String getText(EditText editText) {
+        return editText.getText().toString().trim();
     }
 
     /**
@@ -84,40 +105,20 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
         ToastUtils.show(this, text);
     }
 
-    /**
-     * 显示提示对话框
-     *
-     * @param msg       对话框显示文本
-     * @param isSuccess 用于选择要显示的图标，true->R.mipmap.right， false->R.mipmap.wrong
-     */
-    private void showDialog(String msg, boolean isSuccess) {
-        // 设置要显示的图标sourceId
-        int imgId = R.mipmap.right;
-        if (!isSuccess)
-            imgId = R.mipmap.wrong;
-        DialogUtils.show(this, imgId, msg);
-    }
 
     /**
      * 处理按钮点击事件
      */
-    @OnClick({R2.id.btn_submit, R2.id.btn_cancel, R2.id.iv_valid_code, R2.id.tv_refresh_valid_code, R2.id.tv_back})
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        // 点击返回图标
-        if (id == R.id.tv_back) {
-            // 关闭本页面
-            finish();
-        }
-        // 点击提交
-        else if (id == R.id.btn_submit) {
+        if (id == R.id.btn_submit) {
             // 处理提交
             // 获取各个输入框的值
-            String oldPassword = getText(neetOldPassword);
-            String newPassword = getText(neetNewPassword);
-            String reNewPassword = getText(neetReNewPassword);
-            String inputValidCode = getText(neetValidCode).toLowerCase();
+            String oldPassword = getText(etOldPassword);
+            String newPassword = getText(etNewPassword);
+            String reNewPassword = getText(etReNewPassword);
+            String inputValidCode = getText(etValidCode).toLowerCase();
             String validCode = mCodeGeneUtils.getCode().toLowerCase();
             // 判断各个输入框是否为空
             if (TextUtils.isEmpty(oldPassword)) {
@@ -137,103 +138,76 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
             } else if (TextUtils.isEmpty(reNewPassword)) {
                 showToast("请再次输入新密码");
                 return;
+            } else if (!newPassword.equals(reNewPassword)) {
+                showToast("两次输入的新密码不一致");
+                return;
+            } else if (TextUtils.equals(newPassword, oldPassword)) {
+                showToast("新密码不能和旧密码一致");
+                return;
             } else if (TextUtils.isEmpty(inputValidCode)) {
                 showToast("请先输入验证码");
                 return;
-            }
-
-            // 判断两次新密码输入是否一致
-            if (!newPassword.equals(reNewPassword)) {
-                showToast("两次输入的新密码不一致");
-                return;
-            }
-
-            // 判断新、旧密码是否相同
-            if (oldPassword.equals(newPassword)) {
-                showToast("新密码不能和旧密码相同");
-                return;
-            }
-
-            // 判断验证码是否正确
-            if (!inputValidCode.equals(validCode)) {
+            } else if (!inputValidCode.toLowerCase().equals(validCode)) {
+                etValidCode.setText(null);
+                refreshValidCode();
                 showToast("验证码错误");
                 return;
             }
 
             // 网络校验旧密码、修改密码
-            // 请求个人信息
-            Map<String, String> map = new HashMap<>();
-            map.put("oldFLoginPwd", oldPassword);
-            map.put("newFLoginPwd", newPassword);
-            mSubscriptionManager.add(NetHelper.getInstance().getApi(Config.LOGIN_BASE_URL)
-                    .updatePassword(Constant.faccountId, map)
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("oldPassword", oldPassword);
+            jsonObject.put("newPassword", newPassword);
+            jsonObject.put("accountId", User.getId());
+            mSubscriptionManager.add(NetHelper.getInstance().getApi()
+                    .updatePassword(RequestUtils.createRequestBody(jsonObject.toJSONString()))
                     .compose(RxUtils.applySchedule())
-                    .subscribe(new ProgressSubscriber<BaseResponse>(this) {
-
+                    .compose(RxUtils.handleResult())
+                    .subscribe(new ProgressSubscriber<Object>() {
                         @Override
-                        protected void on_next(BaseResponse baseResponse) {
-                            LogUtils.e(TAG, "updatePassword on_next " + baseResponse.getCode());
-                            LogUtils.e(TAG, "updatePassword on_next " + baseResponse.getMessage());
-                            LogUtils.e(TAG, "updatePassword on_next " + baseResponse.getData());
-                            int code = baseResponse.getCode();
-                            switch (code) {
-                                case ResponseCode.STATUS_OK: // 请求成功
-                                    showDialog("密码修改成功", true);
-                                    break;
+                        protected void on_next(Object o) {
+                            ToastUtils.show(getApplicationContext(), "密码修改成功");
+                            etOldPassword.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            }, 300);
 
-                                case ResponseCode.PASSWORD_ERROR: // 密码错误
-                                    showDialog("密码错误", false);
-                                    break;
-
-                                case ResponseCode.SYSTEM_ERROR: // 系统错误
-                                    showDialog("系统错误，请稍候再试", false);
-                                    break;
-                            }
-                            // 刷新验证码
-                            refreshValidCode();
                         }
 
                         @Override
-                        protected void on_error(ApiException e) {
-                            int errorCode = e.getErrorCode();
-                            String errorMessage = e.getErrorMessage();
-                            // 处理具体错误
-                            LogUtils.e(TAG, "updatePassword on_error " + errorCode);
-                            LogUtils.e(TAG, "updatePassword on_error " + errorMessage);
-                        }
-
-                        @Override
-                        protected void on_net_error(Throwable e) {
-                            String message = e.getMessage();
-                            String totalMsg = e.toString();
-                            if (message.contains("404") || totalMsg.contains("SocketTimeoutException")
-                                    || totalMsg.contains("ConnectException") || totalMsg.contains("RuntimeException")) {
-                                showDialog("密码修改失败\n请稍候再试", false);
+                        public void onError(Throwable e) {
+                            if (e instanceof ApiException) {
+                                ToastUtils.show(BaseApplication.get(), ((ApiException) e).getErrorMessage());
+                                clearInput();
+                            } else {
+                                ToastUtils.show(BaseApplication.get(), e.getMessage());
                             }
-                            LogUtils.e(TAG, "updatePassword on_net_error " + e.getMessage());
-                            LogUtils.e(TAG, "updatePassword on_net_error " + e.getLocalizedMessage());
-                            LogUtils.e(TAG, "updatePassword on_net_error " + e.toString());
                         }
                     }));
 
         }
         // 点击取消
         else if (id == R.id.btn_cancel) {
-            // 处理取消，关闭本页面
             finish();
-        }
-        // 点击验证码图片或者刷新
-        else if (id == R.id.iv_valid_code || id == R.id.tv_refresh_valid_code) {
-            // 处理刷新验证码
+        } else if (id == R.id.tv_refresh_valid_code || id == R.id.iv_valid_code) {
             refreshValidCode();
         }
+    }
+
+    private void clearInput() {
+        refreshValidCode();
+        etOldPassword.setText(null);
+        etReNewPassword.setText(null);
+        etNewPassword.setText(null);
     }
 
     /**
      * 刷新验证码
      */
     private void refreshValidCode() {
-        neetValidCode.setText("");
+        etValidCode.setText("");
         ivValidCode.setImageBitmap(mCodeGeneUtils.createBitmap());
     }
 

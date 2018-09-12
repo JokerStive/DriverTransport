@@ -2,33 +2,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tengbo.module_main">
 
-    <application
-        android:name=".hotfix.SampleApplication"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.MainActivity" />
+    <application android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:launchMode="singleTask" />
+            android:name=".ui.home.MainActivity"
+            android:launchMode="singleTask">
+
+
+        </activity>
 
         <activity
-            android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" />
+            android:name=".ui.login.LoginActivity"
+            android:launchMode="singleTask" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
 
 
         <service android:name=".ui.update.DownLoadService" />
 
 
-        <!-- tinker 文件共享配置 -->
-        <provider
-            android:name=".hotfix.TinkerFileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+        <!--&lt;!&ndash; tinker 文件共享配置 &ndash;&gt;-->
+        <!--<provider-->
+        <!--android:name=".hotfix.TinkerFileProvider"-->
+        <!--android:authorities="${applicationId}.fileProvider"-->
+        <!--android:exported="false"-->
+        <!--android:grantUriPermissions="true">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--android:resource="@xml/file_paths" />-->
+        <!--</provider>-->
     </application>
 
 </manifest>

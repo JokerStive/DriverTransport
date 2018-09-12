@@ -1,6 +1,6 @@
 package com.tengbo.commonlibrary.net;
 
-public class BaseResponse<T> {
+public class BaseResponse<T > {
     private int code;
     private String msg;
     private T data;

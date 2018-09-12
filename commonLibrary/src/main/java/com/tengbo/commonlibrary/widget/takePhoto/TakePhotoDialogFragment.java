@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -23,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import com.tengbo.basiclibrary.utils.Android7FileProvider;
 import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.commonlibrary.R;
 import com.tengbo.commonlibrary.base.BaseActivity;
@@ -36,8 +36,11 @@ import com.tengbo.commonlibrary.widget.takePhoto.imageselector.utils.ImageSelect
 import com.tengbo.commonlibrary.widget.takePhoto.imageselector.utils.ImageSelectorUtils;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 import utils.permission.PermissionManager;
@@ -58,8 +61,9 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
     private boolean isCrop = false;
     private static final String authority = BaseApplication.get().getApplicationInfo().packageName + ".fileprovider";
     private BaseActivity fragmentActivity;
-    private File cameraFile;
+    private File takePictureFile;
     private Uri cropOutPutUri;
+    private Context context = BaseApplication.get();
 
     public static TakePhotoDialogFragment newInstance(int photoCount, Boolean isCrop) {
         TakePhotoDialogFragment fragment = new TakePhotoDialogFragment();
@@ -179,22 +183,35 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
     }
 
     public void openCamera() {
-        cameraFile = new File(Environment.getExternalStorageDirectory().getPath(), System.currentTimeMillis() + ".jpg");
+        //以当前时间为文件名
+        String filename = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.CHINA).format(new Date()) + ".jpg";
+
+        //保存在公共sd卡中的picture目录吓
+        takePictureFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(), filename);
+
+        LogUtil.d("camera path = " + takePictureFile.getAbsolutePath());
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(fragmentActivity, authority, cameraFile);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
-        } else {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile));
-        }
+
+        //用fileProvider生成content://替代file://Uri
+        Uri contentUri = Android7FileProvider.getUriForFile(context, takePictureFile);
+
+        LogUtil.d(contentUri.toString());
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+
         startActivityForResult(intent, REQUEST_CODE_CAMERA);
     }
 
 
-    private Uri getUri() {
-        File file = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + "crop.jpg");
+    /**
+     * 裁剪的图片保存在内部存储里面，随着app卸载消失
+     *
+     * @return 获取裁剪的路径
+     */
+    private Uri getCropUri() {
+        String fileName = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.CHINA).format(new Date()) + "crop.jpg";
+        File file = new File(Environment.getDownloadCacheDirectory(), fileName);
         return Uri.fromFile(file);
     }
 
@@ -224,9 +241,9 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
             case REQUEST_CODE_CAMERA:
                 if (resultCode == RESULT_OK) {
                     if (isCrop) {
-                        crop(Uri.fromFile(cameraFile));
+                        crop(Uri.fromFile(takePictureFile));
                     } else {
-                        compressSignal(BaseApplication.get(), cameraFile.getPath());
+                        compressSignal(BaseApplication.get(), takePictureFile.getPath());
                     }
                 } else {
                     dismiss();
@@ -257,7 +274,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
     }
 
     private void crop(Uri inputUri) {
-        cropOutPutUri = getUri();
+        cropOutPutUri = getCropUri();
         Crop.of(inputUri, cropOutPutUri).asSquare().start(fragmentActivity);
     }
 
@@ -351,7 +368,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
                 .loadWithPaths(paths)
                 .asFileList()
                 .compose(RxUtils.applySchedule())
-                .subscribe(new ProgressSubscriber<List<File>>(fragmentActivity) {
+                .subscribe(new ProgressSubscriber<List<File>>() {
                     @Override
                     protected void on_next(List<File> files) {
                         if (listener != null) {

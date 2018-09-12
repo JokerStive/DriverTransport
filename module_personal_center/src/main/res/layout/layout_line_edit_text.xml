@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/basic_white"
+    android:orientation="vertical">
+
+    <EditText
+        android:maxLines="1"
+        android:id="@+id/et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="@null"
+        android:textColor="@color/basic_blue"
+        android:textColorHint="@color/basic_blue"
+        android:textSize="@dimen/sp_12"
+        tools:hint="请输入验证码" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="4dp"
+        android:background="@color/basic_blue" />
+
+</LinearLayout>

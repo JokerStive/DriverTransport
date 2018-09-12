@@ -32,7 +32,7 @@ public class ClipImageActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_clip_image);
+        setContentView(R.layout.common_activity_clip_image);
 
         Intent intent = getIntent();
         mRequestCode = intent.getIntExtra("requestCode", 0);

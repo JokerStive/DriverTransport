@@ -13,15 +13,15 @@ import com.tengbo.module_personal_center.fragment.PersonalCenterFragment;
 public class PersonalCenterComponent implements IComponent {
     @Override
     public String getName() {
-        return ComponentConfig.PersonalCenterComponentConfig.COMPONENT_NAME;
+        return ComponentConfig.PersonalCenter.COMPONENT_NAME;
     }
 
     @Override
     public boolean onCall(CC cc) {
         String actionName = cc.getActionName();
         switch (actionName) {
-            case ComponentConfig.PersonalCenterComponentConfig.ACTION_GET_PERSONAL_CENTER_FRAGMENT:
-                CC.sendCCResult(cc.getCallId(), CCResult.success(ComponentConfig.PersonalCenterComponentConfig.ACTION_GET_PERSONAL_CENTER_FRAGMENT, PersonalCenterFragment.newInstance()));
+            case ComponentConfig.PersonalCenter.ACTION_GET_PERSONAL_CENTER_FRAGMENT:
+                CC.sendCCResult(cc.getCallId(), CCResult.success(ComponentConfig.PersonalCenter.ACTION_GET_PERSONAL_CENTER_FRAGMENT, PersonalCenterFragment.newInstance()));
                 break;
         }
         return false;

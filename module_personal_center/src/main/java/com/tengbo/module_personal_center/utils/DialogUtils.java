@@ -21,7 +21,7 @@ public class DialogUtils {
      * @param imgId
      * @param msg
      */
-    public static void show(Context context, int imgId, String msg) {
+    public  void show(Context context, int imgId, String msg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_with_img, null);
         TextView tv_dialog = view.findViewById(R.id.tv_dialog);
@@ -42,7 +42,7 @@ public class DialogUtils {
      * @param msg
      * @param callBack
      */
-    public static void show(Context context, String title, String msg, CallBack callBack)
+    public  void show(Context context, String title, String msg, CallBack callBack)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_with_btn, null);

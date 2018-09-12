@@ -7,10 +7,17 @@
         <attr name="showThirds" format="boolean" />
         <attr name="showCircle" format="boolean" />
         <attr name="showHandles">
-          <enum name="changing" value="0" />
-          <enum name="always" value="1" />
-          <enum name="never" value="2" />
+            <enum name="changing" value="0" />
+            <enum name="always" value="1" />
+            <enum name="never" value="2" />
         </attr>
+    </declare-styleable>
+
+    <!--标题栏-->
+    <declare-styleable name="TitleBar">
+        <attr name="title" format="string" />
+        <attr name="operate" format="string" />
+        <attr name="showBack" format="boolean" />
     </declare-styleable>
 
 </resources>

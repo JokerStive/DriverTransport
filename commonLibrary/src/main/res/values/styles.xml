@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 
-
     <!--拍照获取图片dialogFragment-->
     <style name="ActionSheetDialogStyle" parent="@android:style/Theme.Dialog">
 
@@ -29,82 +28,101 @@
     </style>
 
 
-    <style name="Crop"/>
+    <style name="Crop" />
 
 
-    -<style name="Crop.DoneCancelBar">
+    -
 
-    <item name="android:layout_width">match_parent</item>
+    <style name="Crop.DoneCancelBar">
 
-    <item name="android:layout_height">@dimen/dp_100</item>
+        <item name="android:layout_width">match_parent</item>
 
-    <item name="android:orientation">horizontal</item>
+        <item name="android:layout_height">@dimen/dp_100</item>
 
-    <item name="android:divider">@drawable/crop__divider</item>
+        <item name="android:orientation">horizontal</item>
 
-    <item name="android:showDividers" tools:ignore="NewApi">middle</item>
+        <item name="android:divider">@drawable/crop__divider</item>
 
-    <item name="android:dividerPadding" tools:ignore="NewApi">12dp</item>
+        <item name="android:showDividers" tools:ignore="NewApi">middle</item>
 
-    <item name="android:background">@color/crop__button_bar</item>
+        <item name="android:dividerPadding" tools:ignore="NewApi">12dp</item>
 
-</style>
+        <item name="android:background">@color/crop__button_bar</item>
 
-
-    -<style name="Crop.ActionButton">
-
-    <item name="android:layout_width">0dp</item>
-
-    <item name="android:layout_height">match_parent</item>
-
-    <item name="android:layout_weight">1</item>
-
-    <item name="android:background">@drawable/crop__selectable_background</item>
-
-</style>
+    </style>
 
 
-    -<style name="Crop.ActionButtonText">
+    -
 
-    <item name="android:layout_width">wrap_content</item>
+    <style name="Crop.ActionButton">
 
-    <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
 
-    <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">match_parent</item>
 
-    <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_weight">1</item>
 
-    <item name="android:paddingRight">20dp</item>
+        <item name="android:background">@drawable/crop__selectable_background</item>
 
-    <!-- Offsets left drawable -->
-
-
-    <item name="android:drawablePadding">8dp</item>
-
-    <item name="android:textColor">@color/crop__button_text</item>
-
-    <item name="android:textStyle">bold</item>
-
-    <item name="android:textSize">13sp</item>
-
-</style>
+    </style>
 
 
-    -<style name="Crop.ActionButtonText.Done">
+    -
 
-    <item name="android:drawableLeft">@drawable/crop__ic_done</item>
+    <style name="Crop.ActionButtonText">
 
-    <item name="android:text">@string/crop__done</item>
+        <item name="android:layout_width">wrap_content</item>
 
-</style>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:layout_gravity">center</item>
+
+        <item name="android:gravity">center_vertical</item>
+
+        <item name="android:paddingRight">20dp</item>
+
+        <!-- Offsets left drawable -->
 
 
-    -<style name="Crop.ActionButtonText.Cancel">
+        <item name="android:drawablePadding">8dp</item>
 
-    <item name="android:drawableLeft">@drawable/crop__ic_cancel</item>
+        <item name="android:textColor">@color/crop__button_text</item>
 
-    <item name="android:text">@string/crop_cancel</item>
+        <item name="android:textStyle">bold</item>
 
-</style>
+        <item name="android:textSize">13sp</item>
+
+    </style>
+
+
+    -
+
+    <style name="Crop.ActionButtonText.Done">
+
+        <item name="android:drawableLeft">@drawable/crop__ic_done</item>
+
+        <item name="android:text">@string/crop__done</item>
+
+    </style>
+
+
+    -
+
+    <style name="Crop.ActionButtonText.Cancel">
+
+        <item name="android:drawableLeft">@drawable/crop__ic_cancel</item>
+
+        <item name="android:text">@string/crop_cancel</item>
+
+    </style>
+
+
+    <style name="tv_10sp_blue_bold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_10</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/basic_blue</item>
+    </style>
 
 </resources>

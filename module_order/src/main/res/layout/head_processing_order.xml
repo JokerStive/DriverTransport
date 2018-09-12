@@ -5,52 +5,23 @@
     android:layout_height="wrap_content"
     android:background="@color/basic_white"
     android:orientation="vertical"
-    android:padding="@dimen/dp_14">
+    android:paddingBottom="@dimen/dp_14">
 
 
     <LinearLayout
+        android:id="@+id/ll_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_driver_name"
-            style="@style/tv_10sp_blue_bold"
-            android:textSize="@dimen/sp_30"
-            tools:text="李先生" />
-
-        <TextView
-            android:id="@+id/tv_car_id"
-            style="@style/tv_10sp_blue_bold"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:textColor="#662fd1"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="normal"
-            tools:text="渝B48345" />
-
-
-    </LinearLayout>
-
-    <TextView
-        style="@style/tv_10sp_blue_bold"
-        android:layout_marginTop="@dimen/dp_10"
-        android:textSize="@dimen/sp_20"
-        tools:text="您好，请安全驾驶！" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_20"
-        android:background="@drawable/shape_radius10_stroke2"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
         android:orientation="vertical"
         android:paddingBottom="@dimen/dp_20"
+        android:background="@drawable/shape_radius5_solid_blue"
         android:paddingTop="@dimen/dp_20">
 
 
         <LinearLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -58,14 +29,14 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/tv_radius5_solidBlue"
+                android:id="@+id/tv_start"
+                style="@style/tv_10sp_blue_bold"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_20"
-                android:background="@drawable/shape_circle_stroke1"
                 android:gravity="center"
                 android:text="@string/start"
-                android:textColor="@color/basic_blue"
+                android:textColor="@color/basic_white"
                 android:textSize="@dimen/sp_9" />
 
 
@@ -75,20 +46,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:textColor="@color/basic_white"
                 android:textSize="@dimen/sp_8"
                 android:textStyle="normal"
                 tools:text="订单编号：TBQQ20180731001" />
 
 
             <TextView
-                style="@style/tv_radius5_solidBlue"
+                android:id="@+id/tv_end"
+                style="@style/tv_10sp_blue_bold"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:background="@drawable/shape_circle_stroke1"
                 android:gravity="center"
                 android:text="@string/end"
-                android:textColor="@color/basic_blue"
+                android:textColor="@color/basic_white"
                 android:textSize="@dimen/sp_9" />
         </LinearLayout>
 
@@ -96,7 +68,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_10"
             android:gravity="center_vertical">
 
@@ -106,14 +78,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp_14"
+                android:textColor="@color/basic_white"
                 android:textSize="@dimen/sp_16"
-                tools:text="湖南娄底" />
+                tools:text="湖南娄底哈哈哈哈" />
 
             <ImageView
                 android:id="@+id/iv_car"
                 android:layout_width="81dp"
                 android:layout_height="15dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="@dimen/dp_4"
                 android:layout_toRightOf="@id/tv_departure"
                 android:src="@drawable/truck" />
 
@@ -124,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp_14"
                 android:layout_toRightOf="@id/iv_car"
+                android:textColor="@color/basic_white"
                 android:textSize="@dimen/sp_16"
                 tools:text="重庆北站" />
 
@@ -132,19 +108,10 @@
                 style="@style/tv_10sp_blue_bold"
                 android:layout_below="@id/tv_departure"
                 android:layout_marginTop="@dimen/dp_10"
-                android:textColor="@color/basic_blue"
+                android:textColor="@color/basic_white"
                 android:textSize="@dimen/sp_7"
                 android:textStyle="normal"
-                tools:text="计划装货：18/08/08  18:01" />
-
-            <TextView
-                android:id="@+id/tv_latest_time"
-                style="@style/tv_10sp_blue_bold"
-                android:layout_below="@id/tv_schedule_time"
-                android:textColor="@color/basic_blue"
-                android:textSize="@dimen/sp_7"
-                android:textStyle="normal"
-                tools:text="最晚发货：18/09/04  14:01" />
+                tools:text="9月1日  18:01" />
 
 
             <TextView
@@ -153,50 +120,27 @@
                 android:layout_alignTop="@id/tv_schedule_time"
                 android:layout_below="@id/tv_schedule_time"
                 android:layout_centerInParent="true"
-                android:textColor="@color/basic_blue"
+                android:textColor="@color/basic_white"
                 android:textSize="@dimen/sp_10"
                 tools:text="直达" />
 
 
             <TextView
-                android:id="@+id/tv_schdule_arrive_time"
+                android:id="@+id/tv_schedule_arrive_time"
                 style="@style/tv_10sp_blue_bold"
                 android:layout_alignLeft="@id/tv_destination"
                 android:layout_alignTop="@id/tv_schedule_time"
                 android:layout_below="@id/tv_destination"
-                android:textColor="@color/basic_blue"
+                android:textColor="@color/basic_white"
                 android:textSize="@dimen/sp_7"
                 android:textStyle="normal"
-                tools:text="最晚发货：18/09/04  14:01" />
+                tools:text="9月1日  14:01" />
 
         </RelativeLayout>
 
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:src="@drawable/shape_blue_dash_line"
-        android:visibility="gone" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginLeft="@dimen/dp_30"
-        android:layout_marginRight="@dimen/dp_30"
-        android:src="@drawable/shape_blue_dash_line" />
-
-
-    <Button
-        android:id="@+id/btn_start_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_20"
-        android:textColor="@color/basic_white"
-        android:textSize="@dimen/sp_12"
-        tools:text="订单编号：TBQQ20180731001" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -206,21 +150,25 @@
 
         <TextView
             style="@style/tv_10sp_blue_bold"
-            android:drawableLeft="@drawable/title_hint"
+            android:drawableLeft="@drawable/shape_line_blue"
             android:drawablePadding="@dimen/dp_10"
             android:gravity="center_vertical"
-            android:text="@string/basic_info"
+            android:text="行车进程"
             android:textSize="@dimen/sp_12" />
 
 
         <TextView
-            android:id="@+id/btn_cancel_order"
+            android:paddingTop="@dimen/dp_4"
+            android:paddingBottom="@dimen/dp_4"
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_inspection_feedback"
             style="@style/tv_10sp_blue_bold"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20"
-            android:text="异常反馈" />
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:text="异常反馈"
+            android:textColor="@color/basic_white" />
 
     </RelativeLayout>
 

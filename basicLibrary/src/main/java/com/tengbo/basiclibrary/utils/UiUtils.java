@@ -8,9 +8,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 /**
- * Created by youke on 2016/7/11.
- * px dp工具
- */
+*@Autor yk
+*@Description
+*/
 public class UiUtils {
 
     public static int px2dp(Context context, float pxValue) {

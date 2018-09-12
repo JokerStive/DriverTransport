@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import com.tengbo.basiclibrary.widget.RxProgressDialog;
 import com.tengbo.commonlibrary.fragmentation.SupportActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -40,13 +42,11 @@ public abstract class BaseActivity extends SupportActivity {
         mUnbinder = ButterKnife.bind(this);
         baseActivityWeakReference = new WeakReference<>(this);
         setStatusBarColor();
-
-        if (getIntent() != null) {
-            onIntent(getIntent());
-        }
+        onIntent(getIntent());
         initView();
 
     }
+
 
     protected abstract int getLayoutId();
 
@@ -82,8 +82,6 @@ public abstract class BaseActivity extends SupportActivity {
     }
 
 
-
-
     /**
      * 修改状态栏颜色
      */
@@ -110,7 +108,7 @@ public abstract class BaseActivity extends SupportActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for (Fragment fragment : fragments) {
-            fragment.onRequestPermissionsResult(requestCode,permissions,grantResults);
+            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

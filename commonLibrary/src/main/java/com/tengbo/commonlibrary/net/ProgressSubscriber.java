@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.Looper;
 import android.text.TextUtils;
 
+import com.billy.cc.core.component.CC;
 import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.basiclibrary.widget.RxProgressDialog;
 import com.tengbo.commonlibrary.base.BaseApplication;
+import com.tengbo.commonlibrary.common.ComponentConfig;
 
 import java.lang.ref.WeakReference;
 
@@ -25,6 +27,7 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
 
     public ProgressSubscriber(Activity content) {
         if (content != null) {
+            LogUtil.d("dialig create..");
             this.activity = new WeakReference<>(content);
             needProgressBar = true;
         }
@@ -50,13 +53,11 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-//        com.orhanobut.logger.Logger.d("rx onComplete");
         hideDialog();
     }
 
     @Override
     public void onNext(T t) {
-//        com.orhanobut.logger.Logger.d("rx onNext");
         hideDialog();
         on_next(t);
     }
@@ -67,25 +68,18 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
 
     }
 
-    protected void on_net_error(java.lang.Throwable e)
-    {
-
-    }
 
     @Override
     public void onError(java.lang.Throwable e) {
         hideDialog();
-        if(TextUtils.isEmpty(e.getMessage())){
-            LogUtil.d(e.getMessage());
-        }
         if (e instanceof ApiException) {
             ApiException apiException = ((ApiException) e);
             LogUtil.d(apiException.getErrorCode() + "----" + apiException.getErrorMessage());
             ToastUtils.show(BaseApplication.get(), ((ApiException) e).getErrorMessage());
             on_error((ApiException) e);
-        }else
-        on_net_error(e);
-
+        } else {
+            LogUtil.d(e.getMessage());
+        }
     }
 
     private void hideDialog() {

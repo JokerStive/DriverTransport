@@ -11,6 +11,7 @@ public class LogUtil {
     public static void initLogger() {
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(false)
+                .methodCount(3)
                 .tag("TAG")
                 .build();
 //

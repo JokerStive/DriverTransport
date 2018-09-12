@@ -5,10 +5,6 @@
     </declare-styleable>
 
 
-    <!--标题栏-->
-    <declare-styleable name="TitleBar">
-        <attr name="title" format="string" />
-        <attr name="showBack" format="boolean" />
-    </declare-styleable>
+
 
 </resources>

@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.tengbo.commonlibrary.fragmentation.SupportFragment;
 import com.tengbo.commonlibrary.mvp.IPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -35,6 +37,8 @@ public abstract class BaseMvpFragment<T extends IPresenter> extends SupportFragm
 
         initPresent();
     }
+
+
 
 
     @Override

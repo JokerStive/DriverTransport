@@ -1,115 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/srl"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingLeft="@dimen/dp_50"
+    android:paddingRight="@dimen/dp_40"
+    android:scrollbars="none">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:scrollbars="none">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="87dp"
+            android:layout_marginTop="@dimen/dp_50"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_username"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/sp_20"
+                tools:text="王老师" />
+
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="87dp"
-                android:layout_marginTop="56dp"
-                android:orientation="horizontal">
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="33dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/pingfang_sc_bold"
-                        android:paddingLeft="20dp"
-                        android:textColor="@color/module_base_color"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_phone_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/pingfang_sc_bold"
-                        android:paddingLeft="20dp"
-                        android:textColor="@color/module_base_color"
-                        android:textSize="14sp" />
-                </LinearLayout>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_avatar"
-                    android:layout_width="78dp"
-                    android:layout_height="78dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="53dp"
-                    android:background="@mipmap/avatar_border"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:background="@drawable/avatar_border"
                     android:padding="1dp"
-                    android:src="@mipmap/logo" />
+                    android:src="@drawable/logo" />
+
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible" />
+
             </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingLeft="53dp"
-                android:paddingRight="53dp">
-
-                <TextView
-                    android:id="@+id/tv_update_bank_card_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="27dp"
-                    android:drawableLeft="@mipmap/update_bank_card_info"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/pingfang_sc_bold"
-                    android:gravity="center_vertical"
-                    android:text="@string/update_bank_card_info"
-                    android:textColor="@color/module_base_color" />
-
-                <TextView
-                    android:id="@+id/tv_update_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="27dp"
-                    android:drawableLeft="@mipmap/update_password"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/pingfang_sc_bold"
-                    android:gravity="center_vertical"
-                    android:text="@string/update_password"
-                    android:textColor="@color/module_base_color" />
+        </RelativeLayout>
 
 
-                <TextView
-                    android:id="@+id/tv_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="79dp"
-                    android:drawableLeft="@mipmap/logout"
-                    android:drawablePadding="20dp"
-                    android:fontFamily="@font/pingfang_sc_bold"
-                    android:gravity="center_vertical"
-                    android:text="@string/logout"
-                    android:textColor="@color/module_base_color" />
+        <TextView
+            android:id="@+id/tv_update_bank_card"
+            style="@style/tv_10sp_blue_bold"
+            android:drawableLeft="@drawable/update_bank_card_info"
+            android:drawablePadding="@dimen/dp_20"
+            android:gravity="center_vertical"
+            android:text="@string/set_bank_card_info"
+            android:textSize="@dimen/sp_14" />
 
-            </LinearLayout>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_update_password"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_30"
+            android:drawableLeft="@drawable/update_password"
+            android:drawablePadding="@dimen/dp_20"
+            android:gravity="center_vertical"
+            android:text="@string/update_password"
+            android:textSize="@dimen/sp_14" />
 
-    </ScrollView>
-</android.support.v4.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/tv_logout"
+            style="@style/tv_10sp_blue_bold"
+            android:drawableLeft="@drawable/logout"
+            android:drawablePadding="@dimen/dp_20"
+            android:gravity="center_vertical"
+            android:text="@string/logout"
+            android:textSize="@dimen/sp_14" />
+
+
+    </LinearLayout>
+
+</ScrollView>
+

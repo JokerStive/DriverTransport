@@ -75,6 +75,17 @@ public class NetHelper {
     }
 
 
+    public ApiService getApi() {
+        apis = new Retrofit.Builder()
+                .client(getOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(Config.BASE_URL)
+                .build().create(ApiService.class);
+        return apis;
+    }
+
+
     private static OkHttpClient getOkHttpClient() {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -84,8 +95,7 @@ public class NetHelper {
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(new HttpInterceptor())
-                .addNetworkInterceptor(new LogInterceptor(new HttpLogger()))
-//                .sslSocketFactory(getSslSocketFactory(), getTrustManager())
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
     }
 

@@ -12,13 +12,21 @@
         android:text="任务" />
 
     <Button
+        android:id="@+id/history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="历史" />
 
     <Button
+        android:id="@+id/processing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="进行中" />
+
+    <Button
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="消息" />
 
 </LinearLayout>

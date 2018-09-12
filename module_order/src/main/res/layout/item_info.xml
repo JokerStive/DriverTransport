@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_marginBottom="@dimen/dp_14"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginRight="@dimen/dp_14"
+        android:background="@drawable/shape_radius5_solid_gray"
+        android:padding="@dimen/dp_14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_to"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_width="wrap_content"
+            tools:text="调度万晓三：" />
+
+
+        <TextView
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_toRightOf="@id/tv_to"
+            android:id="@+id/tv_info"
+            android:maxLines="3"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_width="wrap_content"
+            tools:text="调度万晓三调度万晓三：调度万晓三：调度万晓三：调度万晓三：调度万晓三：调度万晓三：调度万晓三：" />
+    </RelativeLayout>
+</LinearLayout>

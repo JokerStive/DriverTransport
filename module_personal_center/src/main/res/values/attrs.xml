@@ -1,0 +1,16 @@
+<resources>
+
+    <attr name="cropImageStyle" format="reference" />
+
+    <!--标题栏-->
+    <declare-styleable name="LineEditText">
+        <attr name="hint" format="string" />
+        <attr name="hintTextColor" format="color" />
+        <attr name="text" format="string" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="inputType" format="string" />
+        <attr name="paddingLeft" format="dimension" />
+    </declare-styleable>
+
+</resources>

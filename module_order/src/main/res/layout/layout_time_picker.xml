@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/basic_white"
+    android:paddingTop="@dimen/dp_20"
+    android:paddingBottom="@dimen/dp_20"
+    android:paddingLeft="@dimen/dp_80"
+    android:paddingRight="@dimen/dp_80"
     android:orientation="vertical">
 
 
@@ -11,39 +15,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp" />
+         />
 
     <TextView
+        android:layout_margin="@dimen/dp_10"
         style="@style/tv_10sp_blue_bold"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/shape_circle_stroke1"
+        android:background="@drawable/shape_circle_stroke1_blue"
         android:gravity="center"
         android:text="到"
-        android:textSize="15sp" />
+        android:textSize="@dimen/sp_14" />
 
     <com.tengbo.module_order.custom.view.TimeSelector
         android:id="@+id/ts_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp" />
+        />
 
     <Button
-        android:paddingLeft="@dimen/dp_50"
-        android:paddingRight="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_10"
         android:id="@+id/btn_query"
         style="@style/tv_radius5_solidBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/selector_position_bg"
-        android:textColor="@drawable/selector_position_text_color"
+        android:paddingLeft="@dimen/dp_50"
+        android:paddingRight="@dimen/dp_50"
         android:text="@string/query"
-       />
+        android:textColor="@drawable/selector_position_text_color" />
 
 
 </LinearLayout>

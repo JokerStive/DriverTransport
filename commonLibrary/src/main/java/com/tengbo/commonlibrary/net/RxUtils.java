@@ -2,6 +2,8 @@ package com.tengbo.commonlibrary.net;
 
 import android.util.Log;
 
+import com.tengbo.basiclibrary.utils.LogUtil;
+
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -17,10 +19,8 @@ import rx.schedulers.Schedulers;
 public class RxUtils {
     public static <T> Observable.Transformer<BaseResponse<T>, T> handleResult() {
         return responseObservable -> responseObservable.map(baseResponse -> {
-            Log.e("gg", "rxx "+baseResponse.getCode());
-            Log.e("gg", "rxx "+baseResponse.getMessage());
-            Log.e("gg", "rxx "+baseResponse.getData());
             if (!baseResponse.isSuccess()) {
+
                 throw new ApiException(baseResponse.getCode(), baseResponse.getMessage());
             } else {
                 return baseResponse.getData();

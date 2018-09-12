@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/basic_white"
+    android:orientation="vertical">
+
+
+    <widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="异常反馈" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_13">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_30"
+                android:background="@drawable/shape_radius10_stroke2"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_20"
+                android:paddingTop="@dimen/dp_10">
+
+
+                <View
+                    android:layout_width="26dp"
+                    android:layout_height="7dp"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:background="@color/basic_blue" />
+
+                <View
+                    android:layout_width="26dp"
+                    android:layout_height="7dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:background="@color/basic_blue" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/dp_60"
+                    android:layout_marginRight="@dimen/dp_60"
+                    android:background="#eb5e58" />
+
+
+                <TextView
+                    android:id="@+id/tv_car_id"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_13"
+                    android:text="渝BQG542"
+                    android:textSize="23sp" />
+
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_car_id"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_marginRight="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@color/basic_blue" />
+
+
+                <TextView
+                    android:id="@+id/tv_order_id"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_below="@id/line"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/dp_13"
+                    android:layout_marginTop="@dimen/dp_13"
+                    android:text="订单编号：#44444444"
+                    android:textSize="@dimen/sp_12" />
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    style="@style/tv_10sp_blue_bold"
+                    android:text="异常类型："
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/tv_exceptions"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_4"
+                    android:gravity="center_horizontal"
+                    tools:text="爆炸了"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_gravity="bottom"
+                    android:text="预计耗时："
+                    android:textSize="@dimen/sp_12" />
+
+                <EditText
+                    android:id="@+id/et_duration"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@null"
+                    android:drawableBottom="@drawable/shape_underline"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp_16"
+                    tools:text="2.5" />
+
+                <TextView
+                    style="@style/tv_10sp_blue_bold"
+                    android:text="小时"
+                    android:textColor="#5483e3"
+                    android:textSize="@dimen/sp_8"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tv_10sp_blue_bold"
+                    android:text="是否需要车辆支援："
+                    android:textSize="@dimen/sp_12" />
+
+                <RadioGroup
+                    android:id="@+id/rg_change_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_position"
+                        style="@style/tv_10sp_blue_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:background="@null"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/selector_radio_button"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:gravity="center_vertical"
+                        android:text="是"
+                        android:textColor="@color/basic_blue"
+                        android:textSize="@dimen/sp_12" />
+
+                    <RadioButton
+                        android:id="@+id/rb_navigation"
+                        style="@style/tv_10sp_blue_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:background="@null"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/selector_radio_button"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:gravity="center_vertical"
+                        android:text="否"
+                        android:textColor="@color/basic_blue"
+                        android:textSize="@dimen/sp_12" />
+
+
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="vertical">
+
+
+                <TextView
+                    style="@style/tv_10sp_blue_bold"
+                    android:text="上传照片："
+                    android:textSize="@dimen/sp_12" />
+
+
+                <com.tengbo.module_order.ui.processing.MultiplePictureRecyclerView
+                    android:id="@+id/rv_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_unComplete_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_positive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/dp_20"
+                        android:background="@drawable/selector_position_bg"
+                        android:paddingLeft="@dimen/dp_40"
+                        android:paddingRight="@dimen/dp_40"
+                        android:text="提交"
+                        android:textColor="@drawable/selector_position_text_color"
+
+                        />
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_negative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:background="@drawable/selector_navigation_gb"
+                        android:paddingLeft="@dimen/dp_40"
+                        android:paddingRight="@dimen/dp_40"
+                        android:text="取消"
+                        android:textColor="@drawable/selector_navigation_text_color" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

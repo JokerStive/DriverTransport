@@ -25,7 +25,7 @@ public class TaskListAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
                 .setText(R.id.tv_order_id, "订单编号：" + order.getOrderNum())
                 .setText(R.id.tv_schedule_time, "计划装货：" + order.getScheduleStartTime())
                 .setText(R.id.tv_latest_time, "最晚发货：" + order.getLatestStartTime())
-                .setText(R.id.tv_schdule_arrive_time, "计划到达：" + order.getScheduleArriveTime())
+                .setText(R.id.tv_schedule_arrive_time, "计划到达：" + order.getScheduleArriveTime())
                 .setText(R.id.tv_method, order.getMethod())
                 .addOnClickListener(R.id.btn_accept_task)
                 .addOnClickListener(R.id.btn_reject_task)

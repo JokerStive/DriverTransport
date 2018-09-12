@@ -68,10 +68,10 @@ public class CodeGeneUtils {
             canvas.drawText(code.charAt(i) + "", mPaddingLeft, mPaddingTop, paint);
         }
 
-        //干扰线
-        for (int i = 0; i < DEFAULT_LINE_NUMBER; i++) {
-            drawLine(canvas, paint);
-        }
+//        //干扰线
+//        for (int i = 0; i < DEFAULT_LINE_NUMBER; i++) {
+//            drawLine(canvas, paint);
+//        }
 
         canvas.save();//保存
         canvas.restore();
@@ -95,7 +95,7 @@ public class CodeGeneUtils {
             mBuilder.append(CHARS[mRandom.nextInt(CHARS.length)]);
         }
 
-        return mBuilder.toString();
+        return mBuilder.toString().toLowerCase();
     }
 
     //生成干扰线
@@ -131,15 +131,15 @@ public class CodeGeneUtils {
     private void randomTextStyle(Paint paint) {
         int color = randomColor();
         paint.setColor(color);
-        paint.setFakeBoldText(mRandom.nextBoolean());  //true为粗体，false为非粗体
-        float skewX = mRandom.nextInt(11) / 10;
-        skewX = mRandom.nextBoolean() ? skewX : -skewX;
-        paint.setTextSkewX(skewX); //float类型参数，负数表示右斜，整数左斜
+//        paint.setFakeBoldText(mRandom.nextBoolean());  //true为粗体，false为非粗体
+//        float skewX = mRandom.nextInt(11) / 10;
+//        skewX = mRandom.nextBoolean() ? skewX : -skewX;
+//        paint.setTextSkewX(skewX); //float类型参数，负数表示右斜，整数左斜
     }
 
     //随机间距
     private void randomPadding() {
-        mPaddingLeft += BASE_PADDING_LEFT ;
-        mPaddingTop = BASE_PADDING_TOP ;
+        mPaddingLeft += BASE_PADDING_LEFT;
+        mPaddingTop = BASE_PADDING_TOP;
     }
 }

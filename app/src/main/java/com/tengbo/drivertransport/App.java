@@ -15,7 +15,7 @@ public class App extends BaseApplication {
         super.onCreate();
         initCC();
 //        initJPush();
-        executeApplicationInterfaceImpls();
+//        executeApplicationInterfaceImpls();
     }
 
 //    private void initJPush() {
@@ -26,24 +26,24 @@ public class App extends BaseApplication {
 //        Log.e("JPush", "init");
 //    }
 
-    private void executeApplicationInterfaceImpls()
-    {
-        for(String impl : ApplicationInterfaceImplArr.impls)
-        {
-            try{
-                Class<?> clazz = Class.forName(impl);
-                Object o = clazz.newInstance();
-                if(o instanceof ApplicationInterface)
-                    ((ApplicationInterface) o).onCreate(this);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    private void executeApplicationInterfaceImpls()
+//    {
+//        for(String impl : ApplicationInterfaceImplArr.impls)
+//        {
+//            try{
+//                Class<?> clazz = Class.forName(impl);
+//                Object o = clazz.newInstance();
+//                if(o instanceof ApplicationInterface)
+//                    ((ApplicationInterface) o).onCreate(this);
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     private void initCC() {
         CC.init(get());

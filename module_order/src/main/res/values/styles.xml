@@ -26,13 +26,6 @@
     </style>
 
 
-    <style name="tv_10sp_blue_bold" >
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/sp_10</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/basic_blue</item>
-    </style>
 
     <style name="tv_radius5_solidBlue" >
         <item name="android:background">@drawable/selector_position_bg</item>

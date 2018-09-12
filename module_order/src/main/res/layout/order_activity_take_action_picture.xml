@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/basic_white">
+
+
+    <com.tengbo.commonlibrary.widget.takePhoto.custom_camera.CameraSurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4f4e4e"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_14">
+
+        <TextView
+            android:id="@+id/tv_order_num"
+            style="@style/tv_10sp_blue_bold"
+            android:text="订单编号：TBQQ2018080100"
+            android:textColor="@color/basic_white" />
+
+        <TextView
+            android:id="@+id/tv_action_address"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="停靠     18/08/05  15:20     重庆渝北"
+            android:textColor="@color/basic_white" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="132dp"
+        android:layout_alignParentBottom="true"
+        android:background="#4f4e4e">
+
+        <ImageView
+            android:id="@+id/iv_take_picture"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:layout_centerInParent="true"
+            android:src="@drawable/shape_radius5_solid_gray" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

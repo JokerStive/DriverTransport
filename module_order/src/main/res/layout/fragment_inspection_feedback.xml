@@ -7,7 +7,7 @@
     android:background="@color/basic_white"
     android:orientation="vertical">
 
-    <com.tengbo.module_order.wiget.TitleBar
+    <widget.TitleBar
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
 
             <TextView
                 style="@style/tv_10sp_blue_bold"
-                android:drawableLeft="@drawable/title_hint"
+                android:drawableLeft="@drawable/shape_line_blue"
                 android:drawablePadding="@dimen/dp_13"
                 android:text="@string/find_problem_instruction"
                 android:textSize="@dimen/sp_12" />
@@ -51,7 +51,7 @@
             <TextView
                 style="@style/tv_10sp_blue_bold"
                 android:layout_marginTop="@dimen/dp_20"
-                android:drawableLeft="@drawable/title_hint"
+                android:drawableLeft="@drawable/shape_line_blue"
                 android:drawablePadding="@dimen/dp_13"
                 android:text="@string/rectify_require_instruction"
                 android:textSize="@dimen/sp_12" />
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:layout_marginRight="9dp"
-                    android:background="@drawable/shape_radius5_solid_white"
+                    android:background="@drawable/shape_radius5_solid_gray"
                     android:paddingBottom="@dimen/dp_4"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10"

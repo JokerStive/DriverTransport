@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_bank_card_info"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_13"
+    android:background="@color/basic_blue"
+    android:layout_marginLeft="@dimen/dp_20"
+    android:layout_marginRight="@dimen/dp_20"
+    android:layout_marginBottom="@dimen/dp_10"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_bank_name"
+        style="@style/tv_10sp_blue_bold"
+        android:textColor="@color/basic_white"
+        android:textSize="@dimen/sp_12"
+        tools:text="农业银行" />
+
+
+    <TextView
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_below="@id/tv_bank_name"
+        android:id="@+id/tv_bank_card_num"
+        style="@style/tv_10sp_blue_bold"
+        android:textColor="@color/basic_white"
+        android:textSize="@dimen/sp_18"
+        tools:text="4000 0000 0000 0000" />
+
+</RelativeLayout>
+

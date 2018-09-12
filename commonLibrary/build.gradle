@@ -1,5 +1,5 @@
-apply plugin: 'com.android.library'
-//apply plugin: 'android-aspectjx'
+ext.runAsApp = false
+apply from: rootProject.file('global_settings.gradle')
 
 android {
     compileSdkVersion build_versions.target_sdk
@@ -19,6 +19,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
+    resourcePrefix  "common_"
 
     sourceSets{
         main{

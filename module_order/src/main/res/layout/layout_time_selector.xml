@@ -1,118 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:background="#ffffff"
-        android:orientation="horizontal"
-        android:paddingBottom="15dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="15dp">
 
         <com.tengbo.module_order.custom.view.PickerView
             android:id="@+id/year_pv"
             android:layout_width="0dp"
-            android:layout_height="96dp"
+            android:layout_height="@dimen/dp_80"
             android:layout_weight="1" />
 
         <TextView
             android:id="@+id/year_text"
-            style="@style/tv_radius5_solidBlue"
+            style="@style/tv_10sp_blue_bold"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:text="@string/year"
-            android:textSize="18sp" />
+            android:textSize="@dimen/sp_18" />
 
         <com.tengbo.module_order.custom.view.PickerView
             android:id="@+id/month_pv"
             android:layout_width="0dp"
-            android:layout_height="96dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <TextView
             android:id="@+id/month_text"
-            style="@style/tv_radius5_solidBlue"
+            style="@style/tv_10sp_blue_bold"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_80"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:text="@string/month"
-            android:textSize="18sp" />
+            android:textSize="@dimen/sp_18" />
 
         <com.tengbo.module_order.custom.view.PickerView
             android:id="@+id/day_pv"
             android:layout_width="0dp"
-            android:layout_height="96dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <TextView
             android:id="@+id/day_text"
-            style="@style/tv_radius5_solidBlue"
+            style="@style/tv_10sp_blue_bold"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_80"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:text="@string/day"
-            android:textSize="18sp" />
+            android:textSize="@dimen/sp_18" />
 
 
-        <com.tengbo.module_order.custom.view.PickerView
-            android:id="@+id/hour_pv"
-            android:layout_width="0dp"
-            android:layout_height="96dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/hour_text"
-            style="@style/tv_radius5_solidBlue"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/hour"
-            android:textColor="#333333"
-            android:textSize="18sp" />
-
-        <com.tengbo.module_order.custom.view.PickerView
-            android:id="@+id/minute_pv"
-            android:layout_width="0dp"
-            android:layout_height="96dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/minute_text"
-            style="@style/tv_radius5_solidBlue"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/minute"
-            android:textColor="#333333"
-            android:textSize="18sp" />
-
-        <com.tengbo.module_order.custom.view.PickerView
-            android:id="@+id/second_pv"
-            android:layout_width="0dp"
-            android:layout_height="96dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/second_text"
-            style="@style/tv_radius5_solidBlue"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/second"
-            android:textColor="#333333"
-            android:textSize="18sp" />
-    </LinearLayout>
 </LinearLayout>

@@ -9,15 +9,16 @@
     </style>
 
     <style name="UpdatePasswordEditText">
-        <item name="android:fontFamily">@font/pingfang_sc_bold</item>
-        <item name="android:layout_marginRight">75dp</item>
-        <item name="android:layout_marginLeft">75dp</item>
-        <item name="android:textColorHint">@color/module_base_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColorHint">#b9b9b9</item>
+        <!--<item name="android:paddingLeft">@dimen/dp_30</item>-->
         <item name="android:background">@null</item>
         <item name="android:drawableBottom">@drawable/underline</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">13dp</item>
-        <item name="android:textColor">@color/module_base_color</item>
+        <item name="android:drawablePadding">@dimen/dp_4</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/basic_blue</item>
     </style>
 
 </resources>

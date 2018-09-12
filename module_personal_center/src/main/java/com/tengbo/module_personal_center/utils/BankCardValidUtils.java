@@ -1,10 +1,49 @@
 package com.tengbo.module_personal_center.utils;
 
+import android.text.TextUtils;
+
 /**
  * author WangChenchen
  * 银行卡校验工具类
  */
 public class BankCardValidUtils {
+
+
+    public static String getBankNameWithId(String id) {
+        String target;
+        String result = null;
+        if (id.length() >= 6 && id.length() < 8) {
+            target = id.substring(0, 6);
+            result =  mappingid(target);
+        }
+
+        if (id.length() >= 8) {
+            target = id.substring(0, 6);
+            result = mappingid(target);
+            if (TextUtils.isEmpty(result)) {
+                target = id.substring(0, 8);
+                result = mappingid(target);
+
+            }
+        }
+
+        return result;
+
+    }
+
+
+    public static String mappingid(String target) {
+        String result = null;
+        if (!TextUtils.isEmpty(target)) {
+            for (int i = 0; i < bankBin.length; i++) {
+                if (TextUtils.equals(target, bankBin[i])) {
+                    result = bankName[i];
+                }
+            }
+        }
+
+        return result;
+    }
 
     /**
      * 传入卡号 得到银行名称

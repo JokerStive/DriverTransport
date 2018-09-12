@@ -54,6 +54,7 @@ public class PreviewActivity extends AppCompatActivity {
     private boolean isShowBar = true;
     private boolean isConfirm = false;
     private boolean isSingle;
+    private boolean isViewImage;
     private int mMaxCount;
 
     private BitmapDrawable mSelectDrawable;
@@ -71,6 +72,15 @@ public class PreviewActivity extends AppCompatActivity {
         activity.startActivityForResult(intent, ImageSelector.RESULT_CODE);
     }
 
+
+    public static void openActivity(Activity activity, ArrayList<Image> images, int position
+    ) {
+        tempImages = images;
+        Intent intent = new Intent(activity, PreviewActivity.class);
+        intent.putExtra(ImageSelector.POSITION, position);
+        activity.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +95,7 @@ public class PreviewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mMaxCount = intent.getIntExtra(ImageSelector.MAX_SELECT_COUNT, 0);
         isSingle = intent.getBooleanExtra(ImageSelector.IS_SINGLE, false);
+        isViewImage = mSelectImages==null;
 
         Resources resources = getResources();
         Bitmap selectBitmap = BitmapFactory.decodeResource(resources, R.drawable.icon_image_select);
@@ -113,6 +124,12 @@ public class PreviewActivity extends AppCompatActivity {
         tvSelect = (TextView) findViewById(R.id.tv_select);
         rlTopBar = (RelativeLayout) findViewById(R.id.rl_top_bar);
         rlBottomBar = (RelativeLayout) findViewById(R.id.rl_bottom_bar);
+
+        if (isViewImage) {
+            rlBottomBar.setVisibility(View.GONE);
+            btnConfirm.setVisibility(View.GONE);
+
+        }
 
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) rlTopBar.getLayoutParams();
         lp.topMargin = getStatusBarHeight(this);
@@ -289,6 +306,9 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
     private void changeSelect(Image image) {
+        if (isViewImage) {
+            return;
+        }
         tvSelect.setCompoundDrawables(mSelectImages.contains(image) ?
                 mSelectDrawable : mUnSelectDrawable, null, null, null);
         setSelectImageCount(mSelectImages.size());

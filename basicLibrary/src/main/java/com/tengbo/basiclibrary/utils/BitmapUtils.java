@@ -22,10 +22,10 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-/**
- * C
- * 图片压缩
- */
+/**图片压缩工具
+*@Autor yk
+*@Description
+*/
 public class BitmapUtils {
 
     private static int max_size = 1024;

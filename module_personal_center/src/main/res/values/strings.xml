@@ -8,9 +8,9 @@
     <string name="upload_avatar">上传头像</string>
     <string name="demo_username">张三</string>
     <string name="bank_card_info_update">银行卡信息修改</string>
-    <string name="update_bank_card_info">修改银行卡信息</string>
+    <string name="set_bank_card_info">设置银行卡</string>
     <string name="logout">退出登录</string>
-    <string name="update_bank_card_info_hint">请注意，银行卡必须为司机本人开户的卡号。修改后即可修改系统中的信息，请注意此后的收款情况!</string>
+    <string name="update_bank_card_info_hint">请注意，银行卡必须为司机本人开户的卡号！</string>
     <string name="origin_back_card_info">原银行卡信息</string>
     <string name="bank_of_account">开户行:</string>
     <string name="name_of_account">开户人姓名:</string>

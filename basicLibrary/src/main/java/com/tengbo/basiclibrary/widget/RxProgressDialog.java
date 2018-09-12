@@ -9,6 +9,7 @@ import android.view.animation.AnimationSet;
 import android.widget.TextView;
 
 import com.tengbo.basiclibrary.R;
+import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.basiclibrary.widget.progress_dialog.OptAnimationLoader;
 
 
@@ -27,6 +28,7 @@ public class RxProgressDialog extends Dialog {
 
     public RxProgressDialog(Context context) {
         super(context, R.style.alert_dialog);
+
         //默认返回键可以取消
         setCancelable(true);
         //其他区域不可取消

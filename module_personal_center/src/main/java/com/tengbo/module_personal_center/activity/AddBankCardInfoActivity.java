@@ -1,0 +1,245 @@
+package com.tengbo.module_personal_center.activity;
+
+import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.alibaba.fastjson.JSONObject;
+import com.tengbo.basiclibrary.utils.CodeGeneUtils;
+import com.tengbo.commonlibrary.base.BaseActivity;
+import com.tengbo.commonlibrary.base.BaseApplication;
+import com.tengbo.commonlibrary.common.Config;
+import com.tengbo.commonlibrary.common.User;
+import com.tengbo.commonlibrary.commonBean.BankCardInfo;
+import com.tengbo.commonlibrary.net.ApiException;
+import com.tengbo.commonlibrary.net.BaseResponse;
+import com.tengbo.commonlibrary.net.NetHelper;
+import com.tengbo.commonlibrary.net.ProgressSubscriber;
+import com.tengbo.commonlibrary.net.RxUtils;
+import com.tengbo.module_personal_center.R;
+import com.tengbo.module_personal_center.custom.view.LineEditText;
+import com.tengbo.module_personal_center.utils.BankCardValidUtils;
+import com.tengbo.module_personal_center.utils.Constant;
+import com.tengbo.module_personal_center.utils.DialogUtils;
+import com.tengbo.module_personal_center.utils.IdCardValidUtils;
+import com.tengbo.module_personal_center.utils.LogUtils;
+import com.tengbo.module_personal_center.utils.ResponseCode;
+import com.tengbo.module_personal_center.utils.ToastUtils;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.RequestBody;
+import utils.RequestUtils;
+import widget.TitleBar;
+
+/**
+ * author WangChenchen
+ * 银行卡信息更改页面
+ */
+public class AddBankCardInfoActivity extends BaseActivity implements View.OnClickListener {
+
+
+    // 验证码生成工具类对象
+    CodeGeneUtils mCodeGeneUtils;
+    TitleBar titleBar;
+    EditText et_password;
+    TextView tv_belong_bank;
+    TextView tv_name;
+    TextView tv_id_number;
+    EditText et_bank_card_id;
+    EditText et_valid_code;
+    ImageView iv_valid_code;
+
+    /**
+     *
+     */
+    @Override
+    protected void initView() {
+        titleBar = findViewById(R.id.titleBar);
+        et_password = findViewById(R.id.et_password);
+        tv_belong_bank = findViewById(R.id.tv_belong_bank);
+        tv_name = findViewById(R.id.tv_name);
+        tv_id_number = findViewById(R.id.tv_id_number);
+        et_bank_card_id = findViewById(R.id.et_bank_card_id);
+        et_valid_code = findViewById(R.id.et_valid_code);
+        iv_valid_code = findViewById(R.id.iv_valid_code);
+
+        findViewById(R.id.btn_submit).setOnClickListener(this);
+        findViewById(R.id.btn_cancel).setOnClickListener(this);
+        findViewById(R.id.tv_refresh_valid_code).setOnClickListener(this);
+        findViewById(R.id.iv_valid_code).setOnClickListener(this);
+
+
+        titleBar.setOnBackClickListener(this::finish);
+
+
+        //显示姓名
+        tv_name.setText(User.getName());
+
+        //显示身份证
+        tv_id_number.setText(User.getIdNumber());
+
+        // 获取验证码生成类对象
+        mCodeGeneUtils = CodeGeneUtils.getInstance();
+
+        // 初始化验证码
+        iv_valid_code.setImageBitmap(mCodeGeneUtils.createBitmap());
+
+        // 根据输入银行卡号自动填写开户行
+        et_bank_card_id.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String cardNum = s.toString();
+                String result = TextUtils.isEmpty(BankCardValidUtils.getBankNameWithId(cardNum)) ? "所属银行" : BankCardValidUtils.getBankNameWithId(cardNum);
+                tv_belong_bank.setText(result);
+            }
+        });
+    }
+
+
+    /**
+     * 处理点击事件
+     *
+     * @param view
+     */
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.btn_submit) {
+
+            String password = et_password.getText().toString().trim();
+            String newBankCardNum = et_bank_card_id.getText().toString().trim();
+            String inputValidCode = et_valid_code.getText().toString().trim().toLowerCase();
+            String validCode = mCodeGeneUtils.getCode().toLowerCase();
+
+            if (TextUtils.isEmpty(newBankCardNum)) {
+                showToast("请先输入银行卡号");
+                return;
+            } else if (newBankCardNum.length() < 15 && !BankCardValidUtils.checkBankCard(newBankCardNum)) {
+                showToast("银行卡号不正确");
+                return;
+            } else if (TextUtils.isEmpty(tv_belong_bank.getText().toString())) {
+                showToast("银行卡输入有误，请检查");
+                return;
+            } else if (TextUtils.isEmpty(password)) {
+                showToast("请先输入密码");
+                return;
+            } else if (password.length() < 6) {
+                showToast("密码错误，登录密码最少6位");
+                return;
+            } else if (TextUtils.isEmpty(inputValidCode)) {
+                showToast("请先输入验证码");
+                return;
+            } else if (!inputValidCode.toLowerCase().equals(validCode)) {
+                et_valid_code.setText(null);
+                refreshValidCode();
+                showToast("验证码错误");
+                return;
+            }
+
+            // 网络校验密码、身份证号、修改银行卡信息
+            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("accountId", User.getId());
+//            jsonObject.put("loginPwd", password);
+//            jsonObject.put("userName", User.getName());
+            jsonObject.put("idNumber", User.getIdNumber());
+            jsonObject.put("cardCode", newBankCardNum);
+            jsonObject.put("isTrade", 0);
+            RequestBody requestBody = RequestUtils.createRequestBody(jsonObject.toJSONString());
+            mSubscriptionManager.add(NetHelper.getInstance().getApi()
+                    .addBankCardInfo(requestBody)
+                    .compose(RxUtils.handleResult())
+                    .compose(RxUtils.applySchedule())
+                    .subscribe(new ProgressSubscriber<Object>() {
+                        @Override
+                        protected void on_next(Object o) {
+                            ToastUtils.show(getApplicationContext(), "新增银行卡成功");
+                            tv_name.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            }, 300);
+                            setResult(200);
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            if (e instanceof ApiException) {
+                                ToastUtils.show(getApplicationContext(), ((ApiException) e).getErrorMessage());
+                                clearInput();
+                            } else {
+                                ToastUtils.show(BaseApplication.get(), e.getMessage());
+                            }
+                        }
+                    }));
+
+
+        }
+        // 点击取消
+        else if (id == R.id.btn_cancel) {
+            // 处理取消，关闭本页面
+            finish();
+        }
+        // 点击验证码图片或者刷新
+        else if (id == R.id.tv_refresh_valid_code || id == R.id.iv_valid_code) {
+            // 处理刷新验证码
+            refreshValidCode();
+        }
+    }
+
+
+    /**
+     * 修改因银行卡请求后，制空所有输入框
+     */
+    private void clearInput() {
+        refreshValidCode();
+        tv_belong_bank.setText(null);
+        et_bank_card_id.setText(null);
+        et_password.setText(null);
+    }
+
+    private void showToast(String s) {
+        ToastUtils.show(this, s);
+    }
+
+    /**
+     * 获取布局Id
+     *
+     * @return
+     */
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_update_bank_card_info;
+    }
+
+    /**
+     * 刷新验证码
+     */
+    private void refreshValidCode() {
+        et_valid_code.setText("");
+        iv_valid_code.setImageBitmap(mCodeGeneUtils.createBitmap());
+    }
+}

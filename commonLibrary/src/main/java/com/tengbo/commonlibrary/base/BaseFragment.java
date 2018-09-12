@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.tengbo.commonlibrary.fragmentation.SupportFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rx.subscriptions.CompositeSubscription;

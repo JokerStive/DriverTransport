@@ -15,6 +15,8 @@ import com.tengbo.commonlibrary.mvp.BasePresenter;
 import com.tengbo.commonlibrary.mvp.IPresenter;
 import com.tengbo.commonlibrary.mvp.IView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -36,7 +38,7 @@ public abstract class BaseMvpActivity<P extends IPresenter> extends SupportActiv
         super.onCreate(savedInstanceState);
         mUnbinder = ButterKnife.bind(this);
         setContentView(getLayoutId());
-        setStatusBarColor();
+//        setStatusBarColor();
         if (getIntent() != null) {
             onIntent(getIntent());
         }
@@ -45,6 +47,8 @@ public abstract class BaseMvpActivity<P extends IPresenter> extends SupportActiv
 
         initPresent();
     }
+
+
 
     protected abstract int getLayoutId();
 
