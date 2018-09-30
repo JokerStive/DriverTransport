@@ -11,8 +11,15 @@
         <activity android:name=".ui.processing.ExceptionFeedbackActivity" />
         <activity android:name=".ui.history.HistoryOrderDetailActivity" />
         <activity
-            android:name=".ui.processing.TakeActionPictureActivity"
+            android:name=".ui.processing.TakeStepPictureActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+
+        <!--后台定位服务-->
+        <service android:name=".service.LocateService" />
+        <!--后台上传位置服务-->
+        <service android:name=".service.UploadLocationService" />
 
 
     </application>

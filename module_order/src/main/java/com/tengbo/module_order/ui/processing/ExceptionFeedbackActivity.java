@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.v7.widget.GridLayoutManager;
-import android.view.Gravity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +19,7 @@ import com.tengbo.commonlibrary.widget.takePhoto.TakePhotoDialogFragment;
 import com.tengbo.commonlibrary.widget.takePhoto.imageselector.PreviewActivity;
 import com.tengbo.commonlibrary.widget.takePhoto.imageselector.entry.Image;
 import com.tengbo.module_order.R;
+import com.tengbo.module_order.adapter.MultiplePictureAdapter;
 import com.tengbo.module_order.bean.Order;
 import com.tengbo.module_order.custom.view.SpinnerPopupWindow;
 
@@ -27,16 +28,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utils.ToastUtils;
-import widget.TitleBar;
+import com.tengbo.commonlibrary.widget.TitleBar;
 
 public class ExceptionFeedbackActivity extends BaseActivity implements View.OnClickListener {
 
     private Order morder;
     private TextView tvExceptions;
     private int PICTURE_COUNT = 3;
-    private MultiplePictureRecyclerView rvPicture;
-    private List<MultiplePictureRecyclerView.Picture> pictures = new ArrayList<>();
-    private MultiplePictureRecyclerView.MultiplePictureAdapter mPictureAdapter;
+    private RecyclerView rvPicture;
+    private List<MultiplePictureAdapter.Picture> pictures = new ArrayList<>();
+    private MultiplePictureAdapter mPictureAdapter;
     private String TAG = "ExceptionFeedbackActivity";
     private boolean isExpand;
     private List<String> mTypeString;
@@ -87,43 +88,25 @@ public class ExceptionFeedbackActivity extends BaseActivity implements View.OnCl
     }
 
     private void initRv() {
-        MultiplePictureRecyclerView.Picture addPicture = new MultiplePictureRecyclerView.Picture(MultiplePictureRecyclerView.Picture.ADD_PICTURE);
+        MultiplePictureAdapter.Picture addPicture = new MultiplePictureAdapter.Picture(MultiplePictureAdapter.Picture.ADD_PICTURE);
         pictures.add(addPicture);
 
 
         rvPicture.setLayoutManager(new GridLayoutManager(getApplicationContext(), 6));
-        mPictureAdapter = new MultiplePictureRecyclerView.MultiplePictureAdapter(pictures);
+        mPictureAdapter = new MultiplePictureAdapter(this,pictures);
         mPictureAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MultiplePictureRecyclerView.Picture picture = (MultiplePictureRecyclerView.Picture) adapter.getItem(position);
-                if (picture.getItemType() == MultiplePictureRecyclerView.Picture.ADD_PICTURE) {
+                MultiplePictureAdapter.Picture picture = (MultiplePictureAdapter.Picture) adapter.getItem(position);
+                if (picture.getItemType() == MultiplePictureAdapter.Picture.ADD_PICTURE) {
                     addPicture();
-                } else if (picture.getItemType() == MultiplePictureRecyclerView.Picture.SHOW_PICTURE) {
-                    previewPicture(position);
                 }
+
             }
         });
         rvPicture.setAdapter(mPictureAdapter);
     }
 
-    /**
-     * @param position 选中的position
-     * @Desc 预览异常图片
-     */
-    private void previewPicture(int position) {
-        LogUtil.d("图片预览");
-        List<MultiplePictureRecyclerView.Picture> pictures = mPictureAdapter.getData();
-        ArrayList<Image> images = new ArrayList<>();
-        for (MultiplePictureRecyclerView.Picture picture : pictures) {
-            if (picture.getPicture() != null) {
-                Image image = new Image(picture.getPicture().getAbsolutePath(), 1, "", "");
-                images.add(image);
-            }
-        }
-        PreviewActivity.openActivity(this, images, position);
-
-    }
 
 
     /**
@@ -139,8 +122,8 @@ public class ExceptionFeedbackActivity extends BaseActivity implements View.OnCl
                     // 图片获取成功，关闭拍照和选择图片对话框
                     takePhotoDialogFragment.dismissAllowingStateLoss();
                     for (File file : files) {
-                        MultiplePictureRecyclerView.Picture picture = new MultiplePictureRecyclerView.Picture(MultiplePictureRecyclerView.Picture.SHOW_PICTURE);
-                        picture.setPicture(file);
+                        MultiplePictureAdapter.Picture picture = new MultiplePictureAdapter.Picture(MultiplePictureAdapter.Picture.SHOW_PICTURE);
+                        picture.setPicturePath(file.getAbsolutePath());
                         mPictureAdapter.addData(mPictureAdapter.getData().size() - 1, picture);
                     }
                 }

@@ -128,7 +128,7 @@ public class LoginActivity extends BaseActivity {
 
         String realVerification = CodeGeneUtils.getInstance().getCode();
         if (!TextUtils.equals(verification.toLowerCase(), realVerification)) {
-            ToastUtils.show(this, "验证码错误，请重新输入");
+            ToastUtils.show(this, "验证码错误");
             refreshVerification();
             return;
         }

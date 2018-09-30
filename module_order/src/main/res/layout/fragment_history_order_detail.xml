@@ -6,7 +6,7 @@
     android:background="@color/basic_white"
     android:orientation="vertical">
 
-    <widget.TitleBar
+    <com.tengbo.commonlibrary.widget.TitleBar
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.commonBean.BankCardInfo;
@@ -21,12 +20,11 @@ import com.tengbo.module_personal_center.adapter.BankCardListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import okhttp3.RequestBody;
 import utils.CommonDialog;
 import utils.RequestUtils;
-import widget.TitleBar;
+import com.tengbo.commonlibrary.widget.TitleBar;
 
 /**
  * 银行卡列表页

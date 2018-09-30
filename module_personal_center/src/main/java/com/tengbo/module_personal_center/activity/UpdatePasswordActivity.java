@@ -1,42 +1,24 @@
 package com.tengbo.module_personal_center.activity;
 
-import android.text.InputType;
 import android.text.TextUtils;
-import android.util.JsonReader;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.base.BaseApplication;
-import com.tengbo.commonlibrary.common.Config;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.net.ApiException;
-import com.tengbo.commonlibrary.net.BaseResponse;
 import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.module_personal_center.R;
-import com.tengbo.module_personal_center.R2;
-import com.tengbo.module_personal_center.custom.view.LineEditText;
-import com.tengbo.module_personal_center.custom.view.NoEmojiEditText;
-import com.tengbo.module_personal_center.utils.BankCardValidUtils;
-import com.tengbo.module_personal_center.utils.Constant;
-import com.tengbo.module_personal_center.utils.DialogUtils;
-import com.tengbo.module_personal_center.utils.LogUtils;
-import com.tengbo.module_personal_center.utils.ResponseCode;
 import com.tengbo.module_personal_center.utils.ToastUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import utils.RequestUtils;
-import widget.TitleBar;
+import com.tengbo.commonlibrary.widget.TitleBar;
 
 /**
  * author WangChenchen

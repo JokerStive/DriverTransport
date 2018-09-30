@@ -65,28 +65,17 @@ ext.addComponent = { dependencyName, realDependency = null ->
             // project(':moduleName')
             // 'com.billy.demo:demoA:1.1.0'
             project.dependencies.add(dependencyMode, realDependency)
-            println "CC >>>> add $realDependency to ${project.name}'s dependencies"
+//            println "CC >>>> add $realDependency to ${project.name}'s dependencies"
 
         } else if (componentProject) {
             //第二个参数未传，默认为按照module来进行依赖
             project.dependencies.add(dependencyMode, project(":$dependencyName"))
-            println "CC >>>> add project(\":$dependencyName\") to ${project.name}'s dependencies"
+//            println "CC >>>> add project(\":$dependencyName\") to ${project.name}'s dependencies"
         } else {
-            throw new RuntimeException(
-                    "CC >>>> add dependency by [ addComponent '$dependencyName' ] occurred an error:" +
-                            "\n'$dependencyName' is not a module in current project" +
-                            " and the 2nd param is not specified for realDependency" +
-                            "\nPlease make sure the module name is '$dependencyName'" +
-                            "\nelse" +
-                            "\nyou can specify the real dependency via add the 2nd param, for example: " +
-                            "addComponent '$dependencyName', 'com.billy.demo:demoB:1.1.0'")
+            throw new RuntimeException()
         }
     }
 }
-//repositories {
-////    maven { url rootProject.file("repo-local") }
-////    jcenter()
-//}
 
 //所有的module在组件模式下的文件（清单，java文件，资源文件..）都放到main->debug文件夹下，集成模式下会删除这个文件夹
 android {
@@ -131,9 +120,6 @@ android {
 //添加CC组件化通信框架
 def dependencyMode = (project.gradle.gradleVersion as float) >= 4.1F ? 'api' : 'compile'
 project.dependencies.add(dependencyMode, "com.billy.android:cc:1.1.0")
-//project.dependencies.add(dependencyMode, ":basicLibrary")
-//project.dependencies.add('api', "com.tengbo.drivertransport.basicLibrary:1.0.0")
-//project.dependencies.add('api', "com.tengbo.drivertransport.commonLibrary:1.0.0")
 
 //cc 自动祖册组件
 project.apply plugin: 'auto-register'

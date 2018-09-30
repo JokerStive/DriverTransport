@@ -9,24 +9,24 @@
 
     <TextView
         android:layout_gravity="center_horizontal"
-        android:id="@+id/tv_action_index"
+        android:id="@+id/tv_step_index"
         android:textSize="@dimen/sp_16"
         tools:text="01"
         style="@style/tv_10sp_blue_bold" />
 
     <TextView
         android:layout_gravity="center_horizontal"
-        android:id="@+id/tv_action_name"
+        android:id="@+id/tv_step_name"
         android:gravity="center"
         android:textSize="@dimen/sp_10"
         tools:text="开始"
-        android:background="@drawable/node_action_no"
+        android:background="@drawable/node_step_no"
         style="@style/tv_10sp_blue_bold" />
 
     <TextView
         android:layout_marginTop="@dimen/dp_12"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/tv_action_time_desc"
+        android:id="@+id/tv_step_time_desc"
         android:textSize="@dimen/sp_7"
         android:text="发生时间"
         style="@style/tv_10sp_blue_bold" />
@@ -36,7 +36,7 @@
         android:textStyle="normal"
         android:layout_marginTop="@dimen/dp_4"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/tv_action_time"
+        android:id="@+id/tv_step_time"
         android:textSize="@dimen/sp_6"
         android:text="18/8/8  08:00:00"
         style="@style/tv_10sp_blue_bold" />

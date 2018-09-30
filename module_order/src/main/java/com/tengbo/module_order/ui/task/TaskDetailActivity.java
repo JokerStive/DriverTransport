@@ -16,7 +16,7 @@ import com.tengbo.commonlibrary.base.BaseMvpActivity;
 import com.tengbo.module_order.R;
 import com.tengbo.module_order.bean.Order;
 import com.tengbo.module_order.ui.inspection.InspectionActivity;
-import widget.TitleBar;
+import com.tengbo.commonlibrary.widget.TitleBar;
 
 import java.util.List;
 

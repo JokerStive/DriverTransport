@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,7 +29,7 @@ import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.net.ApiException;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
-import com.tengbo.commonlibrary.widget.takePhoto.compress.Luban;
+import com.tengbo.commonlibrary.widget.takePhoto.compress.LuBan;
 import com.tengbo.commonlibrary.widget.takePhoto.crop.Crop;
 import com.tengbo.commonlibrary.widget.takePhoto.imageselector.utils.ImageSelector;
 import com.tengbo.commonlibrary.widget.takePhoto.imageselector.utils.ImageSelectorUtils;
@@ -187,7 +186,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
         String filename = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.CHINA).format(new Date()) + ".jpg";
 
         //保存在公共sd卡中的picture目录吓
-        takePictureFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(), filename);
+        takePictureFile = new File(getActivity().getApplication().getExternalCacheDir(),filename);
 
         LogUtil.d("camera path = " + takePictureFile.getAbsolutePath());
 
@@ -227,11 +226,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
         void onError();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionManager.getInstance(BaseApplication.get()).onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -283,35 +278,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
      * @Description 压缩单张图片
      */
     private void compressSignal(Context context, String path) {
-//        int byteCount = BitmapFactory.decodeFile(path).getByteCount();
-//        LogUtil.d("压缩前图片大小--" + byteCount / 1024);
-//        Observable.just(path)
-//                .map(new Func1<String, File>() {
-//                    @Override
-//                    public File call(String path) {
-//                        try {
-//                            return top.zibin.luban.Luban.with(context)
-//                                    .load(path)
-//                                    .get(path);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                        return null;
-//                    }
-//                })
-//                .compose(RxUtils.applySchedule())
-//                .subscribe(new ProgressSubscriber<File>() {
-//                    @Override
-//                    protected void on_next(File file) {
-//
-//                        int byteCount = BitmapFactory.decodeFile(file.getPath()).getByteCount();
-//                        LogUtil.d("压缩后图片大小--" + byteCount / 1024);
-//                    }
-//                });
-
-
-        Luban.get(context)
+        LuBan.get(context)
                 .loadWithPath(path)
                 .asObservable()
                 .compose(RxUtils.applySchedule())
@@ -364,7 +331,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
 //                });
 
 
-        Luban.get(context)
+        LuBan.get(context)
                 .loadWithPaths(paths)
                 .asFileList()
                 .compose(RxUtils.applySchedule())

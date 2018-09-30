@@ -6,9 +6,9 @@
     android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/dp_20"
     android:paddingLeft="@dimen/dp_25"
-    android:paddingRight="@dimen/dp_25">
+    android:paddingRight="@dimen/dp_25"
+    android:paddingBottom="@dimen/dp_20">
 
 
     <RelativeLayout
@@ -16,9 +16,24 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_radius10_stroke2"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/dp_30"
         android:paddingLeft="@dimen/dp_16"
-        android:paddingRight="@dimen/dp_16">
+        android:paddingRight="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_30">
+
+
+        <TextView
+            android:id="@+id/tv_car_id"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_4"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="2dp"
+            android:textSize="@dimen/sp_8"
+            android:textStyle="normal"
+            tools:text="渝BYZ899" />
+
 
         <ImageView
             android:id="@+id/iv_order_status"
@@ -35,17 +50,19 @@
             android:layout_below="@id/iv_order_status"
             android:layout_marginTop="@dimen/dp_10">
 
+
             <TextView
                 android:id="@+id/tv_order_id"
                 style="@style/tv_10sp_blue_bold"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_25"
-                android:layout_marginRight="@dimen/dp_25"
                 android:layout_marginTop="@dimen/sp_10"
+                android:layout_marginRight="@dimen/dp_25"
                 android:textSize="@dimen/sp_8"
                 android:textStyle="normal"
                 tools:text="订单编号：TBQQ20180731001" />
+
 
             <TextView
                 style="@style/tv_radius5_solidBlue"
@@ -167,8 +184,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
         android:layout_marginTop="-1dp"
+        android:layout_marginRight="@dimen/dp_10"
         android:src="@drawable/shape_blue_dash_line" />
 
     <ImageView

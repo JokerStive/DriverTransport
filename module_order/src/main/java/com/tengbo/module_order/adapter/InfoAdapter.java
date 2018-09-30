@@ -15,7 +15,7 @@ public class InfoAdapter extends QuickAdapter<Info> {
 
     @Override
     protected void convert(BaseViewHolder helper, Info item) {
-        helper.setText(R.id.tv_to, "司机小四：")
-                .setText(R.id.tv_info, "TBQQ20180801002 ,车辆已经报废 !TBQQ20180801002 ,车辆已经报废 !");
+        helper.setText(R.id.tv_to, item.getFrom())
+                .setText(R.id.tv_info, item.getTo());
     }
 }

@@ -55,24 +55,15 @@ public class NetHelper {
         return novate;
     }
 
-    public Retrofit.Builder getRetrofitBuilder(String baseUrl) {
+    public Retrofit.Builder getApiBuilder() {
         return new Retrofit.Builder()
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(baseUrl);
+                .baseUrl(Config.BASE_URL);
     }
 
 
-    public ApiService getApi(String baseUrl) {
-        apis = new Retrofit.Builder()
-                .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(baseUrl)
-                .build().create(ApiService.class);
-        return apis;
-    }
 
 
     public ApiService getApi() {

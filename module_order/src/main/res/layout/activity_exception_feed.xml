@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
 
-    <widget.TitleBar
+    <com.tengbo.commonlibrary.widget.TitleBar
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -226,7 +226,7 @@
                     android:textSize="@dimen/sp_12" />
 
 
-                <com.tengbo.module_order.ui.processing.MultiplePictureRecyclerView
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_picture"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -216,7 +216,7 @@ public class PersonalCenterFragment extends BaseFragment implements View.OnClick
                             super.onError(e);
                             civAvatar.setEnabled(true);
                             Glide.with(PersonalCenterFragment.this).load(oldUserAvatar).into(civAvatar);
-                            ToastUtils.show(_mActivity.getApplicationContext(), "头像修改失败");
+                            ToastUtils.show(_mActivity.getApplicationContext(), "上传头像失败，请换个姿势再试！");
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     }));

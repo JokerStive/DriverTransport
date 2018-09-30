@@ -1,6 +1,5 @@
 ext.runAsApp = false
 apply from: rootProject.file('global_settings.gradle')
-//apply plugin: 'com.jakewharton.butterknife'
 
 
 android {
@@ -33,6 +32,8 @@ dependencies {
 
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
+    implementation project(':locationLibrary')
+    implementation project(':pushlibrary')
 
 
 

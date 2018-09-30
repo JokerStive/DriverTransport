@@ -1,21 +1,37 @@
 package com.tengbo.commonlibrary.widget.takePhoto.custom_camera;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.media.MediaActionSound;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.FileUtils;
 import com.tengbo.basiclibrary.utils.LogUtil;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 显示相机的类
@@ -28,8 +44,9 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     private final Context mContext;
     private int mScreenWidth;
     private int mScreenHeight;
-    private SurfaceHolder mHolder;
     private Camera mCamera;
+    private String mPicturePath;
+    private MediaActionSound mediaActionSound;
 
     public CameraSurfaceView(Context context) {
         this(context, null);
@@ -44,7 +61,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         super(context, attrs, defStyleAttr);
         mContext = context;
         getScreenMatrix();
-        initView();
+        init();
     }
 
 
@@ -64,19 +81,47 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     /**
      * 绑定holder
      */
-    private void initView() {
-        mHolder = getHolder();
-        mHolder.addCallback(this);
+    private void init() {
+        mediaActionSound = new MediaActionSound();
+        getHolder().addCallback(this);
+        setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (isActivated()) {
+                    int action = event.getAction();
+                    if (action == MotionEvent.ACTION_UP) {
+                        mCamera.autoFocus(callback);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
+
+
+    Camera.AutoFocusCallback callback = new Camera.AutoFocusCallback() {
+
+        @Override
+        public void onAutoFocus(boolean success, Camera camera) {
+            if (success) {
+                mCamera.cancelAutoFocus();
+            }
+        }
+    };
+
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         LogUtil.d("surfaceView is created");
         if (mCamera == null) {
-            mCamera = Camera.open();  //开启相机
 
+            LogUtil.d("mCamera is  null ");
+            mCamera = Camera.open();  //开启相机
             try {
-                mCamera.setPreviewDisplay(mHolder); //相机画面展示到surfaceView上
+                mCamera.setPreviewDisplay(holder); //相机画面展示到surfaceView上
+                setCameraParams(mCamera, mScreenWidth, mScreenHeight);
+                mCamera.startPreview();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -86,9 +131,9 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
         LogUtil.d("surfaceView is changed");
-        setCameraParams(mCamera, mScreenWidth, mScreenHeight);
-        mCamera.startPreview();
+
     }
 
     @Override
@@ -97,7 +142,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         mCamera.stopPreview();
         mCamera.release();
         mCamera = null;
-        mHolder = null;
     }
 
     @Override
@@ -140,9 +184,14 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         }
 
         parameters.setJpegQuality(100); // 设置照片质量
-        if (parameters.getSupportedFocusModes().contains(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+        if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);// 连续对焦模式
         }
+
+        //自动曝光
+//        parameters.setAutoExposureLock(true);
+        //自动白平衡
+//        parameters.setAutoWhiteBalanceLock(true);
 
         mCamera.setDisplayOrientation(90);
         mCamera.setParameters(parameters);
@@ -163,7 +212,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
         if (null == result) {
             for (Camera.Size size : supportedPictureSizes) {
-                float curRatio = ((float) size.width) / size.height;
+                float curRatio = ((float) size.height) / size.width;
                 if (curRatio == 4f / 3) {// 默认w:h = 4:3
                     result = size;
                     break;
@@ -176,13 +225,15 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     }
 
 
-    public void takePicture() {
-        mCamera.takePicture(null, null, new Camera.PictureCallback() {
-            @Override
-            public void onPictureTaken(byte[] data, Camera camera) {
-                LogUtil.d("take picture success--" + data.length);
-            }
-        });
+    public void takePicture(Camera.PictureCallback callback) {
+        mCamera.takePicture(null, null, callback);
+        mediaActionSound.play(MediaActionSound.SHUTTER_CLICK);
     }
+
+
+    public void startPreview() {
+        mCamera.startPreview();
+    }
+
 
 }

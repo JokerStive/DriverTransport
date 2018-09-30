@@ -45,7 +45,7 @@ public class PermissionManager {
      * @param target      需要申请的activity，fragment
      * @param permissions 多个权限集
      */
-    public void execute(@NonNull Object target, String... permissions) {
+    public void execute(@NonNull Object target, String[] permissions) {
         initTargetActivity(target);
         List<String> lists = new ArrayList<>();
         for (String permission : permissions) {
@@ -53,7 +53,7 @@ public class PermissionManager {
                 lists.add(permission);
             }
         }
-        if ( needRequestPermission() ||  lists.size() == 0) {
+        if ( !needRequestPermission() ||  lists.size() == 0) {
             if (listener != null) {
                 listener.onGranted();
             }

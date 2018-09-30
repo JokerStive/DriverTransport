@@ -41,7 +41,7 @@ public abstract class BaseActivity extends SupportActivity {
         setContentView(getLayoutId());
         mUnbinder = ButterKnife.bind(this);
         baseActivityWeakReference = new WeakReference<>(this);
-        setStatusBarColor();
+//        setStatusBarColor();
         onIntent(getIntent());
         initView();
 

@@ -79,7 +79,7 @@
                     android:paddingRight="@dimen/dp_14"
                     android:textColorHint="#999999"
                     android:textCursorDrawable="@drawable/shape_cursor_color"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_10" />
 
 
                 <View
@@ -135,7 +135,7 @@
                     android:paddingRight="@dimen/dp_14"
                     android:textColorHint="#999999"
                     android:textCursorDrawable="@drawable/shape_cursor_color"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_10" />
 
 
                 <View
@@ -150,34 +150,34 @@
         </LinearLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_60"
             android:layout_marginStart="@dimen/dp_60"
-            android:layout_marginTop="@dimen/dp_40"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/dp_40">
 
             <ImageView
+                android:layout_centerVertical="true"
                 android:id="@+id/iv_icon_verification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/main_icon_verifi" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:layout_marginLeft="18dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/ll_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_18"
-                android:layout_marginStart="@dimen/dp_18">
+                android:layout_toRightOf="@id/iv_icon_verification"
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/et_verification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@null"
                     android:hint="@string/point_input_verification"
                     android:inputType="text"
@@ -185,45 +185,44 @@
                     android:paddingRight="@dimen/dp_14"
                     android:textColorHint="#999999"
                     android:textCursorDrawable="@drawable/shape_cursor_color"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_10" />
 
                 <View
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:id="@+id/line"
                     style="@style/line"
                     android:layout_height="@dimen/dp_1"
-                    android:layout_alignEnd="@id/et_verification"
-                    android:layout_alignRight="@id/et_verification"
-                    android:layout_below="@id/et_verification"
-                    android:layout_marginTop="@dimen/dp_10"
                     android:background="@color/basic_blue" />
+            </LinearLayout>
 
-                <ImageView
-                    android:onClick="refreshVerificationCode"
-                    android:id="@+id/iv_create_verification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toRightOf="@id/et_verification"
-                    android:textColor="@color/basic_blue"
-                    tools:src="@drawable/selector_tab_history" />
-
-            </RelativeLayout>
+            <ImageView
+                android:layout_marginLeft="@dimen/dp_10"
+                android:id="@+id/iv_create_verification"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ll_et"
+                android:onClick="refreshVerificationCode"
+                android:textColor="@color/basic_blue"
+                tools:src="@drawable/selector_tab_history" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/dp_10"
+                android:layout_toRightOf="@id/iv_create_verification"
                 android:onClick="refreshVerificationCode"
                 android:text="@string/refresh"
                 android:textColor="@color/basic_blue"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_12" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_auto_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -238,7 +237,8 @@
             android:onClick="isAutoLogin"
             android:text="@string/auto_login"
             android:textColor="@color/basic_blue"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone" />
 
 
         <Button

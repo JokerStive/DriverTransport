@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.adyl.pushlibrary.MessageManager;
+import com.adyl.pushlibrary.PushCallBack;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.common.Event;
 import com.tengbo.commonlibrary.net.HttpInterceptor;
@@ -32,7 +34,15 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().register(this);
+        MessageManager.getInstance().register(new PushCallBack() {
+            @Override
+            public void onMessageReceive(String message) {
+                super.onMessageReceive(message);
+                if (message.contains("账号登录")) {
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+            }
+        });
     }
 
 
@@ -41,7 +51,6 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
 //        EventBus.getDefault().unregister(this);
     }
-
 
 
 }

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/basic_white">
 
 
@@ -12,39 +13,118 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_water_mark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4f4e4e"
+        android:background="#10000000"
         android:orientation="vertical"
         android:padding="@dimen/dp_14">
 
         <TextView
             android:id="@+id/tv_order_num"
             style="@style/tv_10sp_blue_bold"
+            android:textSize="12dp"
+            android:textStyle="normal"
             android:text="订单编号：TBQQ2018080100"
             android:textColor="@color/basic_white" />
 
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_step_name"
+                style="@style/tv_10sp_blue_bold"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="normal"
+                tools:text="停靠"
+                android:textColor="@color/basic_white" />
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/dp_10"
+                android:id="@+id/tv_step_address"
+                style="@style/tv_10sp_blue_bold"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="normal"
+                tools:text="重庆市南岸区"
+                android:textColor="@color/basic_white" />
+
+
+        </LinearLayout>
+
+
         <TextView
-            android:id="@+id/tv_action_address"
+            android:layout_marginTop="@dimen/dp_4"
+            android:id="@+id/tv_step_time"
             style="@style/tv_10sp_blue_bold"
-            android:layout_marginTop="@dimen/dp_10"
-            android:text="停靠     18/08/05  15:20     重庆渝北"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="normal"
+            tools:text="2018.8.7  08:00:00"
             android:textColor="@color/basic_white" />
+
     </LinearLayout>
 
 
     <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_after_take"
         android:layout_width="match_parent"
-        android:layout_height="132dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="#4f4e4e">
+
+
+        <TextView
+            android:id="@+id/tv_take_again"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_20"
+            android:text="重拍"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_confirm"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dp_20"
+            android:text="确定使用"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="normal" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_take"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:background="#10000000"
+       >
 
         <ImageView
             android:id="@+id/iv_take_picture"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"
             android:layout_centerInParent="true"
-            android:src="@drawable/shape_radius5_solid_gray" />
+            android:src="@drawable/order_take_picture" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:padding="@dimen/dp_10"
+            android:text="取消"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="normal" />
 
 
     </RelativeLayout>

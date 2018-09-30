@@ -1,9 +1,11 @@
 package com.tengbo.module_order.ui.inspection;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,11 +18,17 @@ import com.tengbo.basiclibrary.utils.UiUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.ComponentConfig;
+//import com.adyl.locationLibrary.LocateService;
 import com.tengbo.module_order.R;
 import com.tengbo.module_order.adapter.InspectionAdapter;
 import com.tengbo.module_order.bean.Inspection;
+//import com.tengbo.module_order.service.UploadLocationService;
 
-import widget.TitleBar;
+import utils.permission.PermissionManager;
+
+import com.tengbo.commonlibrary.widget.TitleBar;
+import com.tengbo.module_order.service.LocateService;
+import com.tengbo.module_order.service.UploadLocationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +116,18 @@ public class InspectionActivity extends BaseActivity {
         getInspections();
     }
 
+
+    /**
+     * 开始任务
+     */
     private void startTask() {
+
+    }
+
+    /**
+     * 权限通过后正式开始任务
+     */
+    private void onPermissionGranted() {
         CC.obtainBuilder(ComponentConfig.Main.COMPONENT_NAME).
                 setContext(this)
                 .addParam(ComponentConfig.Main.PARAM_TAB_POSITION, 2)
@@ -120,7 +139,6 @@ public class InspectionActivity extends BaseActivity {
                 .setActionName(ComponentConfig.Main.ACTION_CHANGE_TAB)
                 .addParam(ComponentConfig.Main.PARAM_TAB_POSITION, 2)
                 .build().call();
-
     }
 
     private void getInspections() {
@@ -134,6 +152,12 @@ public class InspectionActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_inspection;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.getInstance(BaseApplication.get()).onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 }

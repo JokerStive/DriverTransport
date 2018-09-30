@@ -50,7 +50,6 @@ public class TaskListFragment extends BaseMvpFragment<TaskContract.Presenter> im
 
         mAdapter = new TaskListAdapter(mTasks);
         mAdapter.openLoadAnimation();
-        mAdapter.addHeaderView(getHeader());
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -77,16 +76,6 @@ public class TaskListFragment extends BaseMvpFragment<TaskContract.Presenter> im
 
     }
 
-    @SuppressLint("InflateParams")
-    private View getHeader() {
-        View view = LayoutInflater.from(BaseApplication.get()).inflate(R.layout.header_task_list, null);
-        TextView tvDriverName = view.findViewById(R.id.tv_driver_name);
-        TextView tvCarId = view.findViewById(R.id.tv_car_id);
-        tvDriverName.setText("王校长");
-        tvCarId.setText("渝B222222");
-        view.findViewById(R.id.tv_car_id);
-        return view;
-    }
 
     @Override
     protected int getLayoutId() {
