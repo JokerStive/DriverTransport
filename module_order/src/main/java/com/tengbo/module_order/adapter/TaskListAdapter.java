@@ -32,13 +32,12 @@ public class TaskListAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Order order) {
-        helper.setText(R.id.tv_departure, order.getDepature())
-                .setText(R.id.tv_destination, order.getDestination())
-                .setText(R.id.tv_order_id, "订单编号：" + order.getOrderNum())
-                .setText(R.id.tv_schedule_time, "计划装货：" + order.getScheduleStartTime())
-                .setText(R.id.tv_latest_time, "最晚发货：" + order.getLatestStartTime())
-                .setText(R.id.tv_schedule_arrive_time, "计划到达：" + order.getScheduleArriveTime())
-                .setText(R.id.tv_method, order.getMethod())
+        helper.setText(R.id.tv_departure, order.getStartNodeName())
+                .setText(R.id.tv_destination, order.getEndNodeName())
+                .setText(R.id.tv_order_id, "订单编号：" + order.getOrderCode())
+                .setText(R.id.tv_schedule_time, "计划出发：" + order.getPredictEndTime())
+                .setText(R.id.tv_schedule_arrive_time, "计划到达：" + order.getPredictEndTime())
+//                .setText(R.id.tv_method, order.get())
                 .addOnClickListener(R.id.btn_accept_task)
                 .addOnClickListener(R.id.btn_reject_task)
                 .addOnClickListener(R.id.btn_start_task);
