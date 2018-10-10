@@ -65,7 +65,7 @@ public class UploadLocationService extends Service {
         @Override
         public void run() {
             try {
-                List<Location> locations = LitePal.where("upload like ?", "0").limit(MAX_DATA_AMOUNT).find(Location.class);
+                List<Location> locations = LitePal.where("upload = ?", "0").limit(MAX_DATA_AMOUNT).find(Location.class);
                 LogUtil.d("查询到的定位信息个数" + locations.size());
                 if (locations != null && locations.size() > 0) {
                     Thread.sleep(3000);

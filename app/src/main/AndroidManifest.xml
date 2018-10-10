@@ -14,7 +14,7 @@
 
 
         <activity
-            android:name="com.tengbo.module_main.ui.login.PermissionRequestActivity"
+            android:name="com.tengbo.module_main.ui.login.SplashActivity"
             android:launchMode="singleTask">
 
             <intent-filter>

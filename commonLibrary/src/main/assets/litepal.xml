@@ -33,6 +33,7 @@
     -->
     <list>
         <mapping class="com.tengbo.commonlibrary.commonBean.Location" />
+        <mapping class="com.tengbo.module_order.bean.StepCache" />
     </list>
 
     <!--

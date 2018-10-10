@@ -37,6 +37,9 @@ public class NormalStepPassFragment extends DialogFragment implements View.OnCli
         return fragment;
     }
 
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,12 @@ public class NormalStepPassFragment extends DialogFragment implements View.OnCli
         if (arguments != null) {
             mStep = arguments.getParcelable("step");
         }
+
+
+        ProcessingOrderPresenter presenter = new ProcessingOrderPresenter();
+//        presenter.uploadStepDate();
+//        Fragment parentFragment = getParentFragment();
+
     }
 
     @Override

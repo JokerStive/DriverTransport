@@ -19,7 +19,7 @@
 
 
         <activity
-            android:name=".ui.login.PermissionRequestActivity"
+            android:name=".ui.login.SplashActivity"
             android:launchMode="singleTask">
 
             <intent-filter>

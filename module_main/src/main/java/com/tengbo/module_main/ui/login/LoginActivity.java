@@ -37,6 +37,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
 import rx.Subscription;
 import utils.RequestUtils;
 import utils.ToastUtils;
@@ -107,6 +108,9 @@ public class LoginActivity extends BaseActivity {
     }
 
 
+    /**
+     *
+     */
     private void login() {
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
@@ -133,9 +137,14 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-        Map<String, String> map = new HashMap<String, String>();
+        //获取激光注册id，可以指定推送到设备
+        String registrationID = JPushInterface.getRegistrationID(getApplicationContext());
+        LogUtil.d(registrationID);
+
+        Map<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("password", password);
+        map.put("registrationId", registrationID);
         Subscription subscription = NetHelper.getInstance().getApi()
                 .login(RequestUtils.createRequestBody(map))
                 .compose(RxUtils.handleResult())

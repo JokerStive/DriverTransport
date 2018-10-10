@@ -151,17 +151,9 @@
                 android:textColor="@color/basic_blue"
                 android:textSize="@dimen/sp_7"
                 android:textStyle="normal"
+                android:layout_centerVertical="true"
                 tools:text="计划装货：18/08/08  18:01" />
 
-            <TextView
-                android:id="@+id/tv_latest_time"
-                style="@style/tv_10sp_blue_bold"
-                android:layout_below="@id/tv_schedule_time"
-                android:layout_toLeftOf="@id/tv_method"
-                android:textColor="@color/basic_blue"
-                android:textSize="@dimen/sp_7"
-                android:textStyle="normal"
-                tools:text="最晚发货：18/09/04  14:01" />
 
 
             <TextView
@@ -172,6 +164,7 @@
                 android:textColor="@color/basic_blue"
                 android:textSize="@dimen/sp_7"
                 android:textStyle="normal"
+                android:layout_centerVertical="true"
                 tools:text="最晚发货：18/09/04  14:01" />
 
         </RelativeLayout>

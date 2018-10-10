@@ -13,6 +13,7 @@ public interface ProcessingOrderContract {
     interface View extends IView<ProcessingOrderContract.Presenter> {
         void  showOrder(Order order);
         void  passActionSuccess(int position);
+        void uploadStepDateSuccess(int  stepNum);
     }
 
     interface Presenter extends IPresenter<ProcessingOrderContract.View> {
@@ -21,6 +22,8 @@ public interface ProcessingOrderContract {
         void passAction(int actionId,int position);
 
         List<Step> createSteps(List<Node>  nodes);
+
+        void uploadStepDate(int orderNum,int stepNum);
     }
 
 }

@@ -12,18 +12,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tengbo.commonlibrary.base.BaseFragment;
 import com.tengbo.module_order.R;
 import com.tengbo.module_order.adapter.InfoAdapter;
-import com.tengbo.module_order.bean.Info;
-import com.tengbo.module_order.ui.processing.TakeStepPictureActivity;
+import com.tengbo.module_order.bean.Message;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class InfoFragment extends BaseFragment {
 
     private RecyclerView mRvInfo;
-    private List<Info> infoList = new ArrayList<>();
+    private List<Message> infoList = new ArrayList<>();
     private InfoAdapter mAdapter;
 
     public static InfoFragment newInstance() {
@@ -47,6 +44,12 @@ public class InfoFragment extends BaseFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initPush();
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_info;
     }
@@ -59,11 +62,14 @@ public class InfoFragment extends BaseFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         getInfo();
-        MessageManager.getInstance().register(new PushCallBack() {
+    }
+
+    private void initPush() {
+        MessageManager.getInstance().register(getClass().getName(), new PushCallBack() {
             @Override
             public void onMessageReceive(String message) {
                 super.onMessageReceive(message);
-                Info info = new Info();
+                Message info = new Message();
                 info.setFrom("后台推送");
                 info.setTo(message);
                 message.indexOf("");
@@ -74,7 +80,7 @@ public class InfoFragment extends BaseFragment {
             @Override
             public void onNotificationClick() {
                 super.onNotificationClick();
-                Info info = new Info();
+                Message info = new Message();
                 info.setFrom("后台推送");
                 info.setTo("通知被点击了");
                 mRvInfo.scrollToPosition(0);
@@ -84,7 +90,7 @@ public class InfoFragment extends BaseFragment {
             @Override
             public void onNotificationReceive() {
                 super.onNotificationReceive();
-                Info info = new Info();
+                Message info = new Message();
                 info.setFrom("后台推送");
                 info.setTo("通知来了");
                 mRvInfo.scrollToPosition(0);
@@ -96,11 +102,18 @@ public class InfoFragment extends BaseFragment {
 
     private void getInfo() {
         for (int i = 0; i < 30; i++) {
-            Info info = new Info();
+            Message info = new Message();
             info.setFrom("司机小王");
             info.setTo("你的车有故障");
             infoList.add(info);
         }
         mAdapter.replaceAll(infoList);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MessageManager.getInstance().unRegister(getClass().getName());
     }
 }

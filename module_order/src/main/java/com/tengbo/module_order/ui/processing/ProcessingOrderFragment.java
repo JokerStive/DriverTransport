@@ -20,12 +20,16 @@ import com.tengbo.basiclibrary.utils.SelectorFactory;
 import com.tengbo.basiclibrary.utils.UiUtils;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.base.BaseMvpFragment;
+import com.tengbo.commonlibrary.commonBean.Location;
 import com.tengbo.module_order.R;
 import com.tengbo.module_order.adapter.StepAdapter;
 import com.tengbo.module_order.bean.Order;
 import com.tengbo.module_order.bean.Step;
+import com.tengbo.module_order.bean.StepCache;
 import com.tengbo.module_order.service.LocateService;
 import com.tengbo.module_order.service.UploadLocationService;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +132,7 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
             @Override
             public void onClick(View view) {
                 NormalStepPassFragment dialog = NormalStepPassFragment.newInstance(null);
-                dialog.show(getFragmentManager(),"");
+                dialog.show(getFragmentManager(), "");
 //                ExceptionFeedbackActivity.start(_mActivity, mOrder);
             }
         });
@@ -158,10 +162,15 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
      * 1.如果步骤是自动通过的，不用处理
      * 2.非自动通过，如果是第一个步骤，直接处理
      * 3.不是第一步骤，如果上一个步骤是可以跳过，直接处理。否则需要判断上一步骤是否已经通过
+     * 4.如果该步骤标记为已经缓存
      *
      * @param step 被点击的步骤
      */
     private void dealAction(Step step) {
+        //如果该步骤标记为缓存，就直接上传数据
+        if (step.isCached()) {
+            mPresent.uploadStepDate(mOrder.getDriverOrderId(), step.getStepSerialNumber());
+        }
         //如果点击的步骤不是自动通过类型并且未完成
         if (step.getNodeType() == 1 && !step.isProcessed()) {
             if (clickStepPosition == 0) {
@@ -183,42 +192,19 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
 
     }
 
-    /**
-     * @Desc 弹框确认需要通过该步骤
+
+    /** 执行步骤操作
+     * 1.普通步骤-->弹窗拍照-->数据上链->更新订单的当前步骤
+     * 2.特殊步骤-->进入额外的界面-->弹窗拍照-->数据上链->更新订单的当前步骤
+     * @param step
      */
     private void stepConfirm(Step step) {
-        new CommonDialog(_mActivity)
-                .setNotice("这个操作会把节点变成'通过',确定并拍照？")
-                .setPositiveText("拍照")
-                .setNegativeText("取消")
-                .setOnPositiveClickListener(new CommonDialog.OnPositiveClickListener() {
-                    @Override
-                    public void onPositiveClick() {
-                        takeStepPicture(step);
-                    }
-                })
-                .show();
-
+        NormalStepPassFragment dialog = NormalStepPassFragment.newInstance(step);
+        assert getFragmentManager() != null;
+        dialog.show(getFragmentManager(), "");
     }
 
-    /**
-     * @Desc 准备进入拍照界面
-     */
-    private void takeStepPicture(Step step) {
-        PermissionManager.getInstance(BaseApplication.get())
-                .setOnRequestPermissionResult(new PermissionManager.RequestPermissionResult() {
-                    @Override
-                    public void onGranted() {
-//                        TakeStepPictureActivity.open(_mActivity);
-                    }
 
-                    @Override
-                    public void onDenied(boolean isNotAskAgain) {
-
-                    }
-                })
-                .execute(this, Manifest.permission.CAMERA);
-    }
 
     @Override
     protected int getLayoutId() {
@@ -233,15 +219,51 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
     }
 
 
+    /**
+     * @Desc 尝试从数据库获取没有提交成功的step
+     * 如果有未提交的数据，则刷新界面，展示一个感叹号，点击步骤时直接上传数据
+     */
+    private void getCachedSteps() {
+        List<StepCache> stepCaches = LitePal.where("driverOrderId = ?",String.valueOf(mOrder.getDriverOrderId()) ).find(StepCache.class);
+        for(StepCache stepCache:stepCaches){
+            mAdapter.setStepCached(stepCache.getStepSerialNumber(),true);
+        }
+
+    }
+
+
+    /** 显示订单、步骤等信息
+     * @param order 订单
+     */
     @Override
     public void showOrder(Order order) {
         mOrder = order;
+
         showDetail();
+
+        getCachedSteps();
+
     }
 
     @Override
     public void passActionSuccess(int position) {
         mAdapter.setStepPass(position);
+    }
+
+
+
+
+    /**上传缓存步骤数据成功后
+     * 1.刷新界面
+     * 2.删除数据库数据
+     * @param stepSerialNumber 已经上传成功后的缓存的步骤
+     */
+    @Override
+    public void uploadStepDateSuccess(int stepSerialNumber) {
+        mAdapter.setStepCached(stepSerialNumber ,false);
+        LitePal.deleteAll(StepCache.class,"stepSerialNumber = ?", String.valueOf(stepSerialNumber));
+
+
     }
 
     private void showDetail() {

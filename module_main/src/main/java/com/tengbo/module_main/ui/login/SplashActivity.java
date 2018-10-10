@@ -1,15 +1,17 @@
 package com.tengbo.module_main.ui.login;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.module_main.R;
 
 import utils.permission.PermissionManager;
 
-public class PermissionRequestActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity {
 
 
     private String[] needPermissions = new String[]{
@@ -24,8 +26,6 @@ public class PermissionRequestActivity extends BaseActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
 
             Manifest.permission.CALL_PHONE,
-
-            Manifest.permission.ACCESS_COARSE_LOCATION,
 
             Manifest.permission.CAMERA,
 
@@ -43,19 +43,25 @@ public class PermissionRequestActivity extends BaseActivity {
                 .setOnRequestPermissionResult(new PermissionManager.RequestPermissionResult() {
                     @Override
                     public void onGranted() {
-                        startActivity(new Intent(PermissionRequestActivity.this, LoginActivity.class));
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        finish();
                     }
 
                     @Override
                     public void onDenied(boolean isNotAskAgain) {
-                        if (isNotAskAgain) {
-
-                        } else {
-                            finish();
-                        }
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
+                        builder.setMessage("您拒绝了使用该APP必要的权限，请在：设置->应用管理->司机运输 中开启权限后重新打开")
+                                .setTitle("警告")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                })
+                                .create().show();
                     }
                 })
-                .execute(PermissionRequestActivity.this, needPermissions);
+                .execute(SplashActivity.this, needPermissions);
     }
 
 

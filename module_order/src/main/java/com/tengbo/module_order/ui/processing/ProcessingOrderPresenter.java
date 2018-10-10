@@ -8,6 +8,7 @@ import com.tengbo.module_order.bean.Step;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ProcessingOrderPresenter extends BasePresenter<ProcessingOrderContract.View>  implements ProcessingOrderContract.Presenter {
     @Override
@@ -24,6 +25,15 @@ public class ProcessingOrderPresenter extends BasePresenter<ProcessingOrderContr
     @Override
     public List<Step> createSteps(List<Node> nodes) {
         List<Step>  steps = new ArrayList<>();
+        Random random = new Random();
+        for(int i=0;i<30;i++){
+            Step step = new Step();
+            step.setStepName("随机");
+            step.setStepSerialNumber(random.nextInt(200));
+            step.setProcessNecessary(i==4|| i==8 || i==12?2:1);
+            step.setNodeType(i==10|| i==20 || i==26?2:1);
+            steps.add(step);
+        }
 //        for(Node node:nodes){
 //            //系统节点，自带步骤
 //            if(node.getNodeType()==1){
@@ -36,5 +46,10 @@ public class ProcessingOrderPresenter extends BasePresenter<ProcessingOrderContr
 //            }
 //        }
         return steps;
+    }
+
+    @Override
+    public void uploadStepDate(int orderNum, int stepNum) {
+        mView.uploadStepDateSuccess(stepNum);
     }
 }

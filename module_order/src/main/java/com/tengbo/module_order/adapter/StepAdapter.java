@@ -1,5 +1,6 @@
 package com.tengbo.module_order.adapter;
 
+import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -23,7 +24,9 @@ public class StepAdapter extends QuickAdapter<Step> {
         TextView tvTimeDesc = helper.getView(R.id.tv_step_time_desc);
         TextView tvTime = helper.getView(R.id.tv_step_time);
         TextView tvName = helper.getView(R.id.tv_step_name);
+        View ivWarm = helper.getView(R.id.iv_warm);
         boolean processed = step.isProcessed();
+        ivWarm.setVisibility(step.isCached() ? View.VISIBLE : View.INVISIBLE);
         if (!processed) {
             tvName.setBackgroundResource(R.drawable.node_step_no);
             tvTimeDesc.setText("计划时间");
@@ -37,11 +40,27 @@ public class StepAdapter extends QuickAdapter<Step> {
     }
 
 
+    /**
+     * @Desc 设置该步骤为通过
+     */
     public void setStepPass(int position) {
         Step item = getItem(position);
         assert item != null;
         LogUtil.d("取得的的step---" + item.getStepName() + "--position" + position);
         item.setProcessed(true);
         notifyItemChanged(position + 1);
+    }
+
+    /**
+     * @Desc 设置该步骤是否缓存过
+     */
+    public void setStepCached(int stepSerialNumber, boolean isCached) {
+        for (int i = 0; i < getData().size(); i++) {
+            Step step = getData().get(i);
+            if (step.getStepSerialNumber() == stepSerialNumber) {
+                step.setCached(isCached);
+                notifyItemChanged(i + 1);
+            }
+        }
     }
 }

@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MessageManager.getInstance().register(new PushCallBack() {
+        MessageManager.getInstance().register(getClass().getName(), new PushCallBack() {
             @Override
             public void onMessageReceive(String message) {
                 super.onMessageReceive(message);
@@ -49,6 +49,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        MessageManager.getInstance().unRegister(getClass().getName());
 //        EventBus.getDefault().unregister(this);
     }
 

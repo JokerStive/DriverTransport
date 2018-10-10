@@ -1,6 +1,7 @@
 package com.tengbo.module_order.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Wang Chenchen
@@ -9,78 +10,128 @@ import java.io.Serializable;
  */
 public class Order  implements Serializable{
 
-    private static final long serialVersionUID = 1L;
-    // 订单编号
-    public String orderNum;
-    // 完成日期
-    public String completeDate;
-    // 运费
-    public float freight;
-    // 已支付
-    public float alreadyPay;
-    // 应扣
-    public float shouldDeduct;
-    // 接单状态
-    public String orderStatus;
+    /**
+     * planCode : 运输订单编号
+     * orderCode : 司机订单编号
+     * driverId : 司机身份证号
+     * vehicleHead : 车头车牌号
+     * startNodeName : 起始节点名称
+     * endNodeName : 终点节点名称
+     * predictStartTime : 计划出发时间
+     * predictEndTime : 计划到达时间
+     * orderStatus : 订单状态(1未接单 2已接单3已拒单4运输中正常5运输中异常6正常完成 7异常结束)
+     * "auditingStatus":"财务审核状态"（0待审核1 通过 2 驳回 ）
+     */
 
-    public String depature;
 
-    public String destination;
+    private String planCode;
+    private String orderCode;
+    private String driverId;
+    private String vehicleHead;
+    private String startNodeName;
+    private String endNodeName;
+    private String predictStartTime;
+    private String predictEndTime;
+    private String orderStatus;
+    private String auditingStatus;
+    private List<Goods> goods;
+    private List<ContainerMission> containerMissions;
+    private List<Flow> flows;
 
-    public String scheduleStartTime;
-
-    public String latestStartTime;
-
-    public String getMethod() {
-        return method;
+    public List<Goods> getGoods() {
+        return goods;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setGoods(List<Goods> goods) {
+        this.goods = goods;
     }
 
-    public String scheduleArriveTime;
-
-    public String method;
-
-    public String getOrderNum() {
-        return orderNum;
+    public List<ContainerMission> getContainerMissions() {
+        return containerMissions;
     }
 
-    public void setOrderNum(String orderNum) {
-        this.orderNum = orderNum;
+    public void setContainerMissions(List<ContainerMission> containerMissions) {
+        this.containerMissions = containerMissions;
     }
 
-    public String getCompleteDate() {
-        return completeDate;
+    public List<Flow> getFlows() {
+        return flows;
     }
 
-    public void setCompleteDate(String completeDate) {
-        this.completeDate = completeDate;
+    public void setFlows(List<Flow> flows) {
+        this.flows = flows;
     }
 
-    public float getFreight() {
-        return freight;
+    public String getAuditingStatus() {
+        return auditingStatus;
     }
 
-    public void setFreight(float freight) {
-        this.freight = freight;
+    public void setAuditingStatus(String auditingStatus) {
+        this.auditingStatus = auditingStatus;
     }
 
-    public float getAlreadyPay() {
-        return alreadyPay;
+    public String getPlanCode() {
+        return planCode;
     }
 
-    public void setAlreadyPay(float alreadyPay) {
-        this.alreadyPay = alreadyPay;
+    public void setPlanCode(String planCode) {
+        this.planCode = planCode;
     }
 
-    public float getShouldDeduct() {
-        return shouldDeduct;
+    public String getOrderCode() {
+        return orderCode;
     }
 
-    public void setShouldDeduct(float shouldDeduct) {
-        this.shouldDeduct = shouldDeduct;
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
+
+    public String getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
+
+    public String getVehicleHead() {
+        return vehicleHead;
+    }
+
+    public void setVehicleHead(String vehicleHead) {
+        this.vehicleHead = vehicleHead;
+    }
+
+    public String getStartNodeName() {
+        return startNodeName;
+    }
+
+    public void setStartNodeName(String startNodeName) {
+        this.startNodeName = startNodeName;
+    }
+
+    public String getEndNodeName() {
+        return endNodeName;
+    }
+
+    public void setEndNodeName(String endNodeName) {
+        this.endNodeName = endNodeName;
+    }
+
+    public String getPredictStartTime() {
+        return predictStartTime;
+    }
+
+    public void setPredictStartTime(String predictStartTime) {
+        this.predictStartTime = predictStartTime;
+    }
+
+    public String getPredictEndTime() {
+        return predictEndTime;
+    }
+
+    public void setPredictEndTime(String predictEndTime) {
+        this.predictEndTime = predictEndTime;
     }
 
     public String getOrderStatus() {
@@ -89,57 +140,5 @@ public class Order  implements Serializable{
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
-    }
-
-    public String getDepature() {
-        return depature;
-    }
-
-    public void setDepature(String depature) {
-        this.depature = depature;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public String getScheduleStartTime() {
-        return scheduleStartTime;
-    }
-
-    public void setScheduleStartTime(String scheduleStartTime) {
-        this.scheduleStartTime = scheduleStartTime;
-    }
-
-    public String getLatestStartTime() {
-        return latestStartTime;
-    }
-
-    public void setLatestStartTime(String latestStartTime) {
-        this.latestStartTime = latestStartTime;
-    }
-
-    public String getScheduleArriveTime() {
-        return scheduleArriveTime;
-    }
-
-    public void setScheduleArriveTime(String scheduleArriveTime) {
-        this.scheduleArriveTime = scheduleArriveTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderNum='" + orderNum + '\'' +
-                ", completeDate='" + completeDate + '\'' +
-                ", freight='" + freight + '\'' +
-                ", alreadyPay='" + alreadyPay + '\'' +
-                ", shouldDeduct='" + shouldDeduct + '\'' +
-                ", orderStatus='" + orderStatus + '\'' +
-                '}';
     }
 }

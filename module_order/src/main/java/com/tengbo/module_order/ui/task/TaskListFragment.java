@@ -1,13 +1,10 @@
 package com.tengbo.module_order.ui.task;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tengbo.basiclibrary.utils.LogUtil;
@@ -62,11 +59,11 @@ public class TaskListFragment extends BaseMvpFragment<TaskContract.Presenter> im
                 Order order = (Order) adapter.getItem(position);
                 int id = view.getId();
                 if (id == R.id.btn_accept_task) {
-                    ToastUtils.show(_mActivity, "接受编号为" + order.getOrderNum() + "的订单");
+                    ToastUtils.show(_mActivity, "接受编号为" + order.getDriverOrderId() + "的订单");
                 } else if (id == R.id.btn_reject_task) {
-                    ToastUtils.show(_mActivity, "拒绝编号为" + order.getOrderNum() + "的订单");
+                    ToastUtils.show(_mActivity, "拒绝编号为" + order.getDriverOrderId() + "的订单");
                 } else if (id == R.id.btn_start_task) {
-                    ToastUtils.show(_mActivity, "开始编号为" + order.getOrderNum() + "的订单");
+                    ToastUtils.show(_mActivity, "开始编号为" + order.getDriverOrderId() + "的订单");
                 }
             }
         });

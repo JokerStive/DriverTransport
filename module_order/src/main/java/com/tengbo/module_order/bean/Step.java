@@ -8,16 +8,36 @@ import android.os.Parcelable;
  */
 public class Step implements Parcelable {
     private String nodeCode; //父节点id
+    private int  driverOrderId; //属于的订单的id
     private String nodeName; //父节点名称
     private String stepName;
     private String stepType; //0 其他 1 开始 2到达 3装货
+
+    public int getDriverOrderId() {
+        return driverOrderId;
+    }
+
+    public void setDriverOrderId(int driverOrderId) {
+        this.driverOrderId = driverOrderId;
+    }
+
     private int stepSerialNumber; //编码
     private String startedTime;
     private String finishedTime;
     private int nodeType =1;  // 1系统业务节点 2自动触发节点
     private int processNecessary = 1;  // 1必须 2可以跳过
     private boolean processed;  // 是否已经执行过
+    private boolean cached=false;  // 是否保存过，如果是则点击的时候直接提交数据
     private boolean driggerLongitude;  // 精度
+
+    public boolean isCached() {
+        return cached;
+    }
+
+    public void setCached(boolean cached) {
+        this.cached = cached;
+    }
+
     private boolean driggerlatitude;  // 维度
     private int driggerDistance;  // 触发距离
 

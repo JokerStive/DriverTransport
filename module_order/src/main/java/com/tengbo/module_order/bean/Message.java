@@ -1,6 +1,6 @@
 package com.tengbo.module_order.bean;
 
-public class Info {
+public class Message {
     private String from;
     private String to;
 

@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.adyl.pushlibrary.MessageManager;
+import com.adyl.pushlibrary.PushCallBack;
 import com.tengbo.commonlibrary.base.BaseMvpActivity;
 import com.tengbo.module_order.R;
 import com.tengbo.module_order.bean.Order;
@@ -116,7 +118,7 @@ public class TaskDetailActivity extends BaseMvpActivity<TaskContract.Presenter> 
         titleBar.setOnBackClickListener(this::finish);
 
         if (mOrder != null) {
-            tvOrderId.setText("订单编号：" + mOrder.getOrderNum() + "      " + "直达");
+            tvOrderId.setText("订单编号：" + mOrder.getDriverOrderId() + "      " + "直达");
 
             //司机车辆信息
             tvDriverName.setText("王校长");

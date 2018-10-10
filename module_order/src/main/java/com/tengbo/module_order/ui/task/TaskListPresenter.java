@@ -12,7 +12,7 @@ public class TaskListPresenter extends BasePresenter<TaskContract.View> implemen
         List<Order> tasks = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             Order order = new Order();
-            order.setOrderNum(i + "");
+            order.setDriverOrderId(i);
             order.setOrderStatus(i % 2 == 0 ? "未接单" : "已接单");
             order.setMethod(i % 2 == 0 ? "直达" : "不是直达");
             order.setDepature("重庆");

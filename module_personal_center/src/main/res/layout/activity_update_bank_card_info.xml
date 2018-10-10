@@ -214,7 +214,7 @@
                         android:background="@null"
                         android:hint="@string/please_input_valid_code"
                         android:maxLength="4"
-                        android:inputType="textPassword"
+                        android:inputType="textVisiblePassword"
                         android:maxLines="1"
                         android:textColor="@color/basic_blue"
                         android:textColorHint="#d9d9d9"
