@@ -18,21 +18,17 @@ import com.tengbo.basiclibrary.utils.SelectorFactory;
 import com.tengbo.basiclibrary.utils.UiUtils;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.base.BaseApplication;
-import com.tengbo.commonlibrary.common.Config;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.commonBean.Account;
 import com.tengbo.commonlibrary.commonBean.Token;
 import com.tengbo.commonlibrary.net.ApiException;
-import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
+import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.module_main.R;
 import com.tengbo.commonlibrary.commonBean.LoginInfo;
-import com.tengbo.module_main.component.MainComponent;
 import com.tengbo.module_main.ui.home.MainActivity;
 
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +50,6 @@ public class LoginActivity extends BaseActivity {
     EditText etPassword;
     EditText etVerification;
     ImageView ivCreateVerification;
-    TextView tvAutoLogin;
     private boolean isGoMainActivity;
 
 
@@ -79,8 +74,6 @@ public class LoginActivity extends BaseActivity {
         etPassword = findViewById(R.id.et_password);
         etVerification = findViewById(R.id.et_verification);
         ivCreateVerification = findViewById(R.id.iv_create_verification);
-        tvAutoLogin = findViewById(R.id.tv_auto_login);
-        tvAutoLogin.setSelected(true);
 
 
         Button btnLogin = findViewById(R.id.btn_login);
@@ -98,10 +91,6 @@ public class LoginActivity extends BaseActivity {
         login();
     }
 
-
-    public void isAutoLogin(View v) {
-        tvAutoLogin.setSelected(!tvAutoLogin.isSelected());
-    }
 
     public void refreshVerificationCode(View v) {
         refreshVerification();
@@ -145,6 +134,7 @@ public class LoginActivity extends BaseActivity {
         map.put("username", username);
         map.put("password", password);
         map.put("registrationId", registrationID);
+//        String url = "http://192.168.1.22:80/api/auth/login";
         Subscription subscription = NetHelper.getInstance().getApi()
                 .login(RequestUtils.createRequestBody(map))
                 .compose(RxUtils.handleResult())

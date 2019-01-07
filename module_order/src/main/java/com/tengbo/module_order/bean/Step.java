@@ -3,51 +3,46 @@ package com.tengbo.module_order.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * 步骤模型
  */
 public class Step implements Parcelable {
-    private String nodeCode; //父节点id
-    private int  driverOrderId; //属于的订单的id
-    private String nodeName; //父节点名称
+
+
+    /**
+     * processNumber : 子流程序号
+     * stepName : 步骤名称
+     * stepType : 1 开始 2开始装货 3装货 4 完成装货 5开始卸货 6卸货 7完成卸货 8开始提柜 9提柜 10完成提柜 11甩柜 12送达
+     * stepSerialNumber : 步骤序号
+     * processNecessary : 是否必须执行（1必须2可以跳过）
+     * stepStatus : 步骤状态（0未执行 1已执行）
+     * executeTime : 执行时间
+     * stepDes : 步骤描述
+     */
+
+    private int processNumber;
     private String stepName;
-    private String stepType; //0 其他 1 开始 2到达 3装货
+    private String nodeName;
+    private int position;
 
-    public int getDriverOrderId() {
-        return driverOrderId;
+    public int getPosition() {
+        return position;
     }
 
-    public void setDriverOrderId(int driverOrderId) {
-        this.driverOrderId = driverOrderId;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
-    private int stepSerialNumber; //编码
-    private String startedTime;
-    private String finishedTime;
-    private int nodeType =1;  // 1系统业务节点 2自动触发节点
-    private int processNecessary = 1;  // 1必须 2可以跳过
-    private boolean processed;  // 是否已经执行过
-    private boolean cached=false;  // 是否保存过，如果是则点击的时候直接提交数据
-    private boolean driggerLongitude;  // 精度
+    private int nodeNumber;
 
-    public boolean isCached() {
-        return cached;
+    public int getNodeNumber() {
+        return nodeNumber;
     }
 
-    public void setCached(boolean cached) {
-        this.cached = cached;
-    }
-
-    private boolean driggerlatitude;  // 维度
-    private int driggerDistance;  // 触发距离
-
-
-    public String getNodeCode() {
-        return nodeCode;
-    }
-
-    public void setNodeCode(String nodeCode) {
-        this.nodeCode = nodeCode;
+    public void setNodeNumber(int nodeNumber) {
+        this.nodeNumber = nodeNumber;
     }
 
     public String getNodeName() {
@@ -58,6 +53,130 @@ public class Step implements Parcelable {
         this.nodeName = nodeName;
     }
 
+    private int stepType;
+
+    public String getVehicleHead() {
+        return vehicleHead;
+    }
+
+    public void setVehicleHead(String vehicleHead) {
+        this.vehicleHead = vehicleHead;
+    }
+
+    private String vehicleHead;
+
+    public int getNodeStatus() {
+        return nodeStatus;
+    }
+
+    public void setNodeStatus(int nodeStatus) {
+        this.nodeStatus = nodeStatus;
+    }
+
+    private int nodeStatus;
+    private int stepSerialNumber;
+    private int processNecessary;
+    private int stepStatus;
+    private String executeTime;
+    private String stepDes;
+
+    public List<String> getAttachs() {
+        return attachs;
+    }
+
+    public void setAttachs(List<String> attachs) {
+        this.attachs = attachs;
+    }
+
+    private List<String> attachs;
+
+    //组装的数据
+    private String orderCode;
+    private String nodeCode;
+    private int nodeType; //（1系统业务节点2自动触发节点）
+
+    public double getNodeLongitude() {
+        return nodeLongitude;
+    }
+
+    public void setNodeLongitude(double nodeLongitude) {
+        this.nodeLongitude = nodeLongitude;
+    }
+
+    public double getNodeLatitude() {
+        return nodeLatitude;
+    }
+
+    public void setNodeLatitude(double nodeLatitude) {
+        this.nodeLatitude = nodeLatitude;
+    }
+
+    public double getTriggerDistance() {
+        return triggerDistance;
+    }
+
+    public boolean isProcessed() {
+        return isProcessed;
+    }
+
+    public void setProcessed(boolean processed) {
+        isProcessed = processed;
+    }
+
+    public void setTriggerDistance(double triggerDistance) {
+        this.triggerDistance = triggerDistance;
+
+    }
+
+    private boolean isCached; //是否有缓存
+    private boolean isProcessed; //是否执行了
+    private double nodeLongitude; //节点精度
+    private double nodeLatitude; //节点维度
+    private double triggerDistance; //触发距离
+
+
+    public String getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
+
+    public String getNodeCode() {
+        return nodeCode;
+    }
+
+    public void setNodeCode(String nodeCode) {
+        this.nodeCode = nodeCode;
+    }
+
+
+    public int getNodeType() {
+        return nodeType;
+    }
+
+    public void setNodeType(int nodeType) {
+        this.nodeType = nodeType;
+    }
+
+
+    public boolean isCached() {
+        return isCached;
+    }
+
+    public void setCached(boolean cached) {
+        isCached = cached;
+    }
+
+    public int getProcessNumber() {
+        return processNumber;
+    }
+
+    public void setProcessNumber(int processNumber) {
+        this.processNumber = processNumber;
+    }
+
     public String getStepName() {
         return stepName;
     }
@@ -66,11 +185,11 @@ public class Step implements Parcelable {
         this.stepName = stepName;
     }
 
-    public String getStepType() {
+    public int getStepType() {
         return stepType;
     }
 
-    public void setStepType(String stepType) {
+    public void setStepType(int stepType) {
         this.stepType = stepType;
     }
 
@@ -82,30 +201,6 @@ public class Step implements Parcelable {
         this.stepSerialNumber = stepSerialNumber;
     }
 
-    public String getStartedTime() {
-        return startedTime;
-    }
-
-    public void setStartedTime(String startedTime) {
-        this.startedTime = startedTime;
-    }
-
-    public String getFinishedTime() {
-        return finishedTime;
-    }
-
-    public void setFinishedTime(String finishedTime) {
-        this.finishedTime = finishedTime;
-    }
-
-    public int getNodeType() {
-        return nodeType;
-    }
-
-    public void setNodeType(int nodeType) {
-        this.nodeType = nodeType;
-    }
-
     public int getProcessNecessary() {
         return processNecessary;
     }
@@ -114,37 +209,31 @@ public class Step implements Parcelable {
         this.processNecessary = processNecessary;
     }
 
-    public boolean isProcessed() {
-        return processed;
+    public int getStepStatus() {
+        return stepStatus;
     }
 
-    public void setProcessed(boolean processed) {
-        this.processed = processed;
+    public void setStepStatus(int stepStatus) {
+        this.stepStatus = stepStatus;
+        setProcessed(stepStatus == 1);
     }
 
-    public boolean isDriggerLongitude() {
-        return driggerLongitude;
+    public String getExecuteTime() {
+        return executeTime;
     }
 
-    public void setDriggerLongitude(boolean driggerLongitude) {
-        this.driggerLongitude = driggerLongitude;
+    public void setExecuteTime(String executeTime) {
+        this.executeTime = executeTime;
     }
 
-    public boolean isDriggerlatitude() {
-        return driggerlatitude;
+    public String getStepDes() {
+        return stepDes;
     }
 
-    public void setDriggerlatitude(boolean driggerlatitude) {
-        this.driggerlatitude = driggerlatitude;
+    public void setStepDes(String stepDes) {
+        this.stepDes = stepDes;
     }
 
-    public int getDriggerDistance() {
-        return driggerDistance;
-    }
-
-    public void setDriggerDistance(int driggerDistance) {
-        this.driggerDistance = driggerDistance;
-    }
 
     @Override
     public int describeContents() {
@@ -153,41 +242,57 @@ public class Step implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.nodeCode);
-        dest.writeString(this.nodeName);
+        dest.writeInt(this.processNumber);
         dest.writeString(this.stepName);
-        dest.writeString(this.stepType);
+        dest.writeString(this.nodeName);
+        dest.writeInt(this.nodeNumber);
+        dest.writeInt(this.stepType);
+        dest.writeString(this.vehicleHead);
+        dest.writeInt(this.nodeStatus);
         dest.writeInt(this.stepSerialNumber);
-        dest.writeString(this.startedTime);
-        dest.writeString(this.finishedTime);
-        dest.writeInt(this.nodeType);
         dest.writeInt(this.processNecessary);
-        dest.writeByte(this.processed ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.driggerLongitude ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.driggerlatitude ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.driggerDistance);
+        dest.writeInt(this.stepStatus);
+        dest.writeString(this.executeTime);
+        dest.writeString(this.stepDes);
+        dest.writeStringList(this.attachs);
+        dest.writeString(this.orderCode);
+        dest.writeString(this.nodeCode);
+        dest.writeInt(this.nodeType);
+        dest.writeByte(this.isCached ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isProcessed ? (byte) 1 : (byte) 0);
+        dest.writeDouble(this.nodeLongitude);
+        dest.writeDouble(this.nodeLatitude);
+        dest.writeDouble(this.triggerDistance);
     }
 
     public Step() {
     }
 
     protected Step(Parcel in) {
-        this.nodeCode = in.readString();
-        this.nodeName = in.readString();
+        this.processNumber = in.readInt();
         this.stepName = in.readString();
-        this.stepType = in.readString();
+        this.nodeName = in.readString();
+        this.nodeNumber = in.readInt();
+        this.stepType = in.readInt();
+        this.vehicleHead = in.readString();
+        this.nodeStatus = in.readInt();
         this.stepSerialNumber = in.readInt();
-        this.startedTime = in.readString();
-        this.finishedTime = in.readString();
-        this.nodeType = in.readInt();
         this.processNecessary = in.readInt();
-        this.processed = in.readByte() != 0;
-        this.driggerLongitude = in.readByte() != 0;
-        this.driggerlatitude = in.readByte() != 0;
-        this.driggerDistance = in.readInt();
+        this.stepStatus = in.readInt();
+        this.executeTime = in.readString();
+        this.stepDes = in.readString();
+        this.attachs = in.createStringArrayList();
+        this.orderCode = in.readString();
+        this.nodeCode = in.readString();
+        this.nodeType = in.readInt();
+        this.isCached = in.readByte() != 0;
+        this.isProcessed = in.readByte() != 0;
+        this.nodeLongitude = in.readDouble();
+        this.nodeLatitude = in.readDouble();
+        this.triggerDistance = in.readDouble();
     }
 
-    public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
+    public static final Creator<Step> CREATOR = new Creator<Step>() {
         @Override
         public Step createFromParcel(Parcel source) {
             return new Step(source);

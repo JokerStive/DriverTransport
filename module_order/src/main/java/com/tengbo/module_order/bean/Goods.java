@@ -8,7 +8,7 @@ public class Goods {
      * gpsCode : GPS编号
      * lockCode : 大锁编号
      * transportNumber : 货运班次
-     * goods名称 : 货物名称
+     * goodsName : 货物名称
      * goodsWeight : 货物重量
      * goodsVolume : 货物体积
      * goodsLength : 货物长度
@@ -35,12 +35,12 @@ public class Goods {
     private String gpsCode;
     private String lockCode;
     private String transportNumber;
-    private String goods名称;
-    private String goodsWeight;
-    private String goodsVolume;
-    private String goodsLength;
-    private String goodsWidth;
-    private String goodsHeight;
+    private String goodsName;
+    private long goodsWeight;
+    private long goodsVolume;
+    private long goodsLength;
+    private long goodsWidth;
+    private long goodsHeight;
     private String loadingNodeName;
     private String loadingNode;
     private String loadingContacts;
@@ -96,51 +96,51 @@ public class Goods {
         this.transportNumber = transportNumber;
     }
 
-    public String getGoods名称() {
-        return goods名称;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setGoods名称(String goods名称) {
-        this.goods名称 = goods名称;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
-    public String getGoodsWeight() {
+    public long getGoodsWeight() {
         return goodsWeight;
     }
 
-    public void setGoodsWeight(String goodsWeight) {
+    public void setGoodsWeight(long goodsWeight) {
         this.goodsWeight = goodsWeight;
     }
 
-    public String getGoodsVolume() {
+    public long getGoodsVolume() {
         return goodsVolume;
     }
 
-    public void setGoodsVolume(String goodsVolume) {
+    public void setGoodsVolume(long goodsVolume) {
         this.goodsVolume = goodsVolume;
     }
 
-    public String getGoodsLength() {
+    public long getGoodsLength() {
         return goodsLength;
     }
 
-    public void setGoodsLength(String goodsLength) {
+    public void setGoodsLength(long goodsLength) {
         this.goodsLength = goodsLength;
     }
 
-    public String getGoodsWidth() {
+    public long getGoodsWidth() {
         return goodsWidth;
     }
 
-    public void setGoodsWidth(String goodsWidth) {
+    public void setGoodsWidth(long goodsWidth) {
         this.goodsWidth = goodsWidth;
     }
 
-    public String getGoodsHeight() {
+    public long getGoodsHeight() {
         return goodsHeight;
     }
 
-    public void setGoodsHeight(String goodsHeight) {
+    public void setGoodsHeight(long goodsHeight) {
         this.goodsHeight = goodsHeight;
     }
 

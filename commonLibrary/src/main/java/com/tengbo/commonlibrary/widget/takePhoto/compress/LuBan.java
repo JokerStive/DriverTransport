@@ -33,7 +33,7 @@ public class LuBan {
 
     private static volatile LuBan INSTANCE;
 
-    private  File mSaveDir;
+    private File mSaveDir;
 
     private OnCompressListener compressListener;
     private File mFile;
@@ -120,7 +120,7 @@ public class LuBan {
     }
 
 
-    public LuBan setSaveFileDir(File fileDir){
+    public LuBan setSaveFileDir(File fileDir) {
         this.mSaveDir = fileDir;
         return this;
     }
@@ -241,11 +241,13 @@ public class LuBan {
         int shortSide = 1280;
 
         String filePath = file.getAbsolutePath();
+
         String thumbFilePath = mSaveDir.getAbsolutePath() + File.separator +
                 (TextUtils.isEmpty(fileName) ? System.currentTimeMillis() : fileName) + ".jpg";
 
         long size = 0;
-        long maxSize = file.length() / 5;
+
+        long maxSize = file.length() / 4;
 
         int angle = getImageSpinAngle(filePath);
         int[] imgSize = getImageSize(filePath);

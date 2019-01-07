@@ -2,38 +2,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_60"
+    android:layout_height="@dimen/dp_50"
     android:background="@color/basic_white">
 
 
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:padding="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_20"
         android:src="@drawable/common_back" />
 
     <TextView
-        android:textColor="@color/basic_blue"
-        android:textStyle="bold"
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/tv_10sp_blue_bold"
         android:layout_centerInParent="true"
-        android:textSize="@dimen/sp_16"
+        android:textSize="@dimen/sp_18"
         tools:text="历史订单" />
 
     <TextView
-        android:textColor="@color/basic_blue"
-        android:layout_width="wrap_content"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/tv_operate"
-        android:padding="@dimen/dp_20"
+        style="@style/tv_10sp_blue_bold"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:padding="@dimen/dp_10"
         android:textSize="@dimen/sp_14"
         tools:text="筛选" />
+
+    <ImageView
+        android:id="@+id/iv_operate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+         />
+
+    <View
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_alignParentBottom="true"
+        android:background="@color/tab_unselected"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 </RelativeLayout>

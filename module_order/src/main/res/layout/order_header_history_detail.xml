@@ -7,7 +7,7 @@
     >
 
     <include
-        layout="@layout/layout_order_content"
+        layout="@layout/order_header_order_detail"
         />
 
 

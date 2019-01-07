@@ -15,11 +15,19 @@ public class HistoryTaskListAdapter extends QuickAdapter<Order> {
 
     @Override
     protected void convert(BaseViewHolder helper, Order order) {
-        helper.setText(R.id.tv_complete_time, "完成日期：2018/05/02    15:20")
-                .setText(R.id.tv_order_id, "订单编号：TBQQ2018080100")
-                .setText(R.id.tv_transport_fee, "运费：8000元")
-                .setText(R.id.tv_deduction_fee, "支付：2000元")
-                .setText(R.id.tv_paid_fee, "应扣：500元")
-                .setText(R.id.tv_order_status, "接单状态：已接单");
+        helper.setText(R.id.tv_complete_time, "完成日期：" + order.getFinishTime())
+                .setText(R.id.tv_order_id, "订单编号：" + order.getOrderCode())
+                .setText(R.id.tv_transport_fee, spliceWithUnit("运费：", order.getDriverOderFee()))
+                .setText(R.id.tv_deduction_fee, spliceWithUnit("支付：", order.getPaiedAmount()))
+                .setText(R.id.tv_paid_fee, spliceWithUnit("应扣：", order.getDeductAmount()))
+                .setText(R.id.tv_order_status, "订单状态：" + (order.getOrderStatus() == 7 ? "异常结束" : "正常结束"));
+    }
+
+    private String spliceWithUnit(String before, Object after) {
+        if (after == null) {
+            after = "";
+        }
+        return before + after.toString() +
+                "元";
     }
 }

@@ -1,5 +1,7 @@
 package com.tengbo.commonlibrary.net;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tamic.novate.Novate;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.Config;
@@ -14,9 +16,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -26,6 +25,7 @@ public class NetHelper {
 
     private static final long TIME_OUT = 30;
     private static ApiService apis;
+    private static Gson gson;
     private Novate novate;
 
     public static NetHelper getInstance() {
@@ -35,7 +35,6 @@ public class NetHelper {
     private static class SingletonHolder {
         private static final NetHelper INSTANCE = new NetHelper();
     }
-
 
 
     public Novate getRealNet() {
@@ -55,21 +54,20 @@ public class NetHelper {
         return novate;
     }
 
-    public Retrofit.Builder getApiBuilder() {
+    public Retrofit getRetrofit() {
         return new Retrofit.Builder()
                 .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(Config.BASE_URL);
+                .baseUrl(Config.BASE_URL)
+                .build();
     }
-
-
 
 
     public ApiService getApi() {
         apis = new Retrofit.Builder()
                 .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(Config.BASE_URL)
                 .build().create(ApiService.class);
@@ -78,7 +76,6 @@ public class NetHelper {
 
 
     private static OkHttpClient getOkHttpClient() {
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         return builder
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
@@ -90,6 +87,20 @@ public class NetHelper {
                 .build();
     }
 
+
+    private static Gson buildGson() {
+        if (gson == null) {
+            gson = new GsonBuilder()
+                    .registerTypeAdapter(Integer.class, new IntegerDefault0Adapter())
+                    .registerTypeAdapter(int.class, new IntegerDefault0Adapter())
+                    .registerTypeAdapter(Double.class, new DoubleDefault0Adapter())
+                    .registerTypeAdapter(double.class, new DoubleDefault0Adapter())
+                    .registerTypeAdapter(Long.class, new LongDefault0Adapter())
+                    .registerTypeAdapter(long.class, new LongDefault0Adapter())
+                    .create();
+        }
+        return gson;
+    }
 
     private static X509TrustManager getTrustManager() {
         return null;

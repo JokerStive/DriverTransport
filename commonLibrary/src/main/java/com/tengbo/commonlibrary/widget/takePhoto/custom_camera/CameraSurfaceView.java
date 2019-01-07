@@ -47,6 +47,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     private Camera mCamera;
     private String mPicturePath;
     private MediaActionSound mediaActionSound;
+    private OnSurfaceCreated listener;
 
     public CameraSurfaceView(Context context) {
         this(context, null);
@@ -120,13 +121,24 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             mCamera = Camera.open();  //开启相机
             try {
                 mCamera.setPreviewDisplay(holder); //相机画面展示到surfaceView上
-                setCameraParams(mCamera, mScreenWidth, mScreenHeight);
+                setCameraParams();
+                if (listener != null) {
+                    listener.surfaceCreated();
+                }
                 mCamera.startPreview();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    public interface OnSurfaceCreated {
+        void surfaceCreated();
+    }
+
+    public void setOnSurfaceCreated(OnSurfaceCreated created) {
+        this.listener = created;
     }
 
     @Override
@@ -155,73 +167,102 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     /**
      * @Desc 设置相机的参数
      */
-    private void setCameraParams(Camera camera, int width, int height) {
+    private void setCameraParams() {
 
-        Camera.Parameters parameters = camera.getParameters();
+        Camera.Parameters parameters = mCamera.getParameters();
 
         //获取摄像头支持的图片尺寸
         List<Camera.Size> supportedPictureSizes = parameters.getSupportedPictureSizes();
 
-        //获取合适的分辨率
-        Camera.Size properSize = getProperSize(supportedPictureSizes, ((float) height) / width);
-
-        if (properSize == null) {
-            properSize = parameters.getPictureSize();
-        }
-
-        //根据合适的尺寸设置surfaceView的尺寸
-        float w = properSize.width;
-        float h = properSize.height;
-        parameters.setPictureSize(properSize.width, properSize.height);
-        this.setLayoutParams(new RelativeLayout.LayoutParams((int) (height * (h / w)), height));
+        //设置拍照尺寸
+        Camera.Size takePictureSuitSize = getProperPreviewSize(supportedPictureSizes, false);
+        parameters.setPictureSize(takePictureSuitSize.width, takePictureSuitSize.height);
+        LogUtil.d("拍照的width=" + takePictureSuitSize.width + "  拍照的height=" + takePictureSuitSize.height);
 
 
+        //设置预览尺寸
         List<Camera.Size> supportedPreviewSizes = parameters.getSupportedPreviewSizes();
-        Camera.Size preSize = getProperSize(supportedPreviewSizes, ((float) height) / width);
-        if (null != preSize) {
-            LogUtil.d("preSize.width=" + preSize.width + "  preSize.height=" + preSize.height);
-            parameters.setPreviewSize(preSize.width, preSize.height);
-        }
+        Camera.Size previewSuitSize = getProperPreviewSize(supportedPreviewSizes, true);
+        LogUtil.d("预览的width=" + previewSuitSize.width + "  预览的height=" + previewSuitSize.height);
+        parameters.setPreviewSize(previewSuitSize.width, previewSuitSize.height);
 
         parameters.setJpegQuality(100); // 设置照片质量
         if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);// 连续对焦模式
         }
 
-        //自动曝光
-//        parameters.setAutoExposureLock(true);
-        //自动白平衡
-//        parameters.setAutoWhiteBalanceLock(true);
-
-        mCamera.setDisplayOrientation(90);
         mCamera.setParameters(parameters);
 
     }
 
 
+    public void setCameraDisplayOrientation(Activity activity) {
+        Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
+        Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_FRONT, info);
+        int rotation = activity.getWindowManager().getDefaultDisplay()
+                .getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+        }
+
+        int result;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;  // compensate the mirror
+        } else {  // back-facing
+            result = (info.orientation - degrees + 360) % 360;
+        }
+        mCamera.setDisplayOrientation(result);
+    }
+
     /**
-     * @Desc 获取最合适的分辨率
+     * 返回最佳的尺寸，如果没有匹配到，就返回中间值，因为是从大到小排序的
+     *
+     * @return 最适合的尺寸
      */
-    private Camera.Size getProperSize(List<Camera.Size> supportedPictureSizes, float ratio) {
-        Camera.Size result = null;
-        for (Camera.Size size : supportedPictureSizes) {
-            if (ratio == size.height / size.width) {
-                result = size;
+    private Camera.Size getProperPreviewSize(List<Camera.Size> supportedSizes, boolean isPreview) {
+        int tempWidth;
+        int tempHeight;
+        if (isPreview) {
+            tempHeight = mScreenWidth;
+            tempWidth = mScreenHeight;
+        } else {
+            tempHeight = mScreenHeight;
+            tempWidth = mScreenWidth;
+        }
+        for (Camera.Size size : supportedSizes) {
+            if ((size.height == tempHeight)  && (size.width==tempWidth)) {
+                return size;
             }
         }
 
-        if (null == result) {
-            for (Camera.Size size : supportedPictureSizes) {
-                float curRatio = ((float) size.height) / size.width;
-                if (curRatio == 4f / 3) {// 默认w:h = 4:3
-                    result = size;
-                    break;
-                }
+        // 得到与传入的宽高比最接近的size
+        float reqRatio = ((float) tempWidth) / tempHeight;
+        float curRatio, deltaRatio;
+        float deltaRatioMin = Float.MAX_VALUE;
+        Camera.Size retSize = null;
+        for (Camera.Size size : supportedSizes) {
+            curRatio = ((float) size.width) / size.height;
+            deltaRatio = Math.abs(reqRatio - curRatio);
+            if (deltaRatio < deltaRatioMin) {
+                deltaRatioMin = deltaRatio;
+                retSize = size;
             }
         }
 
-
-        return result;
+        return retSize;
     }
 
 

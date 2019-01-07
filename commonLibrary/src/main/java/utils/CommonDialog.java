@@ -15,8 +15,6 @@ public class CommonDialog extends Dialog {
     private TextView tvNotice;
     private TextView tvPositive;
     private TextView tvNegative;
-    private FrameLayout rlNegative;
-    private FrameLayout rlPositive;
     private OnPositiveClickListener positiveListener;
     private OnNegativeClickListener negativeListener;
 
@@ -27,12 +25,10 @@ public class CommonDialog extends Dialog {
     }
 
     private void init() {
-        View view = LayoutInflater.from(content).inflate(R.layout.layout_metri_dialog, null);
+        View view = LayoutInflater.from(content).inflate(R.layout.common_notice_dialog, null);
         tvNotice = view.findViewById(R.id.tv_notice);
         tvPositive = view.findViewById(R.id.tv_positive);
         tvNegative = view.findViewById(R.id.tv_negative);
-        rlPositive = view.findViewById(R.id.rl_positive);
-        rlNegative = view.findViewById(R.id.rl_negative);
         tvPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,13 +62,11 @@ public class CommonDialog extends Dialog {
 
     public CommonDialog setPositiveText(String positiveText) {
         tvPositive.setText(positiveText);
-        rlPositive.setVisibility(View.VISIBLE);
         return this;
     }
 
     public CommonDialog setNegativeText(String negativeText) {
         tvNegative.setText(negativeText);
-        rlNegative.setVisibility(View.VISIBLE);
         return this;
     }
 

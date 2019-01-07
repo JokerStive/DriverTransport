@@ -32,8 +32,9 @@
         </list>
     -->
     <list>
-        <mapping class="com.tengbo.commonlibrary.commonBean.Location" />
-        <mapping class="com.tengbo.module_order.bean.StepCache" />
+        <mapping class="com.tengbo.module_order.bean.GPSLocation" />
+        <mapping class="com.tengbo.module_order.bean.StepOperation" />
+        <mapping class="com.tengbo.module_order.bean.Trouble" />
     </list>
 
     <!--

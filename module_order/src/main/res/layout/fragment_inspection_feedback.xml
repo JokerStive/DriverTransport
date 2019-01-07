@@ -3,212 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/basic_white"
     android:orientation="vertical">
 
-    <com.tengbo.commonlibrary.widget.TitleBar
-        android:id="@+id/titleBar"
+
+    <EditText
+        android:textColor="@color/basic_blue"
+        android:id="@+id/et_inspection_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/inspection_feedback" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/dp_20"
+        android:background="@drawable/shape_edit_text_border"
+        android:gravity="top"
+        android:hint="@string/please_input_find_problem_instruction"
+        android:padding="10dp"
+        android:textColorHint="@color/basic_blue"
+        android:textSize="@dimen/sp_12" />
 
-    <ScrollView
 
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_positive"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_14">
+            android:layout_margin="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/common_selector_text_button"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/basic_blue"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="normal" />
 
-            <TextView
-                style="@style/tv_10sp_blue_bold"
-                android:drawableLeft="@drawable/shape_line_blue"
-                android:drawablePadding="@dimen/dp_13"
-                android:text="@string/find_problem_instruction"
-                android:textSize="@dimen/sp_12" />
-
-            <com.tengbo.module_order.custom.view.NoEmojiEditText
-                android:id="@+id/et_found_problem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/dp_40"
-                android:layout_marginRight="@dimen/dp_40"
-                android:layout_marginTop="@dimen/dp_20"
-                android:background="@drawable/shape_edit_text_border"
-                android:gravity="top"
-                android:hint="@string/please_input_find_problem_instruction"
-                android:padding="10dp"
-                android:textColorHint="@color/basic_blue"
-                android:textSize="@dimen/sp_12" />
+        <TextView
+            android:id="@+id/tv_negative"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/common_selector_text_button"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/basic_blue"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="normal" />
 
 
-            <TextView
-                style="@style/tv_10sp_blue_bold"
-                android:layout_marginTop="@dimen/dp_20"
-                android:drawableLeft="@drawable/shape_line_blue"
-                android:drawablePadding="@dimen/dp_13"
-                android:text="@string/rectify_require_instruction"
-                android:textSize="@dimen/sp_12" />
+    </LinearLayout>
 
-            <com.tengbo.module_order.custom.view.NoEmojiEditText
-                android:id="@+id/et_need_change"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/dp_40"
-                android:layout_marginRight="@dimen/dp_40"
-                android:layout_marginTop="@dimen/dp_20"
-                android:background="@drawable/shape_edit_text_border"
-                android:gravity="top"
-                android:hint="@string/please_input_rectify_require_instruction"
-                android:padding="10dp"
-                android:textColorHint="@color/basic_blue"
-                android:textSize="@dimen/sp_12" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/tv_10sp_blue_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rectify_deadline"
-                    android:textSize="@dimen/sp_12" />
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    style="@style/tv_10sp_blue_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginRight="9dp"
-                    android:background="@drawable/shape_radius5_solid_gray"
-                    android:paddingBottom="@dimen/dp_4"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_4"
-                    android:textSize="@dimen/sp_10"
-                    tools:text="2018/8/22" />
-
-                <ImageView
-                    android:id="@+id/iv_select_date"
-                    android:layout_width="26dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/select_date" />
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/tv_10sp_blue_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rectify_result"
-                    android:textSize="@dimen/sp_12" />
-
-                <RadioGroup
-                    android:id="@+id/rg_change_result"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_position"
-                        style="@style/tv_10sp_blue_bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="25dp"
-                        android:background="@null"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/selector_radio_button"
-                        android:drawablePadding="@dimen/dp_4"
-                        android:gravity="center_vertical"
-                        android:text="@string/qualified"
-                        android:textColor="@color/basic_blue"
-                        android:textSize="@dimen/sp_12" />
-
-                    <RadioButton
-                        android:id="@+id/rb_navigation"
-                        style="@style/tv_10sp_blue_bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="25dp"
-                        android:background="@null"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/selector_radio_button"
-                        android:drawablePadding="@dimen/dp_4"
-                        android:gravity="center_vertical"
-                        android:text="@string/unqualified"
-                        android:textColor="@color/basic_blue"
-                        android:textSize="@dimen/sp_12" />
-
-                    <RadioButton
-                        android:id="@+id/rb_ing"
-                        style="@style/tv_10sp_blue_bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/selector_radio_button"
-                        android:drawablePadding="@dimen/dp_4"
-                        android:gravity="center_vertical"
-                        android:text="@string/ongoing"
-                        android:textColor="@color/basic_blue"
-                        android:textSize="@dimen/sp_12" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_20"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/dp_10">
-
-                <Button
-                    android:id="@+id/btn_submit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dp_14"
-                    android:background="@drawable/selector_position_bg"
-                    android:paddingBottom="@dimen/dp_4"
-                    android:paddingLeft="@dimen/dp_50"
-                    android:paddingRight="@dimen/dp_50"
-                    android:paddingTop="@dimen/dp_4"
-                    android:text="@string/submit"
-                    android:textColor="@drawable/selector_position_text_color" />
-
-                <Button
-                    android:id="@+id/btn_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_navigation_gb"
-                    android:paddingBottom="@dimen/dp_4"
-                    android:paddingLeft="@dimen/dp_50"
-                    android:paddingRight="@dimen/dp_50"
-                    android:text="@string/cancel"
-                    android:textColor="@drawable/selector_navigation_text_color" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

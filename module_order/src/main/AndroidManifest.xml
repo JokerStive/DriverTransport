@@ -6,10 +6,11 @@
         android:allowBackup="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.task.TaskDetailActivity" />
+        <activity android:name=".ui.task.OrderDetailActivity" />
         <activity android:name=".ui.inspection.InspectionActivity" />
-        <activity android:name=".ui.processing.ExceptionFeedbackActivity" />
-        <activity android:name=".ui.history.HistoryOrderDetailActivity" />
+        <activity android:name=".ui.processing.TroubleActivity" />
+        <activity android:name=".ui.history.StepRecordActivity" />
+        <activity android:name=".ui.history.DebugStepRecordActivity" />
         <activity
             android:name=".ui.processing.TakeStepPictureActivity"
             android:launchMode="singleTask"

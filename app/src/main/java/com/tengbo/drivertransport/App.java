@@ -21,8 +21,13 @@ public class App extends BaseApplication {
         initFragmentation();
         initDB();
         initPush();
+        initTiny();
         LogUtil.initLogger();
 
+    }
+
+    private void initTiny() {
+//        Tiny.getInstance().init();
     }
 
     /**

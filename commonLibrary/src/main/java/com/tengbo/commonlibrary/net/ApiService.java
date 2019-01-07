@@ -20,6 +20,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -35,17 +36,18 @@ public interface ApiService {
     Observable<BaseResponse<LoginInfo>> login(@Body RequestBody body);
 
 
-    /**
-     * 测试接口
-     */
-    @POST("auth/hello")
-    Observable<BaseResponse<Object>> hello();
+
+//    /**
+//     * 登录
+//     */
+//    @POST()
+//    Observable<BaseResponse<LoginInfo>> testLogin(@Url String url,@Body RequestBody body);
 
 
     /**
      * 修改密码
      */
-    @POST("permission/updatePassword")
+    @POST("service/permission/updatePassword")
     Observable<BaseResponse<Object>> updatePassword(@Body RequestBody body);
 
     /**
@@ -54,16 +56,11 @@ public interface ApiService {
     @POST("user/getUserBankcard")
     Observable<BaseResponse<List<BankCardInfo>>> getBankCardInfos(@Body RequestBody body);
 
-    /**
-     * 设置默认银行卡
-     */
-    @POST("user/getUserBankcard")
-    Observable<BaseResponse<Object>> setDefaultBankCard(@Body RequestBody body);
 
     /**
      * 修改银行卡
      */
-    @POST("user/updateAppUserBankcard")
+    @POST("user/updateUserBankcard")
     Observable<BaseResponse<Object>> updateBankCardInfo(@Body RequestBody body);
 
     /**

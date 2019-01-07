@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/basic_white"
-    android:orientation="vertical">
+    android:background="#f0f0f0"
+   >
 
-
-    <com.tengbo.commonlibrary.widget.TitleBar
-        android:id="@+id/titleBar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:operate="筛选"
-        app:showBack="false"
-        app:title="历史订单"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        />
+        <com.tengbo.commonlibrary.widget.TitleBar
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:operate="筛选"
+            app:showBack="false"
+            app:title="历史订单"
 
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_30">
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_history_order_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

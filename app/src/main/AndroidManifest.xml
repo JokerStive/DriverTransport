@@ -13,17 +13,6 @@
         tools:replace="android:theme">
 
 
-        <activity
-            android:name="com.tengbo.module_main.ui.login.SplashActivity"
-            android:launchMode="singleTask">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
 
         <meta-data
             android:name="design_width_in_dp"

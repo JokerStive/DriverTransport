@@ -140,7 +140,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("oldPassword", oldPassword);
             jsonObject.put("newPassword", newPassword);
-            jsonObject.put("accountId", User.getId());
+            jsonObject.put("accountId", User.getAccountId());
             mSubscriptionManager.add(NetHelper.getInstance().getApi()
                     .updatePassword(RequestUtils.createRequestBody(jsonObject.toJSONString()))
                     .compose(RxUtils.applySchedule())

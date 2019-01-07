@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.tengbo.commonlibrary.widget.TitleBar
+        android:id="@+id/titleBar"
+        app:title="步骤详情"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10">
+
+            <TextView
+
+                android:id="@+id/tv_step_name"
+                style="@style/tv_10sp_blue_bold"
+                android:maxLines="1"
+                android:text="装货"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_marginTop="@dimen/sp_6"
+                android:id="@+id/tv_step_address"
+                style="@style/tv_10sp_blue_bold"
+                android:maxLines="1"
+                android:text="重庆富士康"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_marginTop="@dimen/sp_6"
+                android:id="@+id/tv_step_time"
+                style="@style/tv_10sp_blue_bold"
+                android:maxLines="1"
+                android:text="1991-10-22"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="normal" />
+
+            <FrameLayout
+                android:layout_marginTop="@dimen/dp_10"
+                android:id="@+id/fl_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <com.tengbo.basiclibrary.widget.ninegridimageview.NineGridImageView
+                android:layout_marginTop="@dimen/dp_10"
+                android:id="@+id/nine_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:imgGap="3dp"
+                app:showStyle="grid" />
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

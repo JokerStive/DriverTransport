@@ -56,6 +56,11 @@ public class MainComponent implements IComponent {
                     CC.sendCCResult(cc.getCallId(), CCResult.success());
                     EventBus.getDefault().post(new Event.ChangeTab(changToTabIndex));
                     break;
+
+                case ComponentConfig.Main.ACTION_SHOW_DUTY:
+                    CC.sendCCResult(cc.getCallId(), CCResult.success());
+                    EventBus.getDefault().post(new Event.ChangeTab(-1));
+                    break;
             }
         }
         return false;

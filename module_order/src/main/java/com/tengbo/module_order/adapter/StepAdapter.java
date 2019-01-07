@@ -16,51 +16,95 @@ public class StepAdapter extends QuickAdapter<Step> {
         super(R.layout.item_node_action, data);
     }
 
+    /**
+     * @param helper
+     * @param step
+     */
     @Override
     protected void convert(BaseViewHolder helper, Step step) {
         helper.setText(R.id.tv_step_index, helper.getLayoutPosition() + "")
                 .setText(R.id.tv_step_name, step.getStepName());
 
-        TextView tvTimeDesc = helper.getView(R.id.tv_step_time_desc);
-        TextView tvTime = helper.getView(R.id.tv_step_time);
         TextView tvName = helper.getView(R.id.tv_step_name);
         View ivWarm = helper.getView(R.id.iv_warm);
-        boolean processed = step.isProcessed();
         ivWarm.setVisibility(step.isCached() ? View.VISIBLE : View.INVISIBLE);
-        if (!processed) {
-            tvName.setBackgroundResource(R.drawable.node_step_no);
-            tvTimeDesc.setText("计划时间");
-            tvTime.setText("18/8/8 08：00");
+        if (step.isProcessed()) {
+            tvName.setBackgroundResource(R.drawable.step_processed);
         } else {
-            tvName.setBackgroundResource(step.getNodeType() == 1 ? R.drawable.node_step_auto : R.drawable.node_step_done);
-            tvTimeDesc.setText("发生时间");
-            tvTime.setText("18/8/8 08：00");
-
+            tvName.setBackgroundResource(step.getNodeType() == 2 ? R.drawable.step_unprocess_auto : R.drawable.step_unprocess);
         }
+//        if (!step.isProcessed()) {
+//            int nodeType = step.getNodeType();//（1系统业务节点2自动触发节点）
+//            if (nodeType == 1) {
+//                int processNecessary = step.getProcessNecessary();//是否必须执行”（1必须2可以跳过）
+//                if (processNecessary == 1) {
+//                    tvName.setBackgroundResource(R.drawable.selector_step_unprocess_necessary);
+//                } else if (processNecessary == 2) {
+//                    tvName.setBackgroundResource(R.drawable.selector_step_unprocess_unnecessary);
+//                }
+//            } else if (nodeType == 2) {
+//                tvName.setBackgroundResource(R.drawable.selector_step_unprocess_auto);
+//            }
+//
+//        } else {
+//            tvName.setBackgroundResource(R.drawable.selector_step_processed);
+//        }
     }
 
 
     /**
-     * @Desc 设置该步骤为通过
+     * 设置步骤为已经执行
+     *
+     * @param position 该步骤在列表中的位置
      */
-    public void setStepPass(int position) {
-        Step item = getItem(position);
+    public void setStepProcessed(int position) {
+        Step item = getData().get(position);
         assert item != null;
         LogUtil.d("取得的的step---" + item.getStepName() + "--position" + position);
+        item.setStepStatus(1);
+        item.setCached(false);
         item.setProcessed(true);
-        notifyItemChanged(position + 1);
+        notifyItemChanged(position+1);
     }
 
     /**
-     * @Desc 设置该步骤是否缓存过
+     * 缓存步骤，加感叹号
+     *
+     * @param position 该步骤在列表中的位置
      */
-    public void setStepCached(int stepSerialNumber, boolean isCached) {
+    public void setStepCached(int position) {
+        Step item = getData().get(position);
+        if (item != null) {
+            item.setCached(true);
+            item.setProcessed(true);
+            notifyItemChanged(position+1);
+        }
+    }
+
+    /**
+     * 获取最后一个已经执行的步骤
+     *
+     * @return 步骤实例
+     */
+    public Step getLatestProcessedStep() {
+        Step result = null;
+        if(getData().size()==0){
+            return null;
+        }
         for (int i = 0; i < getData().size(); i++) {
             Step step = getData().get(i);
-            if (step.getStepSerialNumber() == stepSerialNumber) {
-                step.setCached(isCached);
-                notifyItemChanged(i + 1);
+            if (step.getNodeType() != 2 && step.isProcessed()) {
+                result = step;
+            } else {
+                break;
             }
+
+
         }
+
+        if (result == null) {
+            result = getData().get(0);
+        }
+        return result;
     }
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_30">
+
+    <TextView
+        android:id="@+id/tv_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/basic_blue"
+        tools:text="及将更新订单状态为  “到达”请确认，并通过水印相机拍照！及将更新订单状态为  “到达”请确认，并通过水印相机拍照！" />
+
+    <LinearLayout
+        android:layout_below="@id/tv_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_positive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/common_selector_text_button"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/basic_blue"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_negative"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/common_selector_text_button"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/basic_blue"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="normal" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

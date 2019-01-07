@@ -43,6 +43,7 @@ public class User {
 
 
     public static String getIdNumber() {
+//        return "511222198308168739";
         Account account = getAccount();
         Objects.requireNonNull(account);
         return account.getIdNumber();
@@ -56,10 +57,16 @@ public class User {
     }
 
 
-    public static String getId() {
+    public static String getAccountId() {
         Account account = getAccount();
         Objects.requireNonNull(account);
         return account.getAccountId();
+    }
+
+    public static String getUserId() {
+        Account account = getAccount();
+        Objects.requireNonNull(account);
+        return account.getUserId();
     }
 
 

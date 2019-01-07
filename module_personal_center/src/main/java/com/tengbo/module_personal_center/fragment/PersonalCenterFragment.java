@@ -22,7 +22,6 @@ import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.commonlibrary.widget.takePhoto.TakePhotoDialogFragment;
 import com.tengbo.module_personal_center.R;
-import com.tengbo.module_personal_center.activity.AddBankCardInfoActivity;
 import com.tengbo.module_personal_center.activity.BankCardListActivity;
 import com.tengbo.module_personal_center.activity.UpdatePasswordActivity;
 import com.tengbo.module_personal_center.utils.DialogUtils;
@@ -30,15 +29,14 @@ import com.tengbo.module_personal_center.utils.ToastUtils;
 
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Observable;
 import rx.functions.Func1;
+import utils.RetrofitUtils;
 
 /**
  * author WangChenchen
@@ -225,9 +223,7 @@ public class PersonalCenterFragment extends BaseFragment implements View.OnClick
 
 
     public Observable<BaseResponse<FileUrl>> uploadAvatarObservable(File file) {
-        Map<String, RequestBody> params = new HashMap<>();
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-        params.put("file\";filename=\"" + file.getName(), requestFile);
+        Map<String, RequestBody> params = RetrofitUtils.getRequestBodyMap(file);
         return NetHelper.getInstance().getApi()
                 .uploadFiles(params);
     }
@@ -235,7 +231,7 @@ public class PersonalCenterFragment extends BaseFragment implements View.OnClick
 
     public Observable<BaseResponse> updateUserAvatarObservable(String avatar) {
         Account account = new Account();
-        account.setUserId(User.getId());
+        account.setUserId(User.getUserId());
         account.setUserAvatar(avatar);
         return NetHelper.getInstance().getApi()
                 .updateUserInfo(account);

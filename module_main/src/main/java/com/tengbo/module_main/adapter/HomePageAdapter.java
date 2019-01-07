@@ -1,5 +1,6 @@
 package com.tengbo.module_main.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,19 +23,25 @@ public class HomePageAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+
+    }
+
+    @Override
     public Fragment getItem(int position) {
         return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return tabTitles.length;
+        return 5;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
+        return null;
 
     }
 }

@@ -1,0 +1,137 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="@drawable/shape_radius5_solid_gray"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_13"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_13"
+    android:layout_marginBottom="@dimen/dp_12"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginRight="@dimen/dp_10"
+    >
+
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/basic_info"
+        android:textSize="@dimen/sp_12" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@color/basic_blue" />
+
+
+
+    <TextView
+        android:id="@+id/tv_departure"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="提货地名称：重庆富士康" />
+
+    <TextView
+        android:id="@+id/tv_departure_contact"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="提货联系人：王琦（18523520173）" />
+
+    <TextView
+        android:id="@+id/tv_destination"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="卸货地名称：重庆中心场站" />
+
+    <TextView
+        android:id="@+id/tv_destination_contact"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="卸货联系人：王琦（18523520173）" />
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="货物名称：打印机" />
+
+    <TextView
+        android:id="@+id/tv_goods_weight"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="货物重量(公斤)：2000" />
+
+    <TextView
+        android:id="@+id/tv_GPS_number"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="GPS号码：   12345678" />
+
+    <TextView
+        android:id="@+id/tv_goods_flight"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="货运班次：   0408" />
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/transport_time"
+        android:textSize="@dimen/sp_12" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@color/basic_blue" />
+
+    <TextView
+        android:id="@+id/tv_plan_start_time"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="计划装货时间：   8月1日 18:56" />
+
+    <TextView
+        android:id="@+id/tv_plan_upload_time"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="最晚发货时间：   8月1日 18:56" />
+
+
+    <TextView
+        android:id="@+id/tv_plan_end_time"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        tools:text="计划到达时间：   8月1日 18:56" />
+
+</LinearLayout>

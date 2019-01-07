@@ -2,6 +2,7 @@ package com.tengbo.module_order.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -23,11 +24,11 @@ import java.util.List;
 
 public class MultiplePictureAdapter extends BaseMultiItemQuickAdapter<MultiplePictureAdapter.Picture, BaseViewHolder> {
 
-    private  Context context;
+    private Context context;
 
     public MultiplePictureAdapter(Context context, List<Picture> data) {
         super(data);
-        this.context  = context;
+        this.context = context;
         addItemType(MultiplePictureAdapter.Picture.SHOW_PICTURE, R.layout.show_picture);
         addItemType(MultiplePictureAdapter.Picture.ADD_PICTURE, R.layout.add_picture);
     }
@@ -39,6 +40,12 @@ public class MultiplePictureAdapter extends BaseMultiItemQuickAdapter<MultiplePi
                 helper.setImageResource(R.id.iv_add_picture, R.drawable.order_take_picture);
                 break;
             case MultiplePictureAdapter.Picture.SHOW_PICTURE:
+                helper.setOnClickListener(R.id.iv_delete, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        remove(helper.getAdapterPosition());
+                    }
+                });
                 Glide.with(BaseApplication.get())
                         .applyDefaultRequestOptions(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                         .load(picture.getPicturePath()).into((ImageView) helper.getView(R.id.iv_show_picture));
@@ -47,10 +54,7 @@ public class MultiplePictureAdapter extends BaseMultiItemQuickAdapter<MultiplePi
     }
 
 
-
-
-
-     public static class Picture implements MultiItemEntity {
+    public static class Picture implements MultiItemEntity {
         public static final int SHOW_PICTURE = 0;
         public static final int ADD_PICTURE = 1;
         private String picturePath;
@@ -72,5 +76,16 @@ public class MultiplePictureAdapter extends BaseMultiItemQuickAdapter<MultiplePi
         public int getItemType() {
             return type;
         }
+    }
+
+
+    public List<String> getPicturePaths() {
+        List<String> picturePaths = new ArrayList<>();
+        for (MultiplePictureAdapter.Picture picture : getData()) {
+            if (!TextUtils.isEmpty(picture.getPicturePath())) {
+                picturePaths.add(picture.getPicturePath());
+            }
+        }
+        return picturePaths;
     }
 }

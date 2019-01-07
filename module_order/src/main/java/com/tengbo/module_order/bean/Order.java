@@ -21,6 +21,10 @@ public class Order  implements Serializable{
      * predictEndTime : 计划到达时间
      * orderStatus : 订单状态(1未接单 2已接单3已拒单4运输中正常5运输中异常6正常完成 7异常结束)
      * "auditingStatus":"财务审核状态"（0待审核1 通过 2 驳回 ）
+     * “driverOderFee”:”运输费用”,
+     * “paiedAmount”:”已支付总额”,
+     * “deductAmount”:”扣除总费用”
+     * “finishTime”:”订单结束时间”
      */
 
 
@@ -28,15 +32,71 @@ public class Order  implements Serializable{
     private String orderCode;
     private String driverId;
     private String vehicleHead;
+    private String vehicleTrailer;
+
+    public int getDriverOderFee() {
+        return driverOderFee;
+    }
+
+    public void setDriverOderFee(int driverOderFee) {
+        this.driverOderFee = driverOderFee;
+    }
+
+    public int getPaiedAmount() {
+        return paiedAmount;
+    }
+
+    public void setPaiedAmount(int paiedAmount) {
+        this.paiedAmount = paiedAmount;
+    }
+
+    public int getDeductAmount() {
+        return deductAmount;
+    }
+
+    public void setDeductAmount(int deductAmount) {
+        this.deductAmount = deductAmount;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
+    }
+
     private String startNodeName;
     private String endNodeName;
     private String predictStartTime;
+    private int driverOderFee;
+    private int paiedAmount;
+    private int deductAmount;
+    private String finishTime;
+
+    public String getVehicleTrailer() {
+        return vehicleTrailer;
+    }
+
+    public void setVehicleTrailer(String vehicleTrailer) {
+        this.vehicleTrailer = vehicleTrailer;
+    }
+
     private String predictEndTime;
-    private String orderStatus;
-    private String auditingStatus;
+    private int orderStatus;
+    private int auditingStatus;
     private List<Goods> goods;
-    private List<ContainerMission> containerMissions;
+//    private List<ContainerMission> containerMissions;
     private List<Flow> flows;
+    private List<Coast> coasts;
+
+    public List<Coast> getCoasts() {
+        return coasts;
+    }
+
+    public void setCoasts(List<Coast> coasts) {
+        this.coasts = coasts;
+    }
 
     public List<Goods> getGoods() {
         return goods;
@@ -46,13 +106,13 @@ public class Order  implements Serializable{
         this.goods = goods;
     }
 
-    public List<ContainerMission> getContainerMissions() {
-        return containerMissions;
-    }
-
-    public void setContainerMissions(List<ContainerMission> containerMissions) {
-        this.containerMissions = containerMissions;
-    }
+//    public List<ContainerMission> getContainerMissions() {
+//        return containerMissions;
+//    }
+//
+//    public void setContainerMissions(List<ContainerMission> containerMissions) {
+//        this.containerMissions = containerMissions;
+//    }
 
     public List<Flow> getFlows() {
         return flows;
@@ -62,11 +122,11 @@ public class Order  implements Serializable{
         this.flows = flows;
     }
 
-    public String getAuditingStatus() {
+    public int getAuditingStatus() {
         return auditingStatus;
     }
 
-    public void setAuditingStatus(String auditingStatus) {
+    public void setAuditingStatus(int auditingStatus) {
         this.auditingStatus = auditingStatus;
     }
 
@@ -134,11 +194,11 @@ public class Order  implements Serializable{
         this.predictEndTime = predictEndTime;
     }
 
-    public String getOrderStatus() {
+    public int getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(int orderStatus) {
         this.orderStatus = orderStatus;
     }
 }

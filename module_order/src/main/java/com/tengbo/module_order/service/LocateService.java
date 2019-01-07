@@ -1,19 +1,42 @@
 package com.tengbo.module_order.service;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.DeviceUtils;
 import com.tengbo.basiclibrary.utils.LogUtil;
-import com.tengbo.commonlibrary.commonBean.Location;
+import com.tengbo.commonlibrary.net.NetHelper;
+import com.tengbo.commonlibrary.net.ProgressSubscriber;
+import com.tengbo.commonlibrary.net.RxUtils;
+import com.tengbo.module_order.R;
+import com.tengbo.module_order.bean.GPSLocation;
+import com.tengbo.module_order.bean.GPSPoints;
+import com.tengbo.module_order.net.ApiOrder;
+import com.tengbo.module_order.ui.processing.ProcessingOrderFragment;
+import com.tengbo.module_order.utils.DateUtils;
 
 import org.litepal.LitePal;
+
+import java.util.List;
+
+import rx.subscriptions.CompositeSubscription;
 
 
 /**
@@ -24,10 +47,26 @@ import org.litepal.LitePal;
  */
 public class LocateService extends Service {
 
+
+    private static final Handler MAIN_THREAD_HANDLER =
+            new Handler(Looper.getMainLooper(), new LocateService.MainThreadCallback());
+
+    private static final int START = 1;
+
+    private static final int STOP = 0;
+
+    private static final int MAX_DATA_AMOUNT = 10;
+
+    private static final int DELAY_TIME_MILLION = 5 * 60 * 1000;
+    private static final int NOTIFICATION_ID = 10086;
+
+    private ApiOrder mApiOrder;
+
     //自动扫描位置的时间间隔
-    private static final int minTimeInterval = 15000;
+//    private static final int minTimeInterval = 5 * 60 * 1000;
+
     //位置变化回调的最小距离（m）
-    private static final int minDistance = 50;
+    private static final int minDistance = 500;
 
     private LocateBinder mBinder;
 
@@ -35,7 +74,11 @@ public class LocateService extends Service {
 
     private MyLocationListener myListener = new MyLocationListener();
 
-    private int locateCount;
+    //    private int locateCount;
+    private OnLocationChangeCallback onLocationChangeCallback;
+    private String mOrderCode;
+    private String mPlateNumber;
+    protected CompositeSubscription mSubscriptionManager = new CompositeSubscription();
 
 
     @Override
@@ -64,9 +107,10 @@ public class LocateService extends Service {
         option.setCoorType("bd09ll");
 
         //发起定位请求的间隔
-//        option.setScanSpan(minTimeInterval);
+//        option.setScanSpan(DELAY_TIME_MILLION);
+
         //自动回调模式，最小时间，最小距离，敏感度
-        option.setOpenAutoNotifyMode(minTimeInterval, minDistance, 1);
+        option.setOpenAutoNotifyMode(DELAY_TIME_MILLION, minDistance, 1);
 
         //是否需要地址信息
         option.setIsNeedAddress(true);
@@ -75,7 +119,7 @@ public class LocateService extends Service {
         option.setOpenGps(true);
 
         //可选，设置是否当GPS有效时按照1S/1次频率输出GPS结果，默认false
-        option.setLocationNotify(true);
+        option.setLocationNotify(false);
 
         //可选，定位SDK内部是一个service，并放到了独立进程。
         //设置是否在stop的时候杀死这个进程，默认（建议）不杀死，即setIgnoreKillProcess(true)
@@ -94,22 +138,67 @@ public class LocateService extends Service {
     public class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
-            locateCount++;
             int responseCode = bdLocation.getLocType();
-            double latitude = bdLocation.getLatitude();    //获取纬度信息
-            double longitude = bdLocation.getLongitude();    //获取经度信息
-            String address = bdLocation.getAddress().address; //地址
-            LogUtil.d("code --" + responseCode + "--" + "定位次数" + locateCount + " latitude--" + latitude + "--" + "longitude" + longitude + "---" + "address--" + address);
-            Location location = new Location();
-            location.setLongitude(longitude);
-            location.setLatitude(latitude);
-            location.setAddress(address);
+            LogUtil.d("定位返回code--" + responseCode);
+            GPSLocation location = new GPSLocation();
+            location.setLongitude(bdLocation.getLongitude());
+            location.setLatitude(bdLocation.getLatitude());
             location.setUpload(false);
+            location.setAddress(bdLocation.getAddrStr());
+            location.setReceiveTime(DateUtils.String2Long(bdLocation.getTime()));
+            location.setProvince(bdLocation.getProvince());
+            location.setCity(bdLocation.getCity());
+            location.setCounty(bdLocation.getDistrict());
+            location.setOrderCode(mOrderCode);
+            location.setPlateNumber(mPlateNumber);
+            location.setDeviceCode(DeviceUtils.getAndroidID());
             location.save();
+
+            if (onLocationChangeCallback != null) {
+                onLocationChangeCallback.onLocationChange(bdLocation);
+            }
         }
     }
 
 
+    private void startForegroundNotification() {
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification.Builder builder = new Notification.Builder(getApplicationContext());
+
+        builder.setContentTitle("司机运输")
+                .setContentText("正在进行后台定位")
+                .setAutoCancel(true)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setWhen(System.currentTimeMillis());
+        Notification notification = builder.build();
+        assert manager != null;
+        startForeground(NOTIFICATION_ID, notification);
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void startForegroundNotificationO() {
+        String NOTIFICATION_CHANNEL_ID = "com.adyl.app";
+        String channelName = "Locate Foreground Service";
+        NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        assert manager != null;
+        manager.createNotificationChannel(chan);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+        Notification notification = notificationBuilder.setOngoing(true)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle("司机运输")
+                .setContentText("正在进行后台定位")
+                .setPriority(NotificationManager.IMPORTANCE_MIN)
+                .setCategory(Notification.CATEGORY_SERVICE)
+                .build();
+        startForeground(2, notification);
+    }
+
+    /**
+     * 连接的binder
+     */
     public class LocateBinder extends Binder {
         public LocateService getService() {
             return LocateService.this;
@@ -117,24 +206,147 @@ public class LocateService extends Service {
     }
 
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtil.d("定位服务已启动");
-        mLocationClient.start();
-        return super.onStartCommand(intent, flags, startId);
+    /**
+     * 设置回调接口
+     *
+     * @param callback 接口
+     */
+    public void setOnLocationChangeCallback(OnLocationChangeCallback callback) {
+        this.onLocationChangeCallback = callback;
     }
+
+
+    /**
+     * 位置发生变化的回调接口
+     */
+    public interface OnLocationChangeCallback {
+        void onLocationChange(BDLocation bdLocation);
+    }
+
+
+    private static class MainThreadCallback implements Handler.Callback {
+
+        @SuppressWarnings("WeakerAccess")
+        MainThreadCallback() {
+
+        }
+
+        @Override
+        public boolean handleMessage(Message message) {
+            switch (message.what) {
+                case START:
+                    ((LocateService) message.obj).uploadGPSPoints();
+                    ((LocateService) message.obj).startUpload(DELAY_TIME_MILLION);
+                    break;
+                case STOP:
+                    MAIN_THREAD_HANDLER.removeMessages(START);
+                    break;
+            }
+            return true;
+        }
+    }
+
+
+    /**
+     * 开始检测数据库，是否有轨迹点需要上传
+     *
+     * @param delayTime 延时时间
+     */
+    private void startUpload(long delayTime) {
+        Message message = Message.obtain();
+        message.what = START;
+        message.obj = this;
+        MAIN_THREAD_HANDLER.sendMessageDelayed(message, delayTime);
+    }
+
+    /**
+     * 停止检测
+     */
+    private void stopUpload() {
+        Message message = Message.obtain();
+        message.what = STOP;
+        message.obj = this;
+        MAIN_THREAD_HANDLER.sendMessage(message);
+    }
+
+    /**
+     * 开始上传轨迹点
+     */
+    private void uploadGPSPoints() {
+        List<GPSLocation> locations = LitePal.where("orderCode = ? and upload = ?", mOrderCode, "0").limit(MAX_DATA_AMOUNT).find(GPSLocation.class);
+        LogUtil.d("查询到的定位信息个数" + locations.size());
+        if (locations.size() > 0) {
+            GPSPoints points = new GPSPoints();
+            points.setPoints(locations);
+            if (mApiOrder == null) {
+                mApiOrder = NetHelper.getInstance().getRetrofit().create(ApiOrder.class);
+            }
+            mSubscriptionManager.add(mApiOrder.addGPSPoints(points)
+                    .compose(RxUtils.handleResult())
+                    .compose(RxUtils.applySchedule())
+                    .subscribe(new ProgressSubscriber<Object>() {
+                        @Override
+                        protected void on_next(Object o) {
+                            updateDb(locations);
+                            LogUtil.d("轨迹上传成功--" + points.getPoints().size());
+                        }
+                    }));
+
+        }
+    }
+
+    /**
+     * 更新信息
+     *
+     * @param locations 待更新的定位
+     */
+    private void updateDb(List<GPSLocation> locations) {
+        for (GPSLocation location : locations) {
+            location.setUpload(true);
+            location.save();
+        }
+        LitePal.deleteAll(GPSLocation.class, "orderCode = ? and upload = ?", mOrderCode, "1");
+    }
+
+
+//    @Override
+//    public int onStartCommand(Intent intent, int flags, int startId) {
+//        LogUtil.d("location service onStartCommand BD startUpload..");
+//        mLocationClient.start();
+//        return super.onStartCommand(intent, flags, startId);
+//    }
 
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        LogUtil.d("location service onBind BD startUpload..");
+        mOrderCode = intent.getStringExtra(ProcessingOrderFragment.KEY_ORDER_CODE);
+        mPlateNumber = intent.getStringExtra(ProcessingOrderFragment.KEY_PLATE_NUMBER);
+        mLocationClient.start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            startForegroundNotificationO();
+        else {
+            startForegroundNotification();
+        }
+        startUpload(2000);
         return mBinder;
     }
 
+    @Override
+    public boolean onUnbind(Intent intent) {
+        LogUtil.d("location service onUnBind BD stop..");
+        mLocationClient.stop();
+        stopUpload();
+        return super.onUnbind(intent);
+
+    }
 
     @Override
     public void onDestroy() {
+        stopForeground(true);
         super.onDestroy();
-        mLocationClient.stop();
+        LogUtil.d("location service onDestroy BD stop..");
+
     }
 }

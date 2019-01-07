@@ -2,24 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tengbo.module_main">
 
-    <application android:theme="@style/AppTheme">
+    <application
+
+        android:allowBackup="true"
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.home.MainActivity"
-            android:launchMode="singleTask">
+            android:name="com.tengbo.module_main.ui.home.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
 
 
         </activity>
 
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:name="com.tengbo.module_main.ui.login.LoginActivity"
             android:launchMode="singleTask">
 
         </activity>
 
 
-
         <activity
-            android:name=".ui.login.SplashActivity"
+            android:screenOrientation="portrait"
+            android:name="com.tengbo.module_main.ui.login.SplashActivity"
             android:launchMode="singleTask">
 
             <intent-filter>
@@ -30,19 +35,6 @@
 
         </activity>
 
-
-
-
-        <!--&lt;!&ndash; tinker 文件共享配置 &ndash;&gt;-->
-        <!--<provider-->
-        <!--android:name=".hotfix.TinkerFileProvider"-->
-        <!--android:authorities="${applicationId}.fileProvider"-->
-        <!--android:exported="false"-->
-        <!--android:grantUriPermissions="true">-->
-        <!--<meta-data-->
-        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-        <!--android:resource="@xml/file_paths" />-->
-        <!--</provider>-->
     </application>
 
 </manifest>

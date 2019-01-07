@@ -223,23 +223,6 @@
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/tv_auto_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_70"
-            android:layout_marginStart="@dimen/dp_70"
-            android:layout_marginTop="@dimen/dp_40"
-            android:drawableLeft="@drawable/selector_auto_login"
-            android:drawablePadding="@dimen/dp_30"
-            android:drawableStart="@drawable/selector_auto_login"
-            android:gravity="center_vertical"
-            android:onClick="isAutoLogin"
-            android:text="@string/auto_login"
-            android:textColor="@color/basic_blue"
-            android:textSize="@dimen/sp_14"
-            android:visibility="gone" />
 
 
         <Button

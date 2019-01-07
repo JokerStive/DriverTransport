@@ -19,7 +19,6 @@
         android:layout_below="@+id/iv_dialog"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="26dp"
-        android:fontFamily="@font/pingfang_sc_bold"
         android:textColor="@color/module_base_color"
         android:textStyle="bold" />
 </RelativeLayout>

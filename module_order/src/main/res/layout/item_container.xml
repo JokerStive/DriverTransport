@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingLeft="@dimen/dp_4"
+    android:paddingRight="@dimen/dp_4"
+    android:paddingTop="@dimen/dp_10"
+    android:layout_height="wrap_content"
+    android:background="#ffffff">
+
+
+    <TextView
+        android:maxLines="1"
+        android:id="@+id/tv_name"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_gravity="center_vertical"
+        style="@style/tv_10sp_blue_bold"
+        android:textStyle="normal"
+        android:textSize="@dimen/sp_14"
+        tools:text="柜号：YH89988888888" />
+
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/iv_select"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:background="@drawable/selector_selected" />
+
+
+</LinearLayout>

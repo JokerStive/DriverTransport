@@ -1,0 +1,189 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="@drawable/shape_radius5_solid_gray"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_13"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_13"
+    android:layout_marginBottom="@dimen/dp_12"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginRight="@dimen/dp_10"
+    >
+
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:layout_gravity="center_horizontal"
+        android:text="节点信息"
+        android:textSize="@dimen/sp_12" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@color/basic_blue" />
+
+
+
+    <TextView
+        android:id="@+id/tv_departure"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="节点对象：富士康仓库" />
+
+    <TextView
+        android:id="@+id/tv_departure_contact"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="货主/货代：全球货代" />
+
+    <TextView
+        android:id="@+id/tv_destination"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="集装箱号码： XYZU12345678" />
+
+    <TextView
+        android:id="@+id/tv_destination_contact"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="承运单位： 腾博物流" />
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="承运工具编号： 渝A 8983" />
+
+    <TextView
+        android:id="@+id/tv_goods_weight"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="驾驶员姓名：牟勇" />
+
+    <TextView
+        android:id="@+id/tv_GPS_number"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="联系电话：139010101010" />
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:layout_gravity="center_horizontal"
+        android:text="货物信息"
+        android:textSize="@dimen/sp_12" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@color/basic_blue" />
+
+    <TextView
+        android:id="@+id/tv_plan_start_time"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="货物名称：   打印机" />
+
+    <TextView
+        android:id="@+id/tv_plan_upload_time"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="货物规格：   XYL2001" />
+
+
+    <TextView
+        android:id="@+id/tv_plan_end_time"
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="件数：   65件" />
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="毛重：   32000KG" />
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="净重：   3000KG" />
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="体积：   455L" />
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="开始卸货时间： 2018/12/22 22:45" />
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="卸货完成时间： 2018/12/23 00:23" />
+
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="仓库确认人：游无风" />
+
+
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="司机确认： 牟勇" />
+
+
+    <TextView
+        style="@style/tv_10sp_blue_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dp_14"
+        android:textStyle="normal"
+        android:text="确认时间：2018/12/22 23:23" />
+
+</LinearLayout>

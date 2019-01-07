@@ -1,0 +1,224 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/shape_radius10_stroke2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_driver_name"
+            style="@style/tv_10sp_blue_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableTop="@drawable/driver"
+            android:drawablePadding="@dimen/dp_4"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/dp_12"
+            tools:text="张三" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/basic_blue" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/tv_order_id"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/sp_12"
+                tools:text="订单编号：TBQQ2018080100" />
+
+
+            <TextView
+                android:id="@+id/tv_car_info"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="@dimen/sp_12"
+                tools:text="执行车辆：渝B 123456" />
+
+
+            <TextView
+                android:id="@+id/tv_car_license"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="@dimen/sp_12"
+                tools:text="挂车车牌：渝B 123457（挂）" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btn_start_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/shape_radius5_solid_blue"
+            android:padding="@dimen/dp_4"
+            android:text="启动任务"
+            android:textColor="@color/basic_white"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20">
+
+
+        <TextView
+            android:id="@+id/tv_title_trans_fee"
+            style="@style/tv_10sp_blue_bold"
+            android:drawableLeft="@drawable/shape_line_blue"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:text="@string/freight"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_driver_fee"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="司机运费（元）：   12000" />
+
+        <TextView
+            android:id="@+id/tv_driver_actualFee"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            android:visibility="gone"
+            tools:text="司机运费（元）：   12000" />
+
+        <TextView
+            android:id="@+id/tv_driver_preFee"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="预付款（元）：   8000 （审核中）" />
+
+        <TextView
+            android:id="@+id/tv_driver_pre_actualFee"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            android:visibility="gone"
+            tools:text="预付款实际支付（元）：  （备注：支付后显示）" />
+
+
+        <TextView
+            android:id="@+id/tv_PetroChina"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            android:visibility="gone"
+            tools:text="中石化卡：1500元（实际支付：200元）" />
+
+        <TextView
+            android:id="@+id/tv_Sinopec"
+            style="@style/tv_10sp_blue_bold"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            android:visibility="gone"
+            tools:text="中石油卡：200元（实际支付：20元）" />
+
+        <LinearLayout
+            android:id="@+id/ll_oil_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawableLeft="@drawable/shape_line_blue"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/dp_14"
+                android:text="@string/oil_pay"
+                android:textSize="@dimen/sp_12" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_extra_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawableLeft="@drawable/shape_line_blue"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/dp_14"
+                android:text="@string/additional_charges"
+                android:textSize="@dimen/sp_12" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_deduction_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawableLeft="@drawable/shape_line_blue"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/dp_14"
+                android:text="@string/deduct_charges"
+                android:textSize="@dimen/sp_12" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/tv_10sp_blue_bold"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawableLeft="@drawable/shape_line_blue"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="@string/good_info"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+</LinearLayout>

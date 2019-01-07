@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv"
+    style="@style/tv_10sp_blue_bold"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/dp_14"
+    android:textStyle="normal"
+    tools:text="预付款（元）：   8000 （审核中）">
+
+</TextView>

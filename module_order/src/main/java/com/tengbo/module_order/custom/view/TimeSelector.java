@@ -478,9 +478,9 @@ public class TimeSelector extends LinearLayout {
         year_pv.setData(year);
         month_pv.setData(month);
         day_pv.setData(day);
-//        hour_pv.setData(hour);
-//        minute_pv.setData(minute);
-//        second_pv.setData(second);
+//        hour_pv.setCacheData(hour);
+//        minute_pv.setCacheData(minute);
+//        second_pv.setCacheData(second);
 //
         year_pv.setSelected(0);
         month_pv.setSelected(0);
@@ -585,7 +585,7 @@ public class TimeSelector extends LinearLayout {
 //
 //            }
 //            selectedCalender.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour.get(0)));
-//            hour_pv.setData(hour);
+//            hour_pv.setCacheData(hour);
 //            hour_pv.setSelected(0);
 //            excuteAnimator(ANIMATORDELAY, hour_pv);
 //        }
@@ -628,7 +628,7 @@ public class TimeSelector extends LinearLayout {
 //                }
 //            }
 //            selectedCalender.set(Calendar.MINUTE, Integer.parseInt(minute.get(0)));
-//            minute_pv.setData(minute);
+//            minute_pv.setCacheData(minute);
 //            minute_pv.setSelected(0);
 //            excuteAnimator(ANIMATORDELAY, minute_pv);
 //
@@ -674,7 +674,7 @@ public class TimeSelector extends LinearLayout {
 //                }
 //            }
 //            selectedCalender.set(Calendar.SECOND, Integer.parseInt(second.get(0)));
-//            second_pv.setData(second);
+//            second_pv.setCacheData(second);
 //            second_pv.setSelected(0);
 //            excuteAnimator(ANIMATORDELAY, second_pv);
 //

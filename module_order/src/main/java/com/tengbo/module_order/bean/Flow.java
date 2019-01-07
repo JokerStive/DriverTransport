@@ -16,10 +16,10 @@ public class Flow {
 
     private String cardName;
     private String cardCode;
-    private String businessType;
-    private String cardType;
-    private String payableAmount;
-    private String realAmount;
+    private int businessType;
+    private int cardType;
+    private int payableAmount;
+    private int realAmount;
     private String flowNumber;
     private String payTime;
     private String flowStatus;
@@ -40,35 +40,35 @@ public class Flow {
         this.cardCode = cardCode;
     }
 
-    public String getBusinessType() {
+    public int getBusinessType() {
         return businessType;
     }
 
-    public void setBusinessType(String businessType) {
+    public void setBusinessType(int businessType) {
         this.businessType = businessType;
     }
 
-    public String getCardType() {
+    public int getCardType() {
         return cardType;
     }
 
-    public void setCardType(String cardType) {
+    public void setCardType(int cardType) {
         this.cardType = cardType;
     }
 
-    public String getPayableAmount() {
+    public int getPayableAmount() {
         return payableAmount;
     }
 
-    public void setPayableAmount(String payableAmount) {
+    public void setPayableAmount(int payableAmount) {
         this.payableAmount = payableAmount;
     }
 
-    public String getRealAmount() {
+    public int getRealAmount() {
         return realAmount;
     }
 
-    public void setRealAmount(String realAmount) {
+    public void setRealAmount(int realAmount) {
         this.realAmount = realAmount;
     }
 

@@ -13,6 +13,8 @@ public class ComponentConfig {
 
         public static final String ACTION_GET_TASK_FRAGMENT = "getTaskFragment";
 
+        public static final String ACTION_GET_DUTY_FRAGMENT = "getDutyFragment";
+
         public static final String ACTION_GET_PROCESSING_FRAGMENT = "getProcessingFragment";
 
         public static final String ACTION_GET_INFO_FRAGMENT = "getInfoFragment";
@@ -32,7 +34,8 @@ public class ComponentConfig {
 
         public static final String PARAM_TAB_POSITION = "tabPosition";
 
-        public static final String PARAM_IS_GOMain= "isGoMain";
+        public static final String PARAM_IS_GOMain = "isGoMain";
+        public static final String ACTION_SHOW_DUTY = "showDuty";
     }
 
 

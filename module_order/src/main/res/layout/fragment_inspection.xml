@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/basic_white"
-    android:orientation="vertical">
+    android:background="@color/white"
+   >
 
     <com.tengbo.commonlibrary.widget.TitleBar
         android:id="@+id/titleBar"
@@ -14,21 +14,21 @@
         app:title="@string/three_inspection_of_driving" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleBar"
-        android:layout_marginLeft="@dimen/dp_60"
-        android:layout_marginRight="@dimen/dp_60"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_horizontal">
+            android:gravity="center">
 
             <TextView
+                android:maxLines="1"
                 android:id="@+id/tv_driver_name"
                 style="@style/tv_10sp_blue_bold"
                 android:layout_gravity="center_horizontal"
@@ -52,12 +52,13 @@
                 android:src="@drawable/license" />
 
             <TextView
+                android:maxLines="1"
                 android:id="@+id/tv_car_id"
                 style="@style/tv_10sp_blue_bold"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:gravity="center_horizontal"
                 android:textSize="@dimen/sp_16"
-                tools:text="渝B5628" />
+                tools:text="渝B56错误28" />
         </LinearLayout>
 
     </LinearLayout>
@@ -72,6 +73,8 @@
         android:paddingTop="@dimen/dp_10" />
 
     <RelativeLayout
+        android:background="@color/white"
+        android:padding="@dimen/dp_10"
         android:id="@+id/rl_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,6 +83,7 @@
 
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_choose_all"
             style="@style/tv_10sp_blue_bold"
             android:layout_width="wrap_content"

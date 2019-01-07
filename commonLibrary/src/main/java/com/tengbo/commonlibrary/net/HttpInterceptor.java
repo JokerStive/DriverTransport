@@ -2,12 +2,8 @@ package com.tengbo.commonlibrary.net;
 
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.billy.cc.core.component.CC;
-import com.blankj.utilcode.util.NetworkUtils;
 import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
-import com.google.gson.reflect.TypeToken;
 import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.commonlibrary.common.ComponentConfig;
 import com.tengbo.commonlibrary.common.Config;
@@ -22,7 +18,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import retrofit2.converter.gson.GsonConverterFactory;
 import utils.RequestUtils;
 
 /**
@@ -98,10 +93,10 @@ public class HttpInterceptor implements Interceptor {
     private synchronized String getNewToken() throws IOException {
         String refreshToken = User.getRefreshToken();
         if (TextUtils.isEmpty(refreshToken)) {
-//            LogUtil.d("refreshToken 本来就是空 ---重新登陆");
+            LogUtil.d("refreshToken 本来就是空 ---重新登陆");
             return null;
         }
-//        LogUtil.d("accessToken 失效，利用refreshToken刷新");
+        LogUtil.d("accessToken 失效，利用refreshToken刷新");
         Request request = new Request.Builder()
                 .url(URL_REFRESH_TOKEN)
                 .addHeader(HEADER_REFRESH_KEY, refreshToken)
@@ -124,14 +119,14 @@ public class HttpInterceptor implements Interceptor {
         BaseResponse baseResponse = gson.fromJson(reader, BaseResponse.class);
         int code = baseResponse.getCode();
         if (code == ACCESS_SUCCESS) {
-//            LogUtil.d("token刷新成功，继续当前请求");
+            LogUtil.d("token刷新成功，继续当前请求");
             Object data = baseResponse.getData();
             Token token = gson.fromJson(gson.toJson(data), Token.class);
             User.saveRefreshToken(token.getRefreshToken());
             User.saveAccessToken(token.getAccessToken());
             return token.getAccessToken();
         }
-//        LogUtil.d("refreshToken也过期，重新登陆");
+        LogUtil.d("refreshToken也过期，重新登陆");
         return null;
     }
 

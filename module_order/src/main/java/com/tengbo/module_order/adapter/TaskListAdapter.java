@@ -21,8 +21,8 @@ public class TaskListAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
 
 
     StateListDrawable grayShape = SelectorFactory.newShapeSelector()
-            .setDefaultBgColor(Color.parseColor("#12000000"))
-            .setCornerRadius(UiUtils.dp2px(BaseApplication.get(), 5))
+            .setDefaultBgColor(BaseApplication.get().getResources().getColor(R.color.basic_blue))
+            .setCornerRadius(UiUtils.dp2px(BaseApplication.get(), 3))
             .create();
 
     public TaskListAdapter(@Nullable List<Order> data) {
@@ -35,21 +35,24 @@ public class TaskListAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
         helper.setText(R.id.tv_departure, order.getStartNodeName())
                 .setText(R.id.tv_destination, order.getEndNodeName())
                 .setText(R.id.tv_order_id, "订单编号：" + order.getOrderCode())
-                .setText(R.id.tv_schedule_time, "计划出发：" + order.getPredictEndTime())
-                .setText(R.id.tv_schedule_arrive_time, "计划到达：" + order.getPredictEndTime())
-//                .setText(R.id.tv_method, order.get())
+                .setText(R.id.tv_car_id, order.getDriverId())
                 .addOnClickListener(R.id.btn_accept_task)
                 .addOnClickListener(R.id.btn_reject_task)
                 .addOnClickListener(R.id.btn_start_task);
 
-        String orderStatus = order.getOrderStatus();
-        helper.setImageResource(R.id.iv_order_status, TextUtils.equals(orderStatus, "已接单") ? R.drawable.accept_order : R.drawable.not_accept_order);
-        helper.getView(R.id.btn_accept_task).setVisibility(TextUtils.equals(orderStatus, "已接单") ? View.GONE : View.VISIBLE);
-        helper.getView(R.id.btn_reject_task).setVisibility(TextUtils.equals(orderStatus, "已接单") ? View.GONE : View.VISIBLE);
-        helper.getView(R.id.btn_start_task).setVisibility(!TextUtils.equals(orderStatus, "已接单") ? View.GONE : View.VISIBLE);
+        int orderStatus = order.getOrderStatus();
+        helper.getView(R.id.btn_accept_task).setVisibility(orderStatus == 1 ? View.VISIBLE : View.GONE);
+        helper.getView(R.id.btn_reject_task).setVisibility(orderStatus == 1 ? View.VISIBLE : View.GONE);
+        if (orderStatus == 2 || orderStatus == 3) {
+            helper.getView(R.id.btn_start_task).setVisibility(View.VISIBLE);
+            helper.setText(R.id.btn_start_task, orderStatus == 2 ? "发车" : "重新接单");
+        } else {
+            helper.getView(R.id.btn_start_task).setVisibility(View.GONE);
+
+        }
 
         TextView tvCarId = helper.getView(R.id.tv_car_id);
-        tvCarId.setText("渝BYK984");
+        tvCarId.setText(order.getVehicleHead());
         tvCarId.setBackground(grayShape);
 
 

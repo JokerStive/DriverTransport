@@ -2,6 +2,7 @@ package com.tengbo.module_order.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -9,13 +10,19 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.tengbo.basiclibrary.utils.LogUtil;
-import com.tengbo.commonlibrary.commonBean.Location;
+import com.tengbo.commonlibrary.net.NetHelper;
+import com.tengbo.commonlibrary.net.ProgressSubscriber;
+import com.tengbo.commonlibrary.net.RxUtils;
+import com.tengbo.module_order.bean.GPSLocation;
+import com.tengbo.module_order.bean.GPSPoints;
+import com.tengbo.module_order.net.ApiOrder;
+import com.tengbo.module_order.ui.processing.ProcessingOrderFragment;
 
 import org.litepal.LitePal;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
+import rx.subscriptions.CompositeSubscription;
 
 
 public class UploadLocationService extends Service {
@@ -25,15 +32,17 @@ public class UploadLocationService extends Service {
     private static final int START = 1;
     private static final int STOP = 0;
     private static final int MAX_DATA_AMOUNT = 10;
-    private static final int DELAY_TIME_MILLION = 30000;
-    private ExecutorService mSignalExecutor;
-    private int processTaskCount = 0;
+    private static final int DELAY_TIME_MILLION = 5 * 60 * 1000;
+    private ApiOrder mApiOrder;
+    private UploadLocateBinder mBinder;
 
+    protected CompositeSubscription mSubscriptionManager = new CompositeSubscription();
+    private String mOrderCode;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mSignalExecutor = Executors.newSingleThreadExecutor();
+        mBinder = new UploadLocateBinder();
 
     }
 
@@ -49,8 +58,8 @@ public class UploadLocationService extends Service {
         public boolean handleMessage(Message message) {
             switch (message.what) {
                 case START:
-                    ((UploadLocationService) message.obj).processTask();
-                    ((UploadLocationService) message.obj).start();
+                    ((UploadLocationService) message.obj).uploadGPSPoints();
+                    ((UploadLocationService) message.obj).start(DELAY_TIME_MILLION);
                     break;
                 case STOP:
                     MAIN_THREAD_HANDLER.removeMessages(START);
@@ -61,46 +70,49 @@ public class UploadLocationService extends Service {
     }
 
 
-    class Task implements Runnable {
-        @Override
-        public void run() {
-            try {
-                List<Location> locations = LitePal.where("upload = ?", "0").limit(MAX_DATA_AMOUNT).find(Location.class);
-                LogUtil.d("查询到的定位信息个数" + locations.size());
-                if (locations != null && locations.size() > 0) {
-                    Thread.sleep(3000);
-                    LogUtil.d("从数据库取出位置信息..上传位置信息..上传位置信息成功，刷新数据库,已经上传了" + processTaskCount);
-                    processTaskCount++;
-                    updateDb(locations);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
     /**
      * 更新信息
      *
      * @param locations 待更新的定位
      */
-    private void updateDb(List<Location> locations) {
-        for (Location location : locations) {
+    private void updateDb(List<GPSLocation> locations) {
+        for (GPSLocation location : locations) {
             location.setUpload(true);
             location.save();
         }
+        LitePal.deleteAll(GPSLocation.class, "orderCode = ? and upload = ?", mOrderCode, "1");
     }
 
-    private void processTask() {
-        mSignalExecutor.execute(new Task());
+    private void uploadGPSPoints() {
+        List<GPSLocation> locations = LitePal.where("orderCode = ? and upload = ?", mOrderCode, "0").limit(MAX_DATA_AMOUNT).find(GPSLocation.class);
+
+        LogUtil.d("查询到的定位信息个数" + locations.size());
+        if (locations.size() > 0) {
+            GPSPoints points = new GPSPoints();
+            points.setPoints(locations);
+            if (mApiOrder == null) {
+                mApiOrder = NetHelper.getInstance().getRetrofit().create(ApiOrder.class);
+            }
+            mSubscriptionManager.add(mApiOrder.addGPSPoints(points)
+                    .compose(RxUtils.handleResult())
+                    .compose(RxUtils.applySchedule())
+                    .subscribe(new ProgressSubscriber<Object>() {
+                        @Override
+                        protected void on_next(Object o) {
+                            updateDb(locations);
+                            LogUtil.d("轨迹上传成功--" + points.getPoints().size());
+                        }
+                    }));
+
+        }
     }
 
-    private void start() {
+
+    private void start(long delayTime) {
         Message message = Message.obtain();
         message.what = START;
         message.obj = this;
-        MAIN_THREAD_HANDLER.sendMessageDelayed(message, DELAY_TIME_MILLION);
+        MAIN_THREAD_HANDLER.sendMessageDelayed(message, delayTime);
     }
 
     private void stop() {
@@ -111,10 +123,22 @@ public class UploadLocationService extends Service {
     }
 
 
+    public class UploadLocateBinder extends Binder {
+        public UploadLocationService getService() {
+            return UploadLocationService.this;
+        }
+    }
+
+    public void setOrderCode(String orderCode) {
+        this.mOrderCode = orderCode;
+    }
+
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtil.d("上传服务已启动");
-        start();
+        LogUtil.d("upload location  service onStartCommand upload start..");
+        mOrderCode = intent.getStringExtra(ProcessingOrderFragment.KEY_ORDER_CODE);
+        start(0);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -122,12 +146,19 @@ public class UploadLocationService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        LogUtil.d("upload location  service onDestroy upload stop..");
+        if (mSubscriptionManager.hasSubscriptions() && !mSubscriptionManager.isUnsubscribed()) {
+            mSubscriptionManager.unsubscribe();
+        }
         stop();
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        mOrderCode = intent.getStringExtra("orderCode");
+        LogUtil.d("upload location  service onBind upload start..");
+        start(0);
+        return mBinder;
     }
 }

@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/basic_white"
     android:orientation="vertical">
 
-    <com.tengbo.commonlibrary.widget.TitleBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:showBack="false"
-        app:title="@string/ongoing" />
 
+    <LinearLayout
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_node_action"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/dp_10"
-         />
+        android:orientation="vertical">
 
-</LinearLayout>
+
+        <com.tengbo.commonlibrary.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:showBack="false"
+            app:title="@string/ongoing" />
+
+
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/order_layout_process_empty"
+             />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/dp_10"
+            android:id="@+id/rv_node_action"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dp_10" />
+
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

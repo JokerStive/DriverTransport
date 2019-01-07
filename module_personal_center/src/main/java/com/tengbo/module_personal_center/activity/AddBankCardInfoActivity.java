@@ -14,8 +14,8 @@ import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.net.ApiException;
-import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
+import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.module_personal_center.R;
 import com.tengbo.module_personal_center.utils.BankCardValidUtils;
@@ -143,7 +143,7 @@ public class AddBankCardInfoActivity extends BaseActivity implements View.OnClic
 
             // 网络校验密码、身份证号、修改银行卡信息
             JSONObject jsonObject = new JSONObject();
-//            jsonObject.put("accountId", User.getId());
+//            jsonObject.put("accountId", User.getAccountId());
 //            jsonObject.put("loginPwd", password);
 //            jsonObject.put("userName", User.getName());
             jsonObject.put("idNumber", User.getIdNumber());

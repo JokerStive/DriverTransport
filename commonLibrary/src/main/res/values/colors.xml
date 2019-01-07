@@ -4,6 +4,9 @@
 
     <color name="basic_blue_deep">#5483a4</color>
 
+
+    <color name="tab_unselected">#e0e0e0</color>
+
     <color name="basic_white">#ffffff</color>
 
     <color name="crop__button_bar">#f3f3f3</color>

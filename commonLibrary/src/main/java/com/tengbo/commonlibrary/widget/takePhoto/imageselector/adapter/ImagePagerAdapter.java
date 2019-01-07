@@ -78,21 +78,22 @@ public class ImagePagerAdapter extends PagerAdapter {
                     .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                     .into(currentView);
         } else {
-            Glide.with(mContext).asBitmap()
-                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
-                    .load(new File(image.getPath())).into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                    int bw = resource.getWidth();
-                    int bh = resource.getHeight();
-                    if (bw > 8192 || bh > 8192) {
-                        Bitmap bitmap = ImageUtil.zoomBitmap(resource, 8192, 8192);
-                        setBitmap(currentView, bitmap);
-                    } else {
-                        setBitmap(currentView, resource);
-                    }
-                }
-            });
+            Glide.with(mContext).load(image.getPath()).into(currentView);
+//            Glide.with(mContext).asBitmap()
+//                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+//                    .load(new File(image.getPath())).into(new SimpleTarget<Bitmap>() {
+//                @Override
+//                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+//                    int bw = resource.getWidth();
+//                    int bh = resource.getHeight();
+//                    if (bw > 8192 || bh > 8192) {
+//                        Bitmap bitmap = ImageUtil.zoomBitmap(resource, 8192, 8192);
+//                        setBitmap(currentView, bitmap);
+//                    } else {
+//                        setBitmap(currentView, resource);
+//                    }
+//                }
+//            });
         }
         currentView.setOnClickListener(new View.OnClickListener() {
             @Override

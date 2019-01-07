@@ -2,7 +2,10 @@ package com.tengbo.module_main.ui.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +38,11 @@ public class MainRootFragment extends BaseMvpFragment<MainContract.Presenter> im
     private NoScrollViewPager mViewPager;
     private String[] mTabTitles = new String[]{"任务", "历史订单", "进行中", "消息", "我的"};
     private LinearLayout llTab;
+    private Fragment processing;
+    private Fragment dutyFragment;
+    private ArrayList<Fragment> fragments;
+    private HomePageAdapter homePageAdapter;
+    private TextView tvProcessing;
 
 
     public static MainRootFragment newInstance() {
@@ -47,7 +55,11 @@ public class MainRootFragment extends BaseMvpFragment<MainContract.Presenter> im
     public void changeTab(Event.ChangeTab event) {
         int position = event.getPosition();
         LogUtil.d("待切换的tab--" + position);
-        llTab.getChildAt(position).performClick();
+        if (position == -1) {
+            showDutyFragment();
+        } else {
+            llTab.getChildAt(position).performClick();
+        }
     }
 
     @Override
@@ -78,12 +90,7 @@ public class MainRootFragment extends BaseMvpFragment<MainContract.Presenter> im
     protected void initView() {
         mViewPager = mRootView.findViewById(R.id.viewPager);
         llTab = mRootView.findViewById(R.id.ll_tab);
-        mRootView.findViewById(R.id.iv_processing).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llTab.getChildAt(2).performClick();
-            }
-        });
+        tvProcessing = mRootView.findViewById(R.id.tv_processing);
 
 
         ArrayList<Fragment> fragments = getFragmentByComponent();
@@ -136,10 +143,18 @@ public class MainRootFragment extends BaseMvpFragment<MainContract.Presenter> im
      * @param fragments 需要显示的fragment
      */
     private void initViewPager(ArrayList<Fragment> fragments) {
-        HomePageAdapter homePageAdapter = new HomePageAdapter(_mActivity.getSupportFragmentManager(), fragments, mTabTitles);
+        homePageAdapter = new HomePageAdapter(_mActivity.getSupportFragmentManager(), fragments, null);
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(homePageAdapter);
         mViewPager.setCurrentItem(2);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                mutuallyExclusiveSelect(position);
+            }
+        });
     }
 
 
@@ -149,22 +164,24 @@ public class MainRootFragment extends BaseMvpFragment<MainContract.Presenter> im
      * @return 需要显示在首页的fragments
      */
     private ArrayList<Fragment> getFragmentByComponent() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments = new ArrayList<>();
         CCResult orderResult = CC.obtainBuilder(ComponentConfig.Order.COMPONENT_NAME)
                 .setActionName(ComponentConfig.Order.ACTION_GET_HOME_PAGE_FRAGMENTS)
                 .build()
                 .call();
         boolean success = orderResult.isSuccess();
-        Logger.d("orderCode---" + orderResult.getCode());
+//        Logger.d("orderCode---" + orderResult.getCode());
         if (success) {
             Fragment history = orderResult.getDataItem(ComponentConfig.Order.ACTION_GET_HISTORY_FRAGMENT);
             Fragment task = orderResult.getDataItem(ComponentConfig.Order.ACTION_GET_TASK_FRAGMENT);
             Fragment info = orderResult.getDataItem(ComponentConfig.Order.ACTION_GET_INFO_FRAGMENT);
-            Fragment Processing = orderResult.getDataItem(ComponentConfig.Order.ACTION_GET_PROCESSING_FRAGMENT);
+            processing = orderResult.getDataItem(ComponentConfig.Order.ACTION_GET_PROCESSING_FRAGMENT);
+            dutyFragment = orderResult.getDataItem(ComponentConfig.Order.ACTION_GET_DUTY_FRAGMENT);
             fragments.add(task);
             fragments.add(history);
-            fragments.add(Processing);
+            fragments.add(processing);
             fragments.add(info);
+
 
         }
 
@@ -181,6 +198,25 @@ public class MainRootFragment extends BaseMvpFragment<MainContract.Presenter> im
         return fragments;
     }
 
+
+    public void showDutyFragment() {
+        if (homePageAdapter != null
+                && fragments != null
+                && fragments.size() != 0
+                && processing != null
+                && dutyFragment != null
+                ) {
+            LogUtil.d("显示值班界面");
+            fragments.remove(processing);
+            fragments.add(2, dutyFragment);
+
+//            mTabTitles = new String[]{"任务", "历史订单", "值班", "消息", "我的"};
+            tvProcessing.setText("值班");
+
+            homePageAdapter.notifyDataSetChanged();
+
+        }
+    }
 
     @Override
     public void checkUpdateResult(UpdateInfo updateInfo) {

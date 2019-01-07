@@ -10,15 +10,15 @@
 
 
     <LinearLayout
-        android:layout_marginLeft="@dimen/dp_25"
-        android:layout_marginRight="@dimen/dp_25"
         android:id="@+id/ll_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_25"
+        android:layout_marginRight="@dimen/dp_25"
         android:background="@drawable/shape_radius5_solid_blue"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/dp_20"
-        android:paddingTop="@dimen/dp_20">
+        android:paddingTop="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_20">
 
 
         <LinearLayout
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/basic_white"
-                android:textSize="@dimen/sp_8"
+                android:textSize="@dimen/sp_10"
                 android:textStyle="normal"
                 tools:text="订单编号：TBQQ20180731001" />
 
@@ -73,71 +73,61 @@
             android:layout_marginTop="@dimen/dp_10">
 
 
-
             <LinearLayout
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
                 android:id="@+id/ll_method"
-                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_marginBottom="@dimen/dp_4"
-                    android:paddingTop="@dimen/dp_4"
                     android:id="@+id/iv_car"
                     android:layout_width="81dp"
                     android:layout_height="15dp"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_4"
                     android:src="@drawable/truck" />
 
-                <TextView
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:id="@+id/tv_method"
-                    style="@style/tv_10sp_blue_bold"
-                    android:textColor="@color/basic_white"
-                    android:textSize="@dimen/sp_10"
-                    tools:text="直达" />
 
 
             </LinearLayout>
 
 
-
             <LinearLayout
-
-                android:layout_toLeftOf="@id/ll_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/ll_method"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_departure"
                     style="@style/tv_10sp_blue_bold"
+                    android:maxLength="6"
+                    android:maxLines="1"
                     android:textColor="@color/basic_white"
                     android:textSize="@dimen/sp_16"
-                    android:maxLines="1"
-                    android:maxLength="6"
                     tools:text="湖南娄底哈哈哈哈" />
 
                 <TextView
-
+                    android:visibility="gone"
                     android:id="@+id/tv_schedule_time"
                     style="@style/tv_10sp_blue_bold"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_10"
                     android:textColor="@color/basic_white"
                     android:textSize="@dimen/sp_7"
-                    android:layout_gravity="center_horizontal"
                     android:textStyle="normal"
                     tools:text="9月1日  18:01" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_toRightOf="@id/ll_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ll_method"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -146,25 +136,24 @@
                     style="@style/tv_10sp_blue_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLength="6"
+                    android:maxLines="1"
                     android:textColor="@color/basic_white"
                     android:textSize="@dimen/sp_16"
-                    android:maxLines="1"
-                    android:maxLength="6"
                     tools:text="重庆北站" />
 
 
-
                 <TextView
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:visibility="gone"
                     android:id="@+id/tv_schedule_arrive_time"
                     style="@style/tv_10sp_blue_bold"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:textColor="@color/basic_white"
                     android:textSize="@dimen/sp_7"
                     android:textStyle="normal"
                     tools:text="9月1日  14:01" />
 
             </LinearLayout>
-
 
 
         </RelativeLayout>
@@ -174,11 +163,11 @@
 
 
     <RelativeLayout
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
         android:gravity="center_vertical">
 
         <TextView
@@ -186,23 +175,40 @@
             android:drawableLeft="@drawable/shape_line_blue"
             android:drawablePadding="@dimen/dp_10"
             android:gravity="center_vertical"
-            android:text="行车进程"
-            android:textSize="@dimen/sp_12" />
+            android:text="@string/transport_step"
+            android:textSize="@dimen/sp_14" />
 
 
-        <TextView
-            android:id="@+id/tv_inspection_feedback"
-            style="@style/tv_10sp_blue_bold"
+        <LinearLayout
+            android:id="@+id/ll_trouble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:gravity="center"
-            android:paddingBottom="@dimen/dp_4"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
-            android:paddingTop="@dimen/dp_4"
-            android:text="异常反馈"
-            android:textColor="@color/basic_white" />
+            android:orientation="horizontal">
 
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_trouble_cached"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_4"
+                android:src="@drawable/warm" />
+
+            <TextView
+                android:id="@+id/tv_trouble"
+                style="@style/tv_10sp_blue_bold"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_4"
+                android:textSize="@dimen/sp_12"
+                android:text="@string/trouble_feedback"
+                android:textColor="@color/basic_white" />
+
+
+        </LinearLayout>
     </RelativeLayout>
 
 

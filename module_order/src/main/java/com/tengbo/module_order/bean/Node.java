@@ -6,16 +6,30 @@ import java.util.List;
  *节点模型
  */
 public class Node {
-    private String planCode; //计划编码
-    private int nodeType;   //节点类型  1系统业务节点 2自动触发节点
-    private int nodeNumber;   //节点序号
-    private String nodeCode;   //节点编码
-    private long nodeLongitude;   //精度
-    private long nodeLatitude;   //维度
-    private int driggerDistance;   //出发距离
-    private String arrivedTime;   //到达时间
-    private String leftTime;   //离开时间
-    private List<Step> steps;   //步骤
+
+    /**
+     * nodeCode : 节点编码
+     * nodeNumber : 节点序号
+     * nodeName : 节点名称
+     * nodeType : 节点类型（1系统业务节点2自动触发节点）
+     * nodeLongitude : 节点经度
+     * nodeLatitude : 节点维度
+     * triggerDistance : 触发距离
+     * processNumber : 子流程序号
+     * nodeStatus : 节点状态（1未通过 2已通过）
+     * arrivedTime : 到达时间
+     */
+
+    private String nodeCode;
+    private int nodeNumber;
+    private String nodeName;
+    private int nodeType;
+    private double nodeLongitude;
+    private double nodeLatitude;
+    private double triggerDistance;
+    private int processNumber;
+    private int nodeStatus;
+    private String arrivedTime;
 
     public List<Step> getSteps() {
         return steps;
@@ -25,20 +39,14 @@ public class Node {
         this.steps = steps;
     }
 
-    public String getPlanCode() {
-        return planCode;
+    private List<Step> steps;
+
+    public String getNodeCode() {
+        return nodeCode;
     }
 
-    public void setPlanCode(String planCode) {
-        this.planCode = planCode;
-    }
-
-    public int getNodeType() {
-        return nodeType;
-    }
-
-    public void setNodeType(int nodeType) {
-        this.nodeType = nodeType;
+    public void setNodeCode(String nodeCode) {
+        this.nodeCode = nodeCode;
     }
 
     public int getNodeNumber() {
@@ -49,36 +57,60 @@ public class Node {
         this.nodeNumber = nodeNumber;
     }
 
-    public String getNodeCode() {
-        return nodeCode;
+    public String getNodeName() {
+        return nodeName;
     }
 
-    public void setNodeCode(String nodeCode) {
-        this.nodeCode = nodeCode;
+    public void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
     }
 
-    public long getNodeLongitude() {
+    public int getNodeType() {
+        return nodeType;
+    }
+
+    public void setNodeType(int nodeType) {
+        this.nodeType = nodeType;
+    }
+
+    public double getNodeLongitude() {
         return nodeLongitude;
     }
 
-    public void setNodeLongitude(long nodeLongitude) {
+    public void setNodeLongitude(double nodeLongitude) {
         this.nodeLongitude = nodeLongitude;
     }
 
-    public long getNodeLatitude() {
+    public double getNodeLatitude() {
         return nodeLatitude;
     }
 
-    public void setNodeLatitude(long nodeLatitude) {
+    public void setNodeLatitude(double nodeLatitude) {
         this.nodeLatitude = nodeLatitude;
     }
 
-    public int getDriggerDistance() {
-        return driggerDistance;
+    public double getTriggerDistance() {
+        return triggerDistance;
     }
 
-    public void setDriggerDistance(int driggerDistance) {
-        this.driggerDistance = driggerDistance;
+    public void setTriggerDistance(long triggerDistance) {
+        this.triggerDistance = triggerDistance;
+    }
+
+    public int getProcessNumber() {
+        return processNumber;
+    }
+
+    public void setProcessNumber(int processNumber) {
+        this.processNumber = processNumber;
+    }
+
+    public int getNodeStatus() {
+        return nodeStatus;
+    }
+
+    public void setNodeStatus(int nodeStatus) {
+        this.nodeStatus = nodeStatus;
     }
 
     public String getArrivedTime() {
@@ -87,13 +119,5 @@ public class Node {
 
     public void setArrivedTime(String arrivedTime) {
         this.arrivedTime = arrivedTime;
-    }
-
-    public String getLeftTime() {
-        return leftTime;
-    }
-
-    public void setLeftTime(String leftTime) {
-        this.leftTime = leftTime;
     }
 }

@@ -16,7 +16,6 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-
     }
 
 
@@ -60,8 +59,8 @@ dependencies {
     implementation project(':commonLibrary')
     implementation project(':locationLibrary')
     implementation project(':pushlibrary')
-    //    implementation 'cn.jiguang.sdk:jpush:3.1.5'
-    //    implementation 'cn.jiguang.sdk:jcore:1.2.3'
+    api project(':module_main')
+
     /**
      * 不需要引入CC自动注册插件的依赖使用implementation或者api，否则使用addComponent
      * addComponent module_name -> implementation project(':module_name'),

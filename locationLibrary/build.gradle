@@ -32,6 +32,6 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api files('libs/BaiduLBS_Android.jar')
 }

@@ -1,3 +1,8 @@
-include ':app',':module_main', ':module_order',':module_personal_center', ':locationLibrary', ':locationLibrary', ':pushlibrary',
+include ':app',
+        ':module_main',
+        ':module_order',
+        ':module_personal_center',
+        ':locationLibrary',
+        ':pushlibrary',
         ':basicLibrary',
         ':commonLibrary'

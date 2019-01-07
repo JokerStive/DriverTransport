@@ -140,7 +140,7 @@ public class BankCardListActivity extends BaseActivity {
         jsonObject.put("isTrade", 1);
         RequestBody requestBody = RequestUtils.createRequestBody(jsonObject.toJSONString());
         mSubscriptionManager.add(NetHelper.getInstance().getApi()
-                .setDefaultBankCard(requestBody)
+                .updateBankCardInfo(requestBody)
                 .compose(RxUtils.handleResult())
                 .compose(RxUtils.applySchedule())
                 .subscribe(new ProgressSubscriber<Object>(BankCardListActivity.this) {

@@ -5,7 +5,7 @@ import android.os.Looper;
 
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxResultCallback;
-import com.tengbo.basiclibrary.widget.RxProgressDialog;
+import com.tengbo.basiclibrary.widget.progress_dialog.ProgressDialog;
 
 import java.lang.ref.WeakReference;
 
@@ -14,7 +14,7 @@ public abstract class ProgressCallBack<T> extends RxResultCallback<T> {
 
     private WeakReference<Activity> activity;
     private boolean needProgressBar;
-    private RxProgressDialog dialog;
+    private ProgressDialog dialog;
 
     public ProgressCallBack() {
 
@@ -35,7 +35,7 @@ public abstract class ProgressCallBack<T> extends RxResultCallback<T> {
             if (Looper.getMainLooper() == Looper.myLooper()) {
                 if (activity != null) {
                     if (dialog == null) {
-                        dialog = new RxProgressDialog(activity.get());
+                        dialog = new ProgressDialog(activity.get());
                     }
                     dialog.show();
                 }

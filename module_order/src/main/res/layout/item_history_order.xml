@@ -1,84 +1,92 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_radius5_solid_gray"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/dp_13"
-    android:paddingLeft="@dimen/dp_30"
-    android:paddingRight="@dimen/dp_30"
-    android:paddingTop="@dimen/dp_13"
-    android:layout_marginBottom="@dimen/dp_12"
-    >
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="5dp"
+    card_view:cardUseCompatPadding="true">
 
-
-    <TextView
-        android:id="@+id/tv_order_id"
-        style="@style/tv_10sp_blue_bold"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/sp_12"
-        tools:text="订单编号：TBQQ2018080100" />
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/basic_blue" />
-
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_20">
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_13"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_13">
+
 
         <TextView
-            android:id="@+id/tv_complete_time"
+            android:id="@+id/tv_order_id"
             style="@style/tv_10sp_blue_bold"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/sp_12"
+            tools:text="订单编号：TBQQ2018080100" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:layout_marginTop="@dimen/dp_10"
-            android:textStyle="normal"
-            tools:text="完成日期：2018/05/02    15:20" />
+            android:background="@color/basic_blue" />
 
 
-        <TextView
-            android:id="@+id/tv_transport_fee"
-            style="@style/tv_10sp_blue_bold"
-            android:layout_below="@id/tv_complete_time"
-            android:layout_marginTop="@dimen/dp_4"
-            android:textStyle="normal"
-            tools:text="运费：8000元      " />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10">
 
-        <TextView
-            android:id="@+id/tv_deduction_fee"
-            style="@style/tv_10sp_blue_bold"
-            android:layout_below="@id/tv_transport_fee"
-            android:layout_marginTop="@dimen/dp_4"
-            android:textStyle="normal"
-            tools:text="应扣：500元     " />
+            <TextView
+                android:id="@+id/tv_complete_time"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textStyle="normal"
+                tools:text="完成日期：2018/05/02    15:20" />
 
 
-        <TextView
-            android:id="@+id/tv_paid_fee"
-            style="@style/tv_10sp_blue_bold"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/tv_transport_fee"
-            android:layout_marginRight="@dimen/dp_30"
-            android:layout_marginTop="@dimen/dp_4"
-            android:textStyle="normal"
-            tools:text="应扣：500元     " />
+            <TextView
+                android:id="@+id/tv_transport_fee"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_below="@id/tv_complete_time"
+                android:layout_marginTop="@dimen/dp_4"
+                android:textStyle="normal"
+                tools:text="运费：8000元      " />
+
+            <TextView
+                android:id="@+id/tv_deduction_fee"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_below="@id/tv_transport_fee"
+                android:layout_marginTop="@dimen/dp_4"
+                android:textStyle="normal"
+                tools:text="应扣：500元     " />
 
 
-        <TextView
+            <TextView
+                android:id="@+id/tv_order_status"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_below="@id/tv_paid_fee"
+                android:layout_alignParentRight="true"
 
-            android:id="@+id/tv_order_status"
-            style="@style/tv_10sp_blue_bold"
-            android:layout_alignLeft="@id/tv_paid_fee"
-            android:layout_below="@id/tv_paid_fee"
-            android:layout_marginTop="@dimen/dp_4"
-            android:textStyle="normal"
-            tools:text="接单状态：已接单" />
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginRight="@dimen/dp_30"
+                android:textStyle="normal"
+                tools:text="接单状态：已接单都好都好都好都好" />
+
+            <TextView
+                android:id="@+id/tv_paid_fee"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_alignLeft="@id/tv_order_status"
+                android:layout_alignTop="@id/tv_transport_fee"
+                android:layout_marginTop="@dimen/dp_4"
+                android:textStyle="normal"
+                tools:text="应扣：500元     " />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

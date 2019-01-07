@@ -1,34 +1,57 @@
 package com.tengbo.commonlibrary.net;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Looper;
-import android.text.TextUtils;
+import android.support.v4.app.Fragment;
 
-import com.billy.cc.core.component.CC;
+import com.tamic.novate.util.NetworkUtil;
 import com.tengbo.basiclibrary.utils.LogUtil;
-import com.tengbo.basiclibrary.widget.RxProgressDialog;
+import com.tengbo.basiclibrary.widget.progress_dialog.ProgressDialog;
 import com.tengbo.commonlibrary.base.BaseApplication;
-import com.tengbo.commonlibrary.common.ComponentConfig;
+import com.tengbo.commonlibrary.mvp.IView;
 
 import java.lang.ref.WeakReference;
 
 import rx.Subscriber;
 import utils.ToastUtils;
 
-public abstract class ProgressSubscriber<T> extends Subscriber<T> {
+public abstract class ProgressSubscriber<T> extends Subscriber<T> implements DialogInterface.OnCancelListener, DialogInterface.OnDismissListener {
 
-    private WeakReference<Activity> activity;
+    private WeakReference<Activity> activityWeakReference;
     private boolean needProgressBar;
-    private RxProgressDialog dialog;
+    private ProgressDialog dialog;
 
     public ProgressSubscriber() {
 
     }
 
-    public ProgressSubscriber(Activity content) {
-        if (content != null) {
-            LogUtil.d("dialig create..");
-            this.activity = new WeakReference<>(content);
+    public ProgressSubscriber(Context context) {
+        Activity activity = null;
+        if (context instanceof Activity) {
+            activity = ((Activity) context);
+        } else {
+            ToastUtils.show(BaseApplication.get(), "需要加载框传入activity");
+        }
+
+        if (activity != null) {
+            activityWeakReference = new WeakReference<>(activity);
+            needProgressBar = true;
+        }
+    }
+
+    public ProgressSubscriber(IView iView) {
+        Activity activity = null;
+        if (iView instanceof Fragment) {
+            activity = ((Fragment) iView).getActivity();
+        } else if (iView instanceof Activity) {
+            activity = ((Activity) iView);
+        } else {
+            ToastUtils.show(BaseApplication.get(), "需要加载框传入activity或者fragment");
+        }
+        if (activity != null) {
+            activityWeakReference = new WeakReference<>(activity);
             needProgressBar = true;
         }
     }
@@ -38,12 +61,7 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
         super.onStart();
         if (needProgressBar) {
             if (Looper.getMainLooper() == Looper.myLooper()) {
-                if (activity != null) {
-                    if (dialog == null) {
-                        dialog = new RxProgressDialog(activity.get());
-                    }
-                    dialog.show();
-                }
+                showDialog();
             } else {
                 throw new RuntimeException("this is  not UI thread ");
             }
@@ -51,14 +69,15 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
 
     }
 
+
     @Override
     public void onCompleted() {
-        hideDialog();
+        dismissDialog();
     }
 
     @Override
     public void onNext(T t) {
-        hideDialog();
+        dismissDialog();
         on_next(t);
     }
 
@@ -69,26 +88,57 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> {
     }
 
 
+    private void showDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(activityWeakReference.get());
+        }
+        dialog.setOnCancelListener(this);
+        dialog.setOnDismissListener(this);
+        dialog.show();
+    }
+
     @Override
     public void onError(java.lang.Throwable e) {
-        hideDialog();
+        dismissDialog();
         if (e instanceof ApiException) {
-            ApiException apiException = ((ApiException) e);
-            LogUtil.d(apiException.getErrorCode() + "----" + apiException.getErrorMessage());
-            ToastUtils.show(BaseApplication.get(), ((ApiException) e).getErrorMessage());
-            on_error((ApiException) e);
+            dealApiError(((ApiException) e));
+        } else if (!NetworkUtil.isNetworkAvailable(BaseApplication.get())) {
+            dealApiError(new ApiException(40000, "无网络连接请检查"));
         } else {
             LogUtil.d(e.getMessage());
         }
     }
 
-    private void hideDialog() {
-        if (needProgressBar) {
-            if (activity != null && dialog.isShowing()) {
-                dialog.cancel();
-            }
+    private void dealApiError(ApiException apiException) {
+        LogUtil.d(apiException.getErrorCode() + "----" + apiException.getErrorMessage());
+        ToastUtils.show(BaseApplication.get(), apiException.getErrorMessage());
+        on_error(apiException);
+    }
+
+    private void dismissDialog() {
+        if (needProgressBar && dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 
 
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        clear();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        clear();
+    }
+
+    private void clear() {
+        if(activityWeakReference!=null){
+            activityWeakReference.clear();
+            activityWeakReference=null;
+        }
+        if (!isUnsubscribed()) {
+            unsubscribe();
+        }
+    }
 }

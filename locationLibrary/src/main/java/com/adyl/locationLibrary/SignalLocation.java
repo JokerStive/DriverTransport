@@ -7,6 +7,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 
+
 public class SignalLocation {
     private Context context;
     private onLocateListener listener;

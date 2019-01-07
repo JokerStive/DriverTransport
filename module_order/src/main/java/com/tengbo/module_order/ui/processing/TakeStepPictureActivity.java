@@ -34,7 +34,8 @@ import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.commonlibrary.widget.takePhoto.compress.LuBan;
 import com.tengbo.commonlibrary.widget.takePhoto.custom_camera.CameraSurfaceView;
 import com.tengbo.module_order.R;
-import com.tengbo.module_order.bean.StepPicture;
+import com.zxy.tiny.Tiny;
+import com.zxy.tiny.common.FileResult;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -44,16 +45,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import rx.Observable;
 import rx.functions.Func1;
 
-import static com.blankj.utilcode.util.ScreenUtils.getScreenHeight;
 import static com.blankj.utilcode.util.ScreenUtils.getScreenWidth;
 
 public class TakeStepPictureActivity extends BaseActivity implements View.OnClickListener {
     private final String TAG = "custom_camera";
-    public static final String STEP_PICTURE = "step_picture";
+    public static final String STEP_PICTURE_PATH = "step_picture_path";
     public static final String ORDER_ID = "orderId";
     public static final String STEP_NAME = "stepName";
     public static final String CACHE_NAME = "/adyl";
@@ -91,6 +92,9 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
         tvStepName = findViewById(R.id.tv_step_name);
         tvStepTime = findViewById(R.id.tv_step_time);
         surfaceView = findViewById(R.id.surfaceView);
+        surfaceView.setOnSurfaceCreated(() -> surfaceView.setCameraDisplayOrientation(TakeStepPictureActivity.this));
+
+
         ivTakePicture = findViewById(R.id.iv_take_picture);
         rlTakePicture = findViewById(R.id.rl_take);
         rlAfterTakePicture = findViewById(R.id.rl_after_take);
@@ -99,6 +103,12 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
         findViewById(R.id.tv_cancel).setOnClickListener(this);
         findViewById(R.id.tv_take_again).setOnClickListener(this);
 
+        if (TextUtils.isEmpty(stepName)) {
+            tvStepName.setVisibility(View.GONE);
+        }
+        if (TextUtils.isEmpty(orderId)) {
+            tvOrderNum.setVisibility(View.GONE);
+        }
         tvStepName.setText(stepName);
         tvOrderNum.setText(orderId);
 
@@ -158,7 +168,6 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
      */
     private void compressAndSavePicture(byte[] data) {
         try {
-
             //给图片添加水印
             Observable.just("")
                     .map(new Func1<String, File>() {
@@ -166,8 +175,8 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
                         public File call(String s) {
                             File file = saveFile(data);
                             assert file != null;
-                            insertToAlbum(file.getAbsolutePath());
-                            return LuBan.get(getApplicationContext()).firstCompress(file);
+                            return  LuBan.get(getApplicationContext()).firstCompress(file);
+
                         }
                     })
                     .compose(RxUtils.applySchedule())
@@ -182,24 +191,34 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
         }
     }
 
-    /** 返回并传递数据
-     * @param file  经过压缩后最终的图片文件
+
+    /**
+     * 返回并传递数据
+     *
+     * @param file 经过压缩后最终的图片文件
      */
     private void backTransferData(File file) {
         Intent intent = new Intent();
-        StepPicture stepPicture = new StepPicture();
-        stepPicture.setAddress(tvStepAddress.getText().toString());
-        stepPicture.setOrderId(orderId);
-        stepPicture.setStepName(stepName);
-        stepPicture.setTime(tvStepTime.getText().toString());
-        stepPicture.setPicturePath(file.getAbsolutePath());
-        intent.putExtra(STEP_PICTURE, stepPicture);
+        intent.putExtra(STEP_PICTURE_PATH, file.getAbsolutePath());
         setResult(200, intent);
         finish();
     }
 
 
-    /** 添加水印并保存到相册
+    /**
+     * 返回并传递数据
+     */
+    private void backTransferData(String path) {
+        Intent intent = new Intent();
+        intent.putExtra(STEP_PICTURE_PATH, path);
+        setResult(200, intent);
+        finish();
+    }
+
+
+    /**
+     * 添加水印并保存到相册
+     *
      * @param data 拍照返回的数据
      * @return 保存后的文件
      */
@@ -224,6 +243,7 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
             exifInterface.setAttribute(ExifInterface.TAG_ORIENTATION, String.valueOf(ExifInterface.ORIENTATION_ROTATE_90));
             exifInterface.saveAttributes();
 
+            insertToAlbum(file.getAbsolutePath());
             return file;
 
         } catch (Exception e) {
@@ -246,7 +266,9 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
     }
 
 
-    /** 添加水印
+    /**
+     * 添加水印
+     *
      * @param data 图片字节数据
      * @return 添加水印后的图片
      */

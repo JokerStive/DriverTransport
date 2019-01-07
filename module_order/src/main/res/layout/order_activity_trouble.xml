@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/basic_white"
+    android:orientation="vertical">
+
+
+    <com.tengbo.commonlibrary.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="异常反馈" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_13">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_30"
+                android:background="@drawable/shape_radius10_stroke2"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_20"
+                >
+
+
+                <View
+                    android:layout_width="26dp"
+                    android:layout_height="7dp"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:background="@color/basic_blue"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="26dp"
+                    android:layout_height="7dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:background="@color/basic_blue"
+                    android:visibility="gone" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/dp_60"
+                    android:layout_marginRight="@dimen/dp_60"
+                    android:background="#eb5e58"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:id="@+id/tv_car_id"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_13"
+                    android:text="渝BQG542"
+                    android:textSize="@dimen/sp_16" />
+
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_car_id"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/basic_blue" />
+
+
+                <TextView
+                    android:textStyle="normal"
+                    android:id="@+id/tv_order_id"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_below="@id/line"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_13"
+                    android:layout_marginBottom="@dimen/dp_13"
+                    android:text="订单编号：#44444444"
+                    android:textSize="@dimen/sp_14" />
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textStyle="normal"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_gravity="bottom"
+                    android:text="异常类型："
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:textStyle="normal"
+                    android:id="@+id/tv_exceptions"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/dp_4"
+                    android:drawableBottom="@drawable/shape_underline"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_14"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_choose_type"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_20"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/choose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textStyle="normal"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_gravity="bottom"
+                    android:text="预计耗时："
+                    android:textSize="@dimen/sp_14" />
+
+                <EditText
+                    android:textStyle="normal"
+                    android:inputType="numberDecimal"
+                    android:id="@+id/et_duration"
+                    style="@style/tv_10sp_blue_bold"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@null"
+                    android:drawableBottom="@drawable/shape_underline"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp_16"
+                    tools:text="2.5" />
+
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:textStyle="normal"
+                    style="@style/tv_10sp_blue_bold"
+                    android:text="小时"
+                    android:textColor="#5483e3"
+                    android:textSize="@dimen/sp_12"
+                     />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_impact_plan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textStyle="normal"
+                    style="@style/tv_10sp_blue_bold"
+                    android:text="是否影响运输计划："
+                    android:textSize="@dimen/sp_14" />
+
+                <RadioGroup
+                    android:id="@+id/rg_impact_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:textStyle="normal"
+                        android:id="@+id/rb_yes"
+                        style="@style/tv_10sp_blue_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:background="@null"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/selector_checked"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:gravity="center_vertical"
+                        android:text="是"
+                        android:textColor="@color/basic_blue"
+                        android:textSize="@dimen/sp_14" />
+
+                    <RadioButton
+                        android:textStyle="normal"
+                        android:id="@+id/rb_no"
+                        style="@style/tv_10sp_blue_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:background="@null"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableLeft="@drawable/selector_checked"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:gravity="center_vertical"
+                        android:text="否"
+                        android:textColor="@color/basic_blue"
+                        android:textSize="@dimen/sp_14" />
+
+
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_need_card_support"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textStyle="normal"
+                    style="@style/tv_10sp_blue_bold"
+                    android:text="是否需要车辆支援："
+                    android:textSize="@dimen/sp_14" />
+
+                <RadioGroup
+                    android:id="@+id/rg_need_card_support"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:textStyle="normal"
+                        android:id="@+id/rb_position"
+                        style="@style/tv_10sp_blue_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:background="@null"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/selector_checked"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:gravity="center_vertical"
+                        android:text="是"
+                        android:textColor="@color/basic_blue"
+                        android:textSize="@dimen/sp_14" />
+
+                    <RadioButton
+                        android:textStyle="normal"
+                        android:id="@+id/rb_navigation"
+                        style="@style/tv_10sp_blue_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:background="@null"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableLeft="@drawable/selector_checked"
+                        android:drawablePadding="@dimen/dp_4"
+                        android:gravity="center_vertical"
+                        android:text="否"
+                        android:textColor="@color/basic_blue"
+                        android:textSize="@dimen/sp_14" />
+
+
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:textStyle="normal"
+                    style="@style/tv_10sp_blue_bold"
+                    android:text="上传照片："
+                    android:textSize="@dimen/sp_14" />
+
+
+                <com.tengbo.module_order.ui.processing.StepPictureRecyclerView
+                    android:id="@+id/rv_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_positive"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_20"
+                    android:layout_weight="1"
+                    android:background="@drawable/common_selector_text_button"
+                    android:gravity="center"
+                    android:text="提交"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/tv_negative"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_20"
+                    android:layout_weight="1"
+                    android:background="@drawable/common_selector_text_button"
+                    android:gravity="center"
+                    android:text="取消"
+                    android:textColor="@color/basic_blue"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
