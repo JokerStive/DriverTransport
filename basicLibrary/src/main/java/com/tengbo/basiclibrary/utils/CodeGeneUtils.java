@@ -12,6 +12,7 @@ import java.util.Random;
 
 /**
  * 类描述:  用于图形验证码的工具类
+ * @author yk_de
  */
 public class CodeGeneUtils {
 
@@ -68,10 +69,6 @@ public class CodeGeneUtils {
             canvas.drawText(code.charAt(i) + "", mPaddingLeft, mPaddingTop, paint);
         }
 
-//        //干扰线
-//        for (int i = 0; i < DEFAULT_LINE_NUMBER; i++) {
-//            drawLine(canvas, paint);
-//        }
 
         canvas.save();//保存
         canvas.restore();
@@ -87,10 +84,10 @@ public class CodeGeneUtils {
         return code;
     }
 
-    //生成验证码
-    public String createCode() {
-        mBuilder.delete(0, mBuilder.length()); //使用之前首先清空内容
 
+    private String createCode() {
+        //使用之前首先清空内容
+        mBuilder.delete(0, mBuilder.length());
         for (int i = 0; i < DEFAULT_CODE_LENGTH; i++) {
             mBuilder.append(CHARS[mRandom.nextInt(CHARS.length)]);
         }

@@ -45,11 +45,13 @@ import utils.CommonDialog;
 import utils.RetrofitUtils;
 import utils.ToastUtils;
 
+/**
+ * @author yk_de
+ */
 public class NormalStepPassFragment extends DialogFragment implements View.OnClickListener {
 
     private static final int PICTURE_COUNT = 3;
     private View view;
-    private TextView tvStepDesc;
     private StepPictureRecyclerView stepRv;
     private Step mStep;
     protected CompositeSubscription mSubscriptionManager = new CompositeSubscription();
@@ -101,8 +103,20 @@ public class NormalStepPassFragment extends DialogFragment implements View.OnCli
     }
 
     private void initView() {
-        tvStepDesc = view.findViewById(R.id.tv_step_desc);
+        TextView tvStepDesc = view.findViewById(R.id.tv_step_desc);
         tvStepDesc.setText(mStep.getStepDes());
+
+        TextView tvContactName = view.findViewById(R.id.tv_contact_name);
+        tvContactName.setText(mStep.getExcuterName());
+
+        TextView tvContactPhone = view.findViewById(R.id.tv_contact_phone);
+        tvContactPhone.setText(mStep.getExcuterCellPhone());
+
+        TextView tvPositionName = view.findViewById(R.id.tv_position_name);
+        tvPositionName.setText(mStep.getPositionName());
+
+
+
         stepRv = view.findViewById(R.id.rv_picture);
         view.findViewById(R.id.tv_positive).setOnClickListener(this);
         view.findViewById(R.id.tv_negative).setOnClickListener(this);

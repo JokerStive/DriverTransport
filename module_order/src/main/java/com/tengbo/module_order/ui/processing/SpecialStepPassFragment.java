@@ -193,9 +193,19 @@ public class SpecialStepPassFragment extends DialogFragment implements View.OnCl
 
     private void initView() {
         TextView tvStepDesc = view.findViewById(R.id.tv_step_desc);
-        TextView tvStepName = view.findViewById(R.id.tv_step_name);
         tvStepDesc.setText(mStep.getStepDes());
+
+        TextView tvStepName = view.findViewById(R.id.tv_step_name);
         tvStepName.setText(mStep.getStepName());
+
+        TextView tvContactName = view.findViewById(R.id.tv_contact_name);
+        tvContactName.setText(mStep.getExcuterName());
+
+        TextView tvContactPhone = view.findViewById(R.id.tv_contact_phone);
+        tvContactPhone.setText(mStep.getExcuterCellPhone());
+
+        TextView tvPositionName = view.findViewById(R.id.tv_position_name);
+        tvPositionName.setText(mStep.getPositionName());
 
         rvPictures = view.findViewById(R.id.rv_picture);
         rvContainers = view.findViewById(R.id.rv_container);

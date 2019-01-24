@@ -44,6 +44,8 @@ public interface ApiService {
 //    Observable<BaseResponse<LoginInfo>> testLogin(@Url String url,@Body RequestBody body);
 
 
+
+
     /**
      * 修改密码
      */
@@ -81,4 +83,7 @@ public interface ApiService {
      */
     @POST("user/updateUserSuInfo")
     Observable<BaseResponse> updateUserInfo(@Body Account account);
+
+
+
 }

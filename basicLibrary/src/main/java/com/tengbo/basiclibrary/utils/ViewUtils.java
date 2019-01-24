@@ -1,8 +1,11 @@
 package com.tengbo.basiclibrary.utils;
 
+/**
+ * @author yk_de
+ */
 public class ViewUtils {
 
-    private static final int MIN_DELAY_TIME = 1000;  // 两次点击间隔不能少于1000ms
+    private static final int MIN_DELAY_TIME = 1000;
     private static long lastClickTime;
 
     public static boolean isFastClick() {

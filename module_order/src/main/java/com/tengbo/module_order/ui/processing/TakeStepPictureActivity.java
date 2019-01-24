@@ -175,7 +175,7 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
                         public File call(String s) {
                             File file = saveFile(data);
                             assert file != null;
-                            return  LuBan.get(getApplicationContext()).firstCompress(file);
+                            return LuBan.get(getApplicationContext()).firstCompress(file);
 
                         }
                     })
@@ -275,7 +275,7 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
     private Bitmap createWatermark(byte[] data) {
         Bitmap bitmap = null;
         try {
-            String markText = "TY000888\n" + "装货  " +
+            String markText = orderId+"\n" + stepName +"\n"+
                     tvStepAddress.getText().toString() + "\n" +
                     tvStepTime.getText().toString();
             bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -333,7 +333,7 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
 
             return bmp;
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 

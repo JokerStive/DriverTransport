@@ -3,6 +3,7 @@ package com.tengbo.commonlibrary.net;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tamic.novate.Novate;
+import com.tengbo.commonlibrary.BuildConfig;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.Config;
 
@@ -59,7 +60,7 @@ public class NetHelper {
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(Config.BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .build();
     }
 
@@ -69,7 +70,7 @@ public class NetHelper {
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(Config.BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .build().create(ApiService.class);
         return apis;
     }

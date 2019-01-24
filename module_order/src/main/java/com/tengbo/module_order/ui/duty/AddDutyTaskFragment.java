@@ -51,6 +51,9 @@ import utils.CommonDialog;
 import utils.RetrofitUtils;
 import utils.ToastUtils;
 
+/**
+ * @author yk_de
+ */
 public class AddDutyTaskFragment extends DialogFragment implements View.OnClickListener {
 
     private static final int PICTURE_COUNT = 3;
@@ -66,9 +69,6 @@ public class AddDutyTaskFragment extends DialogFragment implements View.OnClickL
     private LinearLayout llAddress;
     private EditText etAddress;
 
-//    private String addUrl = Config.TEST_URL + "app/duty/addDutyTask";
-//    private String updateUrl = Config.TEST_URL + "app/duty/updateDutyTask";
-//    private String queryUrl = Config.TEST_URL + "duty/getDutyRecord";
     private int mCheckedId;
 
     public static AddDutyTaskFragment newInstance(boolean isAdd, Task task) {
@@ -136,9 +136,6 @@ public class AddDutyTaskFragment extends DialogFragment implements View.OnClickL
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 mCheckedId = checkedId;
-//                if(stepRv!=null){
-//                    stepRv.setOrderData(null, getCheckedRbTag());
-//                }
             }
         });
         RadioButton rb_1 = view.findViewById(R.id.rb_1);
@@ -159,10 +156,8 @@ public class AddDutyTaskFragment extends DialogFragment implements View.OnClickL
 
         stepRv = view.findViewById(R.id.rv_picture);
         stepRv.init(getActivity(), PICTURE_COUNT, 4);
-//        stepRv.setOrderData(null, getCheckedRbTag());
 
 
-        //甩重柜动作的地址输入框
         llAddress = view.findViewById(R.id.ll_address);
         etAddress = view.findViewById(R.id.et_address);
 
@@ -171,7 +166,6 @@ public class AddDutyTaskFragment extends DialogFragment implements View.OnClickL
             Task task = new Task();
             task.setTaskId(mTask.getTaskId());
             mSubscriptionManager.add(NetHelper.getInstance().getRetrofit().create(ApiOrder.class)
-
                     .getDutyRecord(task)
                     .compose(RxUtils.applySchedule())
                     .compose(RxUtils.handleResult())
@@ -189,7 +183,9 @@ public class AddDutyTaskFragment extends DialogFragment implements View.OnClickL
         }
     }
 
-    //设置已经操作过的动作为不可操作
+    /**设置已经操作过的动作为不可操作
+     * @param records
+     */
     private void setRbEnable(List<Task> records) {
         positive.setEnabled(true);
         for (int j = 0; j < records.size(); j++) {
@@ -218,10 +214,11 @@ public class AddDutyTaskFragment extends DialogFragment implements View.OnClickL
     }
 
 
+    int successCode  = 200;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == TakeStepPictureActivity.REQUEST_CODE && resultCode == 200 && data != null) {
+        if (requestCode == TakeStepPictureActivity.REQUEST_CODE && resultCode == successCode && data != null) {
             String picturePath = data.getStringExtra(TakeStepPictureActivity.STEP_PICTURE_PATH);
             if (!TextUtils.isEmpty(picturePath)) {
                 stepRv.insertItem(picturePath);
@@ -249,10 +246,11 @@ public class AddDutyTaskFragment extends DialogFragment implements View.OnClickL
         }
 
         String tag = getCheckedRbTag();
+        String four ="4";
         if (TextUtils.isEmpty(tag)) {
             ToastUtils.show(getContext(), "请选择一个动作");
             return;
-        } else if ("4".equals(tag) && TextUtils.isEmpty(etAddress.getText().toString())) {
+        } else if (four.equals(tag) && TextUtils.isEmpty(etAddress.getText().toString())) {
             ToastUtils.show(getContext(), "请输入甩重柜地址");
             return;
         }
@@ -273,6 +271,7 @@ public class AddDutyTaskFragment extends DialogFragment implements View.OnClickL
                     protected void on_next(Object o) {
                         EventBus.getDefault().post(DutyListFragment.REFRESH);
                         dismiss();
+
                     }
                 }));
     }

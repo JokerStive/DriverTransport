@@ -28,6 +28,9 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+/**
+ * @author yk_de
+ */
 public class DutyListFragment extends BaseFragment {
 
     private Task mTask;
@@ -48,6 +51,7 @@ public class DutyListFragment extends BaseFragment {
             public void onOperateClick() {
                 if (mTask != null) {
                     assert getFragmentManager() != null;
+
                     AddDutyTaskFragment.newInstance(true, mTask).show(getFragmentManager(), null);
                 }
             }

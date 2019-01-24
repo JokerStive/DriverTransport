@@ -1,49 +1,56 @@
 package com.tengbo.commonlibrary.common;
 
-import com.tengbo.basiclibrary.utils.ACache;
-import com.tengbo.basiclibrary.utils.SpUtils;
+
+import com.tengbo.basiclibrary.utils.MMKVCache;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.commonBean.Account;
 
 import java.util.Objects;
 
+/**
+ * @author yk_de
+ */
 public class User {
-    private static final String USER_ACCESS_TOKEN = "accessToken";
-    private static final String USER_REFRESH_TOKEN = "refreshToken";
-    private static final String USER_AUTO_LOGIN = "autoLogin";
-    private static final String USER_INFO = "userInfo";
-    private static final String USER_AVATAR = "avatar";
+    private static final String ACCESS_TOKEN = "accessToken";
+    private static final String REFRESH_TOKEN = "refreshToken";
+    private static final String ACCOUNT = "userInfo";
+    private static final String AVATAR_PATH = "avatar";
+    private static MMKVCache mmkvCache;
+
+
+    static {
+        mmkvCache = new MMKVCache(BaseApplication.get());
+    }
 
 
     public static void saveRefreshToken(String refreshToken) {
-        ACache.get(BaseApplication.get()).put(USER_REFRESH_TOKEN, refreshToken);
+        mmkvCache.putString(REFRESH_TOKEN, refreshToken);
     }
 
     public static void saveAccessToken(String accessToken) {
-        ACache.get(BaseApplication.get()).put(USER_ACCESS_TOKEN, accessToken);
+        mmkvCache.putString(ACCESS_TOKEN, accessToken);
     }
 
 
     public static String getAccessToken() {
-        return ACache.get(BaseApplication.get()).getAsString(USER_ACCESS_TOKEN);
+        return mmkvCache.getString(ACCESS_TOKEN);
     }
 
     public static String getRefreshToken() {
-        return ACache.get(BaseApplication.get()).getAsString(USER_REFRESH_TOKEN);
+        return mmkvCache.getString(REFRESH_TOKEN);
     }
 
 
-    public static void saveAvatar(String avatar) {
-        ACache.get(BaseApplication.get()).put(USER_AVATAR, avatar);
+    public static void putAvatarPath(String avatarPath) {
+        mmkvCache.putString(AVATAR_PATH, avatarPath);
     }
 
-    public static String getAvatar() {
-        return ACache.get(BaseApplication.get()).getAsString(USER_AVATAR);
+    public static String getAvatarPath() {
+        return mmkvCache.getString(AVATAR_PATH);
     }
 
 
     public static String getIdNumber() {
-//        return "511222198308168739";
         Account account = getAccount();
         Objects.requireNonNull(account);
         return account.getIdNumber();
@@ -71,31 +78,17 @@ public class User {
 
 
     public static void clear() {
-        ACache.get(BaseApplication.get()).clear();
+        mmkvCache.clear();
     }
 
 
-    /**
-     * @param account
-     */
-    public static void saveAccount(Account account) {
-        ACache.get(BaseApplication.get()).put(USER_INFO, account);
+    public static void putAccount(Account account) {
+        mmkvCache.putParcelable(ACCOUNT, account);
     }
 
-    /**
-     * 获取用户信息
-     *
-     * @return 用户信息
-     */
-    public static Account getAccount() {
-        return (Account) ACache.get(BaseApplication.get()).getAsObject(USER_INFO);
+
+    private static Account getAccount() {
+        return mmkvCache.getParcelable(ACCOUNT, Account.class);
     }
 
-    public static void saveAutoLogin(boolean autoLogin) {
-        SpUtils.putBoolean(BaseApplication.get(), USER_AUTO_LOGIN, autoLogin);
-    }
-
-    public static boolean isAutoLogin() {
-        return SpUtils.getBoolean(BaseApplication.get(), USER_AUTO_LOGIN, true);
-    }
 }

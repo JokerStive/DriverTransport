@@ -18,7 +18,12 @@ buildscript {
 
     repositories {
         google()
+        mavenCentral()
     }
+}
+
+ext{
+
 }
 
 allprojects {

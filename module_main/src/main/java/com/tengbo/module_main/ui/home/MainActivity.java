@@ -7,14 +7,9 @@ import android.support.annotation.Nullable;
 import com.adyl.pushlibrary.MessageManager;
 import com.adyl.pushlibrary.PushCallBack;
 import com.tengbo.commonlibrary.base.BaseActivity;
-import com.tengbo.commonlibrary.common.Event;
-import com.tengbo.commonlibrary.net.HttpInterceptor;
 import com.tengbo.module_main.R;
 import com.tengbo.module_main.ui.login.LoginActivity;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends BaseActivity {
 
@@ -50,7 +45,6 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         MessageManager.getInstance().unRegister(getClass().getName());
-//        EventBus.getDefault().unregister(this);
     }
 
 

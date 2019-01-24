@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.billy.cc.core.component.CC;
 import com.google.gson.Gson;
 import com.tengbo.basiclibrary.utils.LogUtil;
+import com.tengbo.commonlibrary.BuildConfig;
 import com.tengbo.commonlibrary.common.ComponentConfig;
 import com.tengbo.commonlibrary.common.Config;
 import com.tengbo.commonlibrary.common.User;
@@ -33,8 +34,7 @@ public class HttpInterceptor implements Interceptor {
     private static final String HEADER_KEY_USER_AGENT = "User-Agent";
     private static final String HEADER_VALUE_USER_AGENT = "Android";
     private static final String HEADER_REFRESH_KEY = "Auth-RefreshToken";
-    //TODO 刷新token的url设置
-    private static final String URL_REFRESH_TOKEN = Config.BASE_URL + "auth/refresh";
+    private static final String URL_REFRESH_TOKEN = BuildConfig.BASE_URL + "auth/refresh";
     private Gson gson;
     private String mResponseResult;
 
@@ -48,9 +48,9 @@ public class HttpInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
 
 
-//        NetworkUtils.isAvailableByPing()
         Request request = chain.request();
         LogUtil.d("发送请求--" + request.url().toString());
+
 
         String token = User.getAccessToken();
         if (!TextUtils.isEmpty(token)) {
@@ -91,7 +91,7 @@ public class HttpInterceptor implements Interceptor {
      * 用refreshToken刷新token信息
      */
     private synchronized String getNewToken() throws IOException {
-        String refreshToken = User.getRefreshToken();
+        String refreshToken =User .getRefreshToken();
         if (TextUtils.isEmpty(refreshToken)) {
             LogUtil.d("refreshToken 本来就是空 ---重新登陆");
             return null;

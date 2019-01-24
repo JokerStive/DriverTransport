@@ -33,22 +33,13 @@ public class StepAdapter extends QuickAdapter<Step> {
         } else {
             tvName.setBackgroundResource(step.getNodeType() == 2 ? R.drawable.step_unprocess_auto : R.drawable.step_unprocess);
         }
-//        if (!step.isProcessed()) {
-//            int nodeType = step.getNodeType();//（1系统业务节点2自动触发节点）
-//            if (nodeType == 1) {
-//                int processNecessary = step.getProcessNecessary();//是否必须执行”（1必须2可以跳过）
-//                if (processNecessary == 1) {
-//                    tvName.setBackgroundResource(R.drawable.selector_step_unprocess_necessary);
-//                } else if (processNecessary == 2) {
-//                    tvName.setBackgroundResource(R.drawable.selector_step_unprocess_unnecessary);
-//                }
-//            } else if (nodeType == 2) {
-//                tvName.setBackgroundResource(R.drawable.selector_step_unprocess_auto);
-//            }
-//
-//        } else {
-//            tvName.setBackgroundResource(R.drawable.selector_step_processed);
-//        }
+
+        boolean  needShowLine =  helper.getLayoutPosition()%4!=0;
+        if(needShowLine){
+            helper.getView(R.id.line).setVisibility(View.VISIBLE);
+        }else {
+            helper.getView(R.id.line).setVisibility(View.GONE);
+        }
     }
 
 

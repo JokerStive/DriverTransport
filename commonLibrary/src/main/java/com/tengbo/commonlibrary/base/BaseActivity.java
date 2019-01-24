@@ -13,6 +13,8 @@ import android.view.WindowManager;
 import com.tengbo.basiclibrary.widget.progress_dialog.ProgressDialog;
 import com.tengbo.commonlibrary.fragmentation.SupportActivity;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -107,6 +109,11 @@ public abstract class BaseActivity extends SupportActivity {
         for (Fragment fragment : fragments) {
             fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Subscribe
+    public  void test(){
+
     }
 }
 

@@ -114,8 +114,6 @@ public class StepRecordActivity extends BaseActivity {
     }
 
     private ArrayList<Step> generateData(List<Node> nodes) {
-
-
         ArrayList<Step> steps = new ArrayList<>();
         for (Node node : nodes) {
             for (Step step : node.getSteps()) {
@@ -123,7 +121,6 @@ public class StepRecordActivity extends BaseActivity {
                 steps.add(step);
             }
         }
-
         return steps;
     }
 

@@ -2,9 +2,11 @@ package com.tengbo.drivertransport;
 
 
 import com.billy.cc.core.component.CC;
+import com.tencent.bugly.Bugly;
 import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.commonlibrary.BuildConfig;
 import com.tengbo.commonlibrary.base.BaseApplication;
+import com.zxy.tiny.Tiny;
 
 import org.litepal.LitePal;
 
@@ -21,20 +23,24 @@ public class App extends BaseApplication {
         initFragmentation();
         initDB();
         initPush();
-        initTiny();
+        initLogger();
+        initBugly();
+    }
+
+    private void initBugly() {
+        Bugly.init(this,"e5138a10e8", BuildConfig.DEBUG);
+    }
+
+    private void initLogger() {
         LogUtil.initLogger();
-
     }
 
-    private void initTiny() {
-//        Tiny.getInstance().init();
-    }
 
     /**
      *@Desc  初始化激光推送
      */
     private void initPush() {
-        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
     }
 

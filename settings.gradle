@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':crashreportuprade',
         ':module_main',
         ':module_order',
         ':module_personal_center',
@@ -6,3 +6,4 @@ include ':app',
         ':pushlibrary',
         ':basicLibrary',
         ':commonLibrary'
+//        ':ocr'

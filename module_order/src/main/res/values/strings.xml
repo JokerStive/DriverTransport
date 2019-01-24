@@ -114,4 +114,8 @@
     <string name="reject">拒绝</string>
     <string name="has_processing_order">已经存在进行中的订单</string>
     <string name="trouble_solved">当前订单已经上报一个异常，请确认异常已经解决后再执行后续操作</string>
+    <string name="please_wait_order_reserve_complete">请等待调度处理完成</string>
+    <string name="contact_name">联系人：</string>
+    <string name="contact_phone">联系人电话：</string>
+    <string name="position_name">作业位置：</string>
 </resources>

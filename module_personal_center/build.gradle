@@ -44,6 +44,7 @@ dependencies {
 
     implementation project(':basicLibrary')
     implementation project(':commonLibrary')
+//    implementation project(':ocr')
 
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

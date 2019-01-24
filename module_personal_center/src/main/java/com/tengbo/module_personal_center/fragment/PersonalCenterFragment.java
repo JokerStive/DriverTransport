@@ -8,6 +8,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.adyl.ocr.ui.camera.CameraActivity;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
 import com.billy.cc.core.component.CC;
 import com.bumptech.glide.Glide;
 import com.tengbo.basiclibrary.utils.LogUtil;
@@ -33,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import rx.Observable;
 import rx.functions.Func1;
@@ -55,6 +61,7 @@ public class PersonalCenterFragment extends BaseFragment implements View.OnClick
     ProgressBar progressBar;
     private String oldUserAvatar;
     private String newAvatar;
+    private User user = new User();
 
     /**
      * 创建PersonalCenterFragment对象
@@ -79,18 +86,16 @@ public class PersonalCenterFragment extends BaseFragment implements View.OnClick
         mRootView.findViewById(R.id.tv_logout).setOnClickListener(this);
         civAvatar.setOnClickListener(this);
 
-        tvUsername.setText(User.getName());
+        tvUsername.setText(user.getName());
 
-        oldUserAvatar = User.getAvatar();
+        oldUserAvatar = user.getAvatarPath();
         Glide.with(this).load(oldUserAvatar).into(civAvatar);
     }
 
 
     private void showDialog(String msg, boolean isSuccess) {
         // 设置要显示的图标sourceId
-        int imgId = R.drawable.right;
-        if (!isSuccess)
-            imgId = R.drawable.wrong;
+        int imgId = isSuccess?R.drawable.right:R.drawable.wrong;
         DialogUtils dialogUtils = new DialogUtils();
         dialogUtils.show(getActivity(), imgId, msg);
     }
@@ -168,6 +173,13 @@ public class PersonalCenterFragment extends BaseFragment implements View.OnClick
         }
     }
 
+
+
+
+
+
+
+    //----------------------------
     /**
      * @param files .
      */
@@ -205,7 +217,7 @@ public class PersonalCenterFragment extends BaseFragment implements View.OnClick
                             civAvatar.setEnabled(true);
                             ToastUtils.show(_mActivity.getApplicationContext(), "头像修改成功");
                             progressBar.setVisibility(View.INVISIBLE);
-                            User.saveAvatar(newAvatar);
+                            user.putAvatarPath(newAvatar);
                         }
 
 
@@ -231,7 +243,7 @@ public class PersonalCenterFragment extends BaseFragment implements View.OnClick
 
     public Observable<BaseResponse> updateUserAvatarObservable(String avatar) {
         Account account = new Account();
-        account.setUserId(User.getUserId());
+        account.setUserId(user.getUserId());
         account.setUserAvatar(avatar);
         return NetHelper.getInstance().getApi()
                 .updateUserInfo(account);

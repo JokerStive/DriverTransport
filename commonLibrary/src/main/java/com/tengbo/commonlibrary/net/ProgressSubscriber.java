@@ -84,7 +84,6 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> implements Dia
     protected abstract void on_next(T t);
 
     protected void on_error(ApiException e) {
-
     }
 
 

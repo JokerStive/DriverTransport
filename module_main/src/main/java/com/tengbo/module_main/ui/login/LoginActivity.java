@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
 import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.basiclibrary.utils.SelectorFactory;
@@ -22,6 +22,7 @@ import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.commonBean.Account;
 import com.tengbo.commonlibrary.commonBean.Token;
 import com.tengbo.commonlibrary.net.ApiException;
+import com.tengbo.commonlibrary.net.LogInterceptor;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.RxUtils;
@@ -40,7 +41,7 @@ import utils.ToastUtils;
 
 
 /**
- * @Autor yk
+ * @author yk_de
  * @Description 1、app启动后加载该页面intent
  * 2、退出登录启动该页面，清空所有用户信息
  * 3、refreshToken失效后，清空双token
@@ -53,13 +54,18 @@ public class LoginActivity extends BaseActivity {
     private boolean isGoMainActivity;
 
 
+    /**
+     * @param savedInstanceState 、
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        goMainActivity();
         if (!TextUtils.isEmpty(User.getAccessToken()) && !TextUtils.isEmpty(User.getRefreshToken())) {
             goMainActivity();
-        } else isGoMainActivity = TextUtils.isEmpty(User.getRefreshToken());
+        } else {
+            isGoMainActivity = TextUtils.isEmpty(User.getRefreshToken());
+        }
+
     }
 
     @Override
@@ -167,8 +173,8 @@ public class LoginActivity extends BaseActivity {
         }
 
         if (user != null) {
-            User.saveAvatar(user.getUserAvatar());
-            User.saveAccount(user);
+            User.putAvatarPath(user.getUserAvatar());
+            User.putAccount(user);
         }
 
         if (isGoMainActivity) {

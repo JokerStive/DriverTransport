@@ -42,7 +42,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * 定位服务
  *
- * @Autor yk
+ * @author yk_de
  * @Description
  */
 public class LocateService extends Service {
@@ -57,16 +57,20 @@ public class LocateService extends Service {
 
     private static final int MAX_DATA_AMOUNT = 10;
 
-    private static final int DELAY_TIME_MILLION = 5 * 60 * 1000;
+    /**
+     * 自动位置变化检查的时间间隔
+     */
+    private static final int DELAY_TIME_MILLION = 1 * 60 * 1000;
+
     private static final int NOTIFICATION_ID = 10086;
 
     private ApiOrder mApiOrder;
 
-    //自动扫描位置的时间间隔
-//    private static final int minTimeInterval = 5 * 60 * 1000;
 
-    //位置变化回调的最小距离（m）
-    private static final int minDistance = 500;
+    /**
+     * 位置变化回调的最小距离（m）
+     */
+    private static final int MIN_DISTANCE = 5;
 
     private LocateBinder mBinder;
 
@@ -74,10 +78,12 @@ public class LocateService extends Service {
 
     private MyLocationListener myListener = new MyLocationListener();
 
-    //    private int locateCount;
     private OnLocationChangeCallback onLocationChangeCallback;
+
     private String mOrderCode;
+
     private String mPlateNumber;
+
     protected CompositeSubscription mSubscriptionManager = new CompositeSubscription();
 
 
@@ -110,7 +116,7 @@ public class LocateService extends Service {
 //        option.setScanSpan(DELAY_TIME_MILLION);
 
         //自动回调模式，最小时间，最小距离，敏感度
-        option.setOpenAutoNotifyMode(DELAY_TIME_MILLION, minDistance, 1);
+        option.setOpenAutoNotifyMode(DELAY_TIME_MILLION, MIN_DISTANCE, 1);
 
         //是否需要地址信息
         option.setIsNeedAddress(true);
@@ -152,7 +158,9 @@ public class LocateService extends Service {
             location.setOrderCode(mOrderCode);
             location.setPlateNumber(mPlateNumber);
             location.setDeviceCode(DeviceUtils.getAndroidID());
+            location.setReceiveTime(bdLocation.getTime());
             location.save();
+
 
             if (onLocationChangeCallback != null) {
                 onLocationChangeCallback.onLocationChange(bdLocation);
@@ -178,14 +186,14 @@ public class LocateService extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startForegroundNotificationO() {
-        String NOTIFICATION_CHANNEL_ID = "com.adyl.app";
+        String notificationChannelId = "com.adyl.app";
         String channelName = "Locate Foreground Service";
-        NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
+        NotificationChannel chan = new NotificationChannel(notificationChannelId, channelName, NotificationManager.IMPORTANCE_NONE);
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         assert manager != null;
         manager.createNotificationChannel(chan);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, notificationChannelId);
         Notification notification = notificationBuilder.setOngoing(true)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle("司机运输")
@@ -226,7 +234,6 @@ public class LocateService extends Service {
 
     private static class MainThreadCallback implements Handler.Callback {
 
-        @SuppressWarnings("WeakerAccess")
         MainThreadCallback() {
 
         }
@@ -241,6 +248,7 @@ public class LocateService extends Service {
                 case STOP:
                     MAIN_THREAD_HANDLER.removeMessages(START);
                     break;
+                default:
             }
             return true;
         }
@@ -309,14 +317,6 @@ public class LocateService extends Service {
     }
 
 
-//    @Override
-//    public int onStartCommand(Intent intent, int flags, int startId) {
-//        LogUtil.d("location service onStartCommand BD startUpload..");
-//        mLocationClient.start();
-//        return super.onStartCommand(intent, flags, startId);
-//    }
-
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -324,9 +324,9 @@ public class LocateService extends Service {
         mOrderCode = intent.getStringExtra(ProcessingOrderFragment.KEY_ORDER_CODE);
         mPlateNumber = intent.getStringExtra(ProcessingOrderFragment.KEY_PLATE_NUMBER);
         mLocationClient.start();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundNotificationO();
-        else {
+        } else {
             startForegroundNotification();
         }
         startUpload(2000);

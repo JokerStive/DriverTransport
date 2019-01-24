@@ -25,7 +25,45 @@ public class Step implements Parcelable {
     private int processNumber;
     private String stepName;
     private String nodeName;
+
+    public String getExcuterName() {
+        return excuterName;
+    }
+
+    public void setExcuterName(String excuterName) {
+        this.excuterName = excuterName;
+    }
+
+    public String getExcuterCellPhone() {
+        return excuterCellPhone;
+    }
+
+    public void setExcuterCellPhone(String excuterCellPhone) {
+        this.excuterCellPhone = excuterCellPhone;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
+
+    public String getPositionCode() {
+        return positionCode;
+    }
+
+    public void setPositionCode(String positionCode) {
+        this.positionCode = positionCode;
+    }
+
     private int position;
+
+    private String excuterName;
+    private String excuterCellPhone;
+    private String positionName;
+    private String positionCode;
 
     public int getPosition() {
         return position;

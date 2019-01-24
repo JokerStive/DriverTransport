@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.tengbo.commonlibrary.base.QuickAdapter;
 import com.tengbo.module_order.R;
 import com.tengbo.module_order.bean.Order;
+import com.tengbo.module_order.utils.DateUtils;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class HistoryTaskListAdapter extends QuickAdapter<Order> {
 
     @Override
     protected void convert(BaseViewHolder helper, Order order) {
-        helper.setText(R.id.tv_complete_time, "完成日期：" + order.getFinishTime())
+        helper.setText(R.id.tv_complete_time, "完成日期：" +DateUtils.iso2Utc(order.getFinishTime()) )
                 .setText(R.id.tv_order_id, "订单编号：" + order.getOrderCode())
                 .setText(R.id.tv_transport_fee, spliceWithUnit("运费：", order.getDriverOderFee()))
                 .setText(R.id.tv_deduction_fee, spliceWithUnit("支付：", order.getPaiedAmount()))

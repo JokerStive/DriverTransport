@@ -1,8 +1,13 @@
 package com.tengbo.commonlibrary.commonBean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Account implements Serializable {
+
+/**
+ * @author yk_de
+ */
+public class Account implements Parcelable {
 
 
 
@@ -60,4 +65,41 @@ public class Account implements Serializable {
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.userId);
+        dest.writeString(this.accountId);
+        dest.writeString(this.userName);
+        dest.writeString(this.idNumber);
+        dest.writeString(this.userAvatar);
+    }
+
+    public Account() {
+    }
+
+    protected Account(Parcel in) {
+        this.userId = in.readString();
+        this.accountId = in.readString();
+        this.userName = in.readString();
+        this.idNumber = in.readString();
+        this.userAvatar = in.readString();
+    }
+
+    public static final Creator<Account> CREATOR = new Creator<Account>() {
+        @Override
+        public Account createFromParcel(Parcel source) {
+            return new Account(source);
+        }
+
+        @Override
+        public Account[] newArray(int size) {
+            return new Account[size];
+        }
+    };
 }

@@ -44,10 +44,79 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="@string/contact_name"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_contact_name"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:maxLines="4"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="normal"
+                tools:text="张耳毛" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="@string/contact_phone"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_contact_phone"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:maxLines="4"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="normal"
+                tools:text="张耳毛" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:text="@string/position_name"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_position_name"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:maxLines="4"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="normal"
+                tools:text="张耳毛" />
+
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_title"
             style="@style/tv_10sp_blue_bold"
-            android:layout_marginTop="@dimen/dp_10"
             android:text="装货信息："
             android:textSize="@dimen/sp_14" />
 

@@ -39,6 +39,7 @@ public class BankCardListActivity extends BaseActivity {
     private RecyclerView rvBankCardList;
     private List<BankCardInfo> mBankCardInfoList = new ArrayList<>();
     private BankCardListAdapter mAdapter;
+    private User user = new User();
 
     @Override
     protected int getLayoutId() {
@@ -101,7 +102,7 @@ public class BankCardListActivity extends BaseActivity {
         // 获取原银行卡信息
         srl.setRefreshing(true);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("idNumber", User.getIdNumber());
+        jsonObject.put("idNumber", user.getIdNumber());
         RequestBody requestBody = RequestUtils.createRequestBody(jsonObject.toJSONString());
         mSubscriptionManager.add(NetHelper.getInstance().getApi()
                 .getBankCardInfos(requestBody)
@@ -136,7 +137,7 @@ public class BankCardListActivity extends BaseActivity {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("bankcardId", bankCardInfo.getBankcardId());
         jsonObject.put("cardCode", bankCardInfo.getCardCode());
-        jsonObject.put("idNumber", User.getIdNumber());
+        jsonObject.put("idNumber", user.getIdNumber());
         jsonObject.put("isTrade", 1);
         RequestBody requestBody = RequestUtils.createRequestBody(jsonObject.toJSONString());
         mSubscriptionManager.add(NetHelper.getInstance().getApi()

@@ -214,7 +214,6 @@ public class ProcessingOrderPresenter extends BasePresenter<ProcessingOrderContr
 
     @Override
     public void getDutyTask() {
-        String url = Config.TEST_URL + "app/duty/getDutyTasks";
         Task task = new Task();
         task.setDriverId(User.getIdNumber());
         task.setOperationTime("");

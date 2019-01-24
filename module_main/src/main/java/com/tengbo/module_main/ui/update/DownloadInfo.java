@@ -4,25 +4,25 @@ package com.tengbo.module_main.ui.update;
 *@author yk
 *@Description  文件下载信息
 */
-public class DownloadInfo {
+class DownloadInfo {
     /**
      * 文件大小
      */
-    long total;
+    private long total;
     /**
      * 已下载大小
      */
-    long progress;
+    private long progress;
 
-    public long getProgress() {
+    long getProgress() {
         return progress;
     }
 
-    public long getTotal() {
+    long getTotal() {
         return total;
     }
 
-    public DownloadInfo(long total, long progress) {
+    DownloadInfo(long total, long progress) {
         this.total = total;
         this.progress = progress;
     }

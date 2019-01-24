@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import utils.ToastUtils;
 
 
+/**
+ * @author yk_de
+ */
 public class OrderListFragment extends BaseMvpFragment<OrderContract.Presenter> implements OrderContract.View {
 
     RecyclerView rvTask;
@@ -77,24 +80,39 @@ public class OrderListFragment extends BaseMvpFragment<OrderContract.Presenter> 
             }
         });
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            /**
+             * @param adapter
+             * @param view
+             * @param position
+             */
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Order order = (Order) adapter.getItem(position);
                 assert order != null;
                 String orderCode = order.getOrderCode();
+                int orderStatusHadAccept = 2;
+                int orderStatusHadRefuse = 3;
+                int orderStatusReserveCompleted = 8;
                 int id = view.getId();
                 if (id == R.id.btn_accept_task) {
-                    setDriverOrderStatus(orderCode, 2);
+                    setDriverOrderStatus(orderCode, orderStatusHadAccept);
                 } else if (id == R.id.btn_reject_task) {
-                    setDriverOrderStatus(orderCode, 3);
+                    setDriverOrderStatus(orderCode, orderStatusHadRefuse);
                 } else if (id == R.id.btn_start_task) {
                     mClickCardId = order.getVehicleHead();
                     mClickOrderCode = orderCode;
                     int orderStatus = order.getOrderStatus();
-                    if (orderStatus == 2) {
+
+                    if (orderStatus == orderStatusHadAccept) {
+                        // 已接单，提醒等待预约完成
                         mPresent.checkHasProcessingOrder();
-                    } else if (orderStatus == 3) {
-                        setDriverOrderStatus(orderCode, 2);
+                        ToastUtils.show(getContext(), getString(R.string.please_wait_order_reserve_complete));
+                    } else if (orderStatus == orderStatusReserveCompleted) {
+                        //预约完成，检查是否有正在进行的订单
+                        mPresent.checkHasProcessingOrder();
+                    } else if (orderStatus == orderStatusHadRefuse) {
+                        // 重新接单
+                        setDriverOrderStatus(orderCode, orderStatusHadAccept);
                     }
                 }
             }
@@ -104,7 +122,6 @@ public class OrderListFragment extends BaseMvpFragment<OrderContract.Presenter> 
             public void onLoadMoreRequested() {
                 if (mListResponse.isEnd()) {
                     mAdapter.loadMoreEnd();
-//                    ToastUtils.show(getContext(), "没有更多数据了");
                 } else {
                     getOrders(mListResponse.getPage() + 1);
                 }

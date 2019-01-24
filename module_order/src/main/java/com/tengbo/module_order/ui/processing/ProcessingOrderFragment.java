@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.alibaba.fastjson.JSONObject;
 import com.baidu.location.BDLocation;
 import com.billy.cc.core.component.CC;
 import com.tengbo.basiclibrary.utils.LogUtil;
@@ -32,8 +31,6 @@ import com.tengbo.basiclibrary.utils.UiUtils;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.base.BaseMvpFragment;
 import com.tengbo.commonlibrary.common.ComponentConfig;
-import com.tengbo.commonlibrary.net.NetHelper;
-import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.module_order.R;
 import com.tengbo.module_order.adapter.StepAdapter;
 import com.tengbo.module_order.bean.DutyTask;
@@ -45,25 +42,21 @@ import com.tengbo.module_order.event.StartOrder;
 import com.tengbo.module_order.event.UploadStepFail;
 import com.tengbo.module_order.event.UploadStepSuccess;
 import com.tengbo.module_order.event.UploadTrouble;
-import com.tengbo.module_order.net.ApiOrder;
 import com.tengbo.module_order.service.LocateService;
 import com.tengbo.module_order.utils.LocationUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.litepal.LitePal;
-import org.litepal.LitePalApplication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Observable;
 
 import utils.BeanPropertiesUtil;
 import utils.CommonDialog;
-import utils.RequestUtils;
 import utils.ToastUtils;
 
 /**
@@ -90,7 +83,6 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
     private StepAdapter mAdapter;
     private Order mOrder;
     private View headerView;
-    //    private int currentProcessPosition;
     private View ivTroubleWarm;
     private SwipeRefreshLayout srl;
     private View emptyView;
@@ -104,6 +96,7 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
 
     @Override
     protected void getTransferData(Bundle arguments) {
+
     }
 
 
@@ -111,7 +104,6 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
     protected void initPresent() {
         mPresent = new ProcessingOrderPresenter();
         mPresent.bindView(this);
-
     }
 
 
@@ -272,7 +264,13 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
                         }
                         break;
                     }
+
+                    //如果遍历到第一个步骤仍然是可以跳过的，就直接执行该步骤
+                    if (prePosition == 0) {
+                        stepConfirm(step);
+                    }
                 }
+
 
             }
         } else if (step.getStepStatus() == 0) {
@@ -409,6 +407,7 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
      *
      * @param order 订单
      */
+    @Override
     public void getProcessingOrderSuccess(Order order) {
         if (order == null) {
             mPresent.getDutyTask();
@@ -434,7 +433,6 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
             Integer position = entry.getKey();
             Step step = entry.getValue();
             double distance = LocationUtils.getDistance(step.getNodeLongitude(), step.getNodeLatitude(), location.getLongitude(), location.getLatitude());
-//            LogUtil.d("步骤类型--" + step.getNodeType() + "--是否执行--" + step.isProcessed() + "--距离--" + distance);
             if (distance <= step.getTriggerDistance()) {
                 LogUtil.d("步骤" + step.getStepName() + "在范围内,开始自动上传");
                 StepOperation operation = new StepOperation();
@@ -524,7 +522,7 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
     }
 
     /**
-     * 当前没有正在进行中的订单
+     * 当前没有正在进行中的订单时，跳转到订单列表页面
      */
     public void goTask(boolean isDuty) {
         CC.obtainBuilder(ComponentConfig.Main.COMPONENT_NAME)
@@ -602,11 +600,12 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
     }
 
     @Subscribe
-    public void uploadTroubleFail(UploadTrouble uploadTrouble) {
+    public void uploadTrouble(UploadTrouble uploadTrouble) {
         if (uploadTrouble.isSuccess()) {
+            setOrderStatusError();
             showErrorDialog();
         } else {
-            int position = uploadTrouble.getPosition();
+//            int position = uploadTrouble.getPosition();
             ivTroubleWarm.setVisibility(View.VISIBLE);
             LogUtil.d("异常上传失败，添加感叹号");
         }
@@ -637,7 +636,6 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
         troubleDialog = new MaterialDialog.Builder(_mActivity)
                 .positiveText("已解决")
                 .autoDismiss(false)
-                .negativeText("还未解决")
                 .content(getString(R.string.trouble_solved))
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -658,6 +656,10 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
 
     private boolean isOrderStatusError() {
         return mOrder.getOrderStatus() == 5;
+    }
+
+    private void setOrderStatusError() {
+        mOrder.setOrderStatus(5);
     }
 
 
