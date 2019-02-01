@@ -74,6 +74,7 @@
             android:layout_marginRight="@dimen/dp_10"
             android:background="@drawable/shape_radius5_solid_blue"
             android:padding="@dimen/dp_4"
+            android:visibility="gone"
             android:text="启动任务"
             android:textColor="@color/basic_white"
             android:textSize="@dimen/sp_14" />

@@ -1,5 +1,7 @@
 package com.tengbo.module_order.ui.processing;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSONObject;
 import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.commonlibrary.common.Config;
@@ -266,6 +268,7 @@ public class ProcessingOrderPresenter extends BasePresenter<ProcessingOrderContr
 
     private List<Step> createSteps(String orderCode, List<Node> nodes) throws Exception {
         List<Step> steps = new LinkedList<>();
+        LogUtil.d("node个数--"+nodes.size());
         for (Node node : nodes) {
             //如果是自动触发类型的，构造一个步骤
             if (node.getNodeType() == 2) {
@@ -283,11 +286,12 @@ public class ProcessingOrderPresenter extends BasePresenter<ProcessingOrderContr
                 BeanPropertiesUtil.copyProperties(node, step);
                 step.setOrderCode(orderCode);
                 step.setProcessNumber(processNum);
-//                step.setStepStatus(node.getNodeStatus() == 1 ? 0 : 1);
                 step.setProcessed(step.getStepStatus() == 1);
                 steps.add(step);
             }
         }
+
+        LogUtil.d("step个数--"+nodes.size());
         return steps;
     }
 

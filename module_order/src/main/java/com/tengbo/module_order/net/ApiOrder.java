@@ -14,6 +14,7 @@ import com.tengbo.module_order.bean.Mission;
 import com.tengbo.module_order.bean.Node;
 import com.tengbo.module_order.bean.Order;
 import com.tengbo.module_order.bean.Scheme;
+import com.tengbo.module_order.bean.Step;
 import com.tengbo.module_order.bean.StepOperation;
 import com.tengbo.module_order.bean.Task;
 import com.tengbo.module_order.bean.Trouble;
@@ -131,6 +132,12 @@ public interface ApiOrder {
     @POST("order/getOrderStepOperationInfo")
     Observable<BaseResponse<List<Node>>> getStepHistoryRecord(@Body RequestBody body);
 
+    /**
+     * 查询步骤操作纪录详情
+     */
+    @POST("order/getStepDetails")
+    Observable<BaseResponse<Step>> getStepRecordDetail(@Body RequestBody body);
+
 
     /**
      * 上传车辆GPS轨迹信息
@@ -158,11 +165,6 @@ public interface ApiOrder {
     @POST("app/duty/addDutyTask")
     Observable<BaseResponse<Object>> addDutyTasks(@Body Task task);
 
-    /**
-     * 添加司机值班任务
-     */
-    @POST()
-    Observable<BaseResponse<Object>> testAddDutyTasks(@Url String url, @Body Task task);
 
 
     /**
@@ -172,11 +174,6 @@ public interface ApiOrder {
     Observable<BaseResponse<Object>> updateDutyTasks(@Body Task task);
 
 
-    /**
-     * 修改司机值班任务
-     */
-    @POST()
-    Observable<BaseResponse<Object>> testUpdateDutyTasks(@Url String url, @Body Task task);
 
 
     /**
@@ -186,11 +183,6 @@ public interface ApiOrder {
     Observable<BaseResponse<DutyRecord>> getDutyRecord(@Body Task task);
 
 
-    /**
-     * 查询值班纪录
-     */
-    @POST()
-    Observable<BaseResponse<DutyRecord>> testGetDutyRecord(@Url String url, @Body Task task);
 
 
     /**

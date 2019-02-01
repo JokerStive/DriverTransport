@@ -66,6 +66,7 @@
 
 
                 <EditText
+                    android:maxLength="11"
                     android:id="@+id/et_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,6 +123,7 @@
 
 
                 <EditText
+                    android:maxLength="30"
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -175,6 +177,7 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:maxLength="4"
                     android:id="@+id/et_verification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

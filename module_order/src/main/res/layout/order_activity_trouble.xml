@@ -155,6 +155,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <EditText
+                    android:maxLength="6"
                     android:textStyle="normal"
                     android:inputType="numberDecimal"
                     android:id="@+id/et_duration"

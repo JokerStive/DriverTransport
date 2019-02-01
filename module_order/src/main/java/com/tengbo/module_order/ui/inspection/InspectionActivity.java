@@ -26,6 +26,7 @@ import com.tengbo.module_order.R;
 import com.tengbo.module_order.adapter.InspectionAdapter;
 import com.tengbo.module_order.bean.CheckRecord;
 import com.tengbo.module_order.bean.Dictionary;
+import com.tengbo.module_order.event.RefreshOrderList;
 import com.tengbo.module_order.event.StartOrder;
 import com.tengbo.module_order.net.ApiOrder;
 
@@ -176,6 +177,7 @@ public class InspectionActivity extends BaseActivity {
                     @Override
                     protected void on_next(Object o) {
                         goProcessingOrderFragment();
+                        EventBus.getDefault().post(new RefreshOrderList());
 
                     }
                 })
@@ -198,9 +200,10 @@ public class InspectionActivity extends BaseActivity {
     }
 
     public Observable<Object> changeOrderStatus() {
+        int normalWorkStatus = 4;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("orderCode", mOrderCode);
-        jsonObject.put("orderStatus", 4);
+        jsonObject.put("orderStatus", normalWorkStatus);
         return NetHelper.getInstance()
                 .getRetrofit().create(ApiOrder.class)
                 .setDriverOrderStatus(RequestUtils.createRequestBody(jsonObject.toJSONString()))

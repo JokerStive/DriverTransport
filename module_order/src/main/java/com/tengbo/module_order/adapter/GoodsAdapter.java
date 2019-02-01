@@ -14,6 +14,7 @@ import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.base.QuickAdapter;
 import com.tengbo.module_order.R;
 import com.tengbo.module_order.bean.Goods;
+import com.tengbo.module_order.utils.DateUtils;
 
 import java.util.List;
 
@@ -43,9 +44,9 @@ public class GoodsAdapter extends QuickAdapter<Goods> {
                 .setText(R.id.tv_goods_flight,getTextStyleSoan(R.string.transport_num, String.valueOf(goods.getTransportNumber())))
                 .setText(R.id.tv_GPS_number,getTextStyleSoan(R.string.gps_num, goods.getGpsCode()))
 
-                .setText(R.id.tv_plan_start_time,getTextStyleSoan(R.string.time_plan_start_time, goods.getPredictStartTime()))
-                .setText(R.id.tv_plan_upload_time,getTextStyleSoan(R.string.time_of_plan_upload, goods.getPredictUploadStartTime()))
-                .setText(R.id.tv_plan_end_time,getTextStyleSoan(R.string.time_plan_end_time, goods.getPredictEndTime()));
+                .setText(R.id.tv_plan_start_time,getTextStyleSoan(R.string.time_plan_start_time, DateUtils.iso2Utc(goods.getPredictStartTime())))
+                .setText(R.id.tv_plan_upload_time,getTextStyleSoan(R.string.time_of_plan_upload, DateUtils.iso2Utc(goods.getPredictUploadStartTime())))
+                .setText(R.id.tv_plan_end_time,getTextStyleSoan(R.string.time_plan_end_time, DateUtils.iso2Utc(goods.getPredictEndTime())));
 
 
 

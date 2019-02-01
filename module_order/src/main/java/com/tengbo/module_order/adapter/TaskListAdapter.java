@@ -17,7 +17,14 @@ import com.tengbo.module_order.bean.Order;
 
 import java.util.List;
 
+/**
+ * @author yk_de
+ */
 public class TaskListAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
+
+    int orderStatusHadRefuse = 3;
+    int orderStatusHadAccept = 2;
+    int orderStatusReserveCompleted = 8;
 
 
     StateListDrawable grayShape = SelectorFactory.newShapeSelector()
@@ -34,7 +41,7 @@ public class TaskListAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Order order) {
         helper.setText(R.id.tv_departure, order.getStartNodeName())
                 .setText(R.id.tv_destination, order.getEndNodeName())
-                .setText(R.id.tv_order_id, "订单编号：" + order.getOrderCode())
+                .setText(R.id.tv_order_id, "订单编号：" + order.getPlanCode())
                 .setText(R.id.tv_car_id, order.getDriverId())
                 .addOnClickListener(R.id.btn_accept_task)
                 .addOnClickListener(R.id.btn_reject_task)
@@ -43,12 +50,20 @@ public class TaskListAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
         int orderStatus = order.getOrderStatus();
         helper.getView(R.id.btn_accept_task).setVisibility(orderStatus == 1 ? View.VISIBLE : View.GONE);
         helper.getView(R.id.btn_reject_task).setVisibility(orderStatus == 1 ? View.VISIBLE : View.GONE);
-        if (orderStatus == 2 || orderStatus == 3) {
-            helper.getView(R.id.btn_start_task).setVisibility(View.VISIBLE);
-            helper.setText(R.id.btn_start_task, orderStatus == 2 ? "发车" : "重新接单");
-        } else {
-            helper.getView(R.id.btn_start_task).setVisibility(View.GONE);
 
+        helper.getView(R.id.btn_start_task).setVisibility(
+                (orderStatus == orderStatusHadAccept
+                        || orderStatus == orderStatusHadRefuse
+                        || orderStatus == orderStatusReserveCompleted) ? View.VISIBLE : View.GONE
+        );
+
+
+        if (orderStatus == orderStatusHadAccept) {
+            helper.setText(R.id.btn_start_task, "等待预约完成");
+        } else if (orderStatus == orderStatusReserveCompleted) {
+            helper.setText(R.id.btn_start_task, "发车");
+        } else if (orderStatus == orderStatusHadRefuse) {
+            helper.setText(R.id.btn_start_task, "重新接单");
         }
 
         TextView tvCarId = helper.getView(R.id.tv_car_id);

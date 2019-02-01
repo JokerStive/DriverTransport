@@ -137,6 +137,9 @@ public class SpecialStepPassFragment extends DialogFragment implements View.OnCl
 
     private void showMissions(List<Mission> missions) {
         ArrayList<MultiItemEntity> multiItems = createMultiItems(missions);
+        if(multiItems==null){
+
+        }
         specialStepAdapter.setNewData(multiItems);
         if (showGoods) {
             specialStepAdapter.expandAll();
@@ -257,8 +260,8 @@ public class SpecialStepPassFragment extends DialogFragment implements View.OnCl
     }
 
     private void uploadDate() {
-        if (specialStepAdapter.createSelectedData().size() == 0) {
-            ToastUtils.show(getContext(), "请至少选择一个数据");
+        if (specialStepAdapter.getData().size()!=0 && specialStepAdapter.createSelectedData().size() == 0) {
+            ToastUtils.show(getActivity(), "请至少选择一个数据");
             return;
         }
         List<String> picturePaths = rvPictures.getPicturePaths();

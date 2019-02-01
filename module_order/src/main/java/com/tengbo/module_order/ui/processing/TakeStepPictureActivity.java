@@ -70,7 +70,7 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
     private TextView tvStepTime;
     private String orderId;
     private String stepName;
-    private MediaScannerConnection conn;
+//    private MediaScannerConnection conn;
 
 
     @Override
@@ -348,18 +348,12 @@ public class TakeStepPictureActivity extends BaseActivity implements View.OnClic
     private void insertToAlbum(String absolutePath) {
         try {
             MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), absolutePath, FileUtils.getFileName(absolutePath), null);
-            conn = new MediaScannerConnection(getApplicationContext(), new MediaScannerConnection.MediaScannerConnectionClient() {
-                @Override
-                public void onMediaScannerConnected() {
-                    conn.scanFile(absolutePath, "image/*");
-                }
-
+            MediaScannerConnection.scanFile(getApplicationContext(), new String[]{absolutePath}, new String[]{"image/*"}, new MediaScannerConnection.OnScanCompletedListener() {
                 @Override
                 public void onScanCompleted(String path, Uri uri) {
-                    conn.disconnect();
+
                 }
             });
-            conn.connect();
         } catch (FileNotFoundException e) {
 
         }

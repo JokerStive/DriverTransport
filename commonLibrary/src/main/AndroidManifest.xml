@@ -46,7 +46,9 @@
     <uses-feature android:name="android.hardware.camera.autofocus" /> <!--自动对焦-->
 
 
-    <application>
+    <application android:usesCleartextTraffic="true"
+       >
+
 
 
         <activity android:name=".widget.takePhoto.crop.CropImageActivity" />

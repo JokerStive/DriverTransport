@@ -3,10 +3,12 @@ package com.tengbo.module_order.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 步骤模型
+ * @author yk_de
  */
 public class Step implements Parcelable {
 
@@ -25,6 +27,81 @@ public class Step implements Parcelable {
     private int processNumber;
     private String stepName;
     private String nodeName;
+    private int position;
+    private String excuterName;
+    private String excuterCellPhone;
+    private String positionName;
+    private String positionCode;
+
+    private int stepType;
+
+    private int nodeNumber;
+
+    private String vehicleHead;
+    private String transportEnterpriseName;
+
+    public String getTransportEnterpriseName() {
+        return transportEnterpriseName;
+    }
+
+    public void setTransportEnterpriseName(String transportEnterpriseName) {
+        this.transportEnterpriseName = transportEnterpriseName;
+    }
+
+    public String getVehicleTrailer() {
+        return vehicleTrailer;
+    }
+
+    public void setVehicleTrailer(String vehicleTrailer) {
+        this.vehicleTrailer = vehicleTrailer;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public String getDriverCellPhone() {
+        return driverCellPhone;
+    }
+
+    public void setDriverCellPhone(String driverCellPhone) {
+        this.driverCellPhone = driverCellPhone;
+    }
+
+    private String vehicleTrailer;
+    private String driverName;
+    private String driverCellPhone;
+    private int nodeStatus;
+    private int stepSerialNumber;
+    private int processNecessary;
+    private int stepStatus;
+    private String executeTime;
+    private String stepDes;
+    private List<Goods> targets;
+
+    //组装的数据
+    private String orderCode;
+    private String nodeCode;
+    private int nodeType; //（1系统业务节点2自动触发节点）
+    private boolean isCached; //是否有缓存
+    private boolean isProcessed; //是否执行了
+    private double nodeLongitude; //节点精度
+    private double nodeLatitude; //节点维度
+
+    public List<Goods> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(List<Goods> targets) {
+        this.targets = targets;
+    }
+
+    private double triggerDistance; //触发距离
+
 
     public String getExcuterName() {
         return excuterName;
@@ -58,22 +135,15 @@ public class Step implements Parcelable {
         this.positionCode = positionCode;
     }
 
-    private int position;
 
-    private String excuterName;
-    private String excuterCellPhone;
-    private String positionName;
-    private String positionCode;
 
     public int getPosition() {
         return position;
     }
-
     public void setPosition(int position) {
         this.position = position;
     }
 
-    private int nodeNumber;
 
     public int getNodeNumber() {
         return nodeNumber;
@@ -91,8 +161,6 @@ public class Step implements Parcelable {
         this.nodeName = nodeName;
     }
 
-    private int stepType;
-
     public String getVehicleHead() {
         return vehicleHead;
     }
@@ -100,8 +168,6 @@ public class Step implements Parcelable {
     public void setVehicleHead(String vehicleHead) {
         this.vehicleHead = vehicleHead;
     }
-
-    private String vehicleHead;
 
     public int getNodeStatus() {
         return nodeStatus;
@@ -111,12 +177,7 @@ public class Step implements Parcelable {
         this.nodeStatus = nodeStatus;
     }
 
-    private int nodeStatus;
-    private int stepSerialNumber;
-    private int processNecessary;
-    private int stepStatus;
-    private String executeTime;
-    private String stepDes;
+
 
     public List<String> getAttachs() {
         return attachs;
@@ -128,10 +189,7 @@ public class Step implements Parcelable {
 
     private List<String> attachs;
 
-    //组装的数据
-    private String orderCode;
-    private String nodeCode;
-    private int nodeType; //（1系统业务节点2自动触发节点）
+
 
     public double getNodeLongitude() {
         return nodeLongitude;
@@ -166,11 +224,7 @@ public class Step implements Parcelable {
 
     }
 
-    private boolean isCached; //是否有缓存
-    private boolean isProcessed; //是否执行了
-    private double nodeLongitude; //节点精度
-    private double nodeLatitude; //节点维度
-    private double triggerDistance; //触发距离
+
 
 
     public String getOrderCode() {
@@ -273,6 +327,10 @@ public class Step implements Parcelable {
     }
 
 
+    public Step() {
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -283,8 +341,13 @@ public class Step implements Parcelable {
         dest.writeInt(this.processNumber);
         dest.writeString(this.stepName);
         dest.writeString(this.nodeName);
-        dest.writeInt(this.nodeNumber);
+        dest.writeInt(this.position);
+        dest.writeString(this.excuterName);
+        dest.writeString(this.excuterCellPhone);
+        dest.writeString(this.positionName);
+        dest.writeString(this.positionCode);
         dest.writeInt(this.stepType);
+        dest.writeInt(this.nodeNumber);
         dest.writeString(this.vehicleHead);
         dest.writeInt(this.nodeStatus);
         dest.writeInt(this.stepSerialNumber);
@@ -292,7 +355,7 @@ public class Step implements Parcelable {
         dest.writeInt(this.stepStatus);
         dest.writeString(this.executeTime);
         dest.writeString(this.stepDes);
-        dest.writeStringList(this.attachs);
+        dest.writeList(this.targets);
         dest.writeString(this.orderCode);
         dest.writeString(this.nodeCode);
         dest.writeInt(this.nodeType);
@@ -301,17 +364,20 @@ public class Step implements Parcelable {
         dest.writeDouble(this.nodeLongitude);
         dest.writeDouble(this.nodeLatitude);
         dest.writeDouble(this.triggerDistance);
-    }
-
-    public Step() {
+        dest.writeStringList(this.attachs);
     }
 
     protected Step(Parcel in) {
         this.processNumber = in.readInt();
         this.stepName = in.readString();
         this.nodeName = in.readString();
-        this.nodeNumber = in.readInt();
+        this.position = in.readInt();
+        this.excuterName = in.readString();
+        this.excuterCellPhone = in.readString();
+        this.positionName = in.readString();
+        this.positionCode = in.readString();
         this.stepType = in.readInt();
+        this.nodeNumber = in.readInt();
         this.vehicleHead = in.readString();
         this.nodeStatus = in.readInt();
         this.stepSerialNumber = in.readInt();
@@ -319,7 +385,8 @@ public class Step implements Parcelable {
         this.stepStatus = in.readInt();
         this.executeTime = in.readString();
         this.stepDes = in.readString();
-        this.attachs = in.createStringArrayList();
+        this.targets = new ArrayList<Goods>();
+        in.readList(this.targets, Goods.class.getClassLoader());
         this.orderCode = in.readString();
         this.nodeCode = in.readString();
         this.nodeType = in.readInt();
@@ -328,6 +395,7 @@ public class Step implements Parcelable {
         this.nodeLongitude = in.readDouble();
         this.nodeLatitude = in.readDouble();
         this.triggerDistance = in.readDouble();
+        this.attachs = in.createStringArrayList();
     }
 
     public static final Creator<Step> CREATOR = new Creator<Step>() {

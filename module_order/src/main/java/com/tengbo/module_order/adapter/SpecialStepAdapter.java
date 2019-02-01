@@ -54,6 +54,7 @@ public class SpecialStepAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
                         goodsBatch.setSelected(ivSelected.isSelected());
                     }
                 });
+                default:
                 break;
         }
     }

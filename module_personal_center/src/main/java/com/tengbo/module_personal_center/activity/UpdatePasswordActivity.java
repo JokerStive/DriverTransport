@@ -15,9 +15,10 @@ import com.tengbo.commonlibrary.net.NetHelper;
 import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
 import com.tengbo.module_personal_center.R;
-import com.tengbo.module_personal_center.utils.ToastUtils;
 
 import utils.RequestUtils;
+import utils.ToastUtils;
+
 import com.tengbo.commonlibrary.widget.TitleBar;
 
 /**
@@ -84,7 +85,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
      * @param text
      */
     private void showToast(String text) {
-        ToastUtils.show(this, text);
+        ToastUtils.show(getApplicationContext(), text);
     }
 
 

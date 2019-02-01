@@ -1,6 +1,5 @@
 package com.tengbo.commonlibrary.widget.takePhoto;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -40,9 +39,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-
-import utils.permission.PermissionManager;
 import utils.ToastUtils;
 
 import static android.app.Activity.RESULT_OK;
@@ -96,8 +94,9 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         Window window = getDialog().getWindow();
-        if (window != null)
+        if (window != null){
             window.setGravity(Gravity.BOTTOM);
+        }
 
 
         setStyle(R.style.ActionSheetDialogStyle, 0);
@@ -114,9 +113,10 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
         Dialog dialog = getDialog();
         if (dialog != null) {
             DisplayMetrics dm = new DisplayMetrics();
-            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-            if (dialog.getWindow() != null)
+            Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(dm);
+            if (dialog.getWindow() != null){
                 dialog.getWindow().setLayout((dm.widthPixels), ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
         }
     }
 
@@ -127,20 +127,7 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_open_camera) {
-            PermissionManager.getInstance(BaseApplication.get())
-                    .setOnRequestPermissionResult(new PermissionManager.RequestPermissionResult() {
-                        @Override
-                        public void onGranted() {
-                            openCamera();
-                        }
-
-                        @Override
-                        public void onDenied(boolean isNotAskAgain) {
-                            dealPermissionDenied(isNotAskAgain);
-                        }
-                    })
-                    .execute(this, Manifest.permission.CAMERA);
-
+            openCamera();
 
         } else if (i == R.id.tv_open_gallery) {
             openGallery();
@@ -306,29 +293,6 @@ public class TakePhotoDialogFragment extends DialogFragment implements View.OnCl
     }
 
     private void compressMulit(Context context, List<String> paths) {
-//        int byteCount = BitmapFactory.decodeFile(paths.get(0)).getByteCount();
-//        LogUtil.d("压缩前图片大小--" + byteCount / 1024);
-//        Observable.just(paths)
-//                .map(new Func1<List<String>, List<File>>() {
-//                    @Override
-//                    public List<File> call(List<String> strings) {
-//                        try {
-//                            return top.zibin.luban.Luban.with(context)
-//                                    .load(strings).get();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        return null;
-//                    }
-//                })
-//                .compose(RxUtils.applySchedule())
-//                .subscribe(new ProgressSubscriber<List<File>>() {
-//                    @Override
-//                    protected void on_next(List<File> files) {
-//                        int byteCount = BitmapFactory.decodeFile(files.get(0).getPath()).getByteCount();
-//                        LogUtil.d("压缩前图片大小--" + byteCount / 1024);
-//                    }
-//                });
 
 
         LuBan.get(context)

@@ -68,6 +68,13 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderContract.Presenter
     private View llOperateContainer;
     private boolean mIsHistory;
 
+    int orderStatusUnAccept = 1;
+    int orderStatusHadAccept = 2;
+    int orderStatusHadRefuse = 3;
+    int orderStatusNormalCompleted = 6;
+    int orderStatusUnNormalCompleted = 7;
+    int orderStatusReserveCompleted = 8;
+
 
     public static void start(Activity activity, String orderCode, boolean isHistory) {
         Intent intent = new Intent(activity, OrderDetailActivity.class);
@@ -179,9 +186,11 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderContract.Presenter
 
     @Override
     public void setOrderStatusSuccess(int status) {
-
+        postEvent();
+        finish();
 
     }
+
     @Override
     public void getOrderSuccess(Order order) {
         showOrderDetail(order);
@@ -212,12 +221,14 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderContract.Presenter
      */
     @SuppressLint("SetTextI18n")
     private void showOrderDetail(Order order) {
+
+
         mCarId = order.getVehicleHead();
 
         mGoodsAdapter.setNewData(order.getGoods());
 
 
-        tvOrderId.setText(getString(R.string.order_id) + order.getOrderCode());
+        tvOrderId.setText(getString(R.string.order_id) + order.getPlanCode());
         tvDriverName.setText(User.getName());
         tvCarInfo.setText(getString(R.string.execute_truck) + order.getVehicleHead());
         tvCarLicense.setText(getString(R.string.trailer_license) + order.getVehicleTrailer());
@@ -228,21 +239,23 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderContract.Presenter
         setFlow(order.getFlows());
 
         //未接单
-        if (mOrderStatus == 1) {
+        if (mOrderStatus == orderStatusUnAccept) {
             llOilFee.setVisibility(View.VISIBLE);
             btnStartTask.setVisibility(View.INVISIBLE);
             llExtraFee.setVisibility(View.GONE);
             llDeductionFee.setVisibility(View.GONE);
             llOperateContainer.setVisibility(View.VISIBLE);
         }
-        //已接单
-        else if (mOrderStatus == 2) {
-            btnStartTask.setVisibility(View.VISIBLE);
+        //已经预约完成
+        else if (mOrderStatus==orderStatusHadAccept || mOrderStatus == orderStatusReserveCompleted) {
+            btnStartTask.setVisibility(mOrderStatus==orderStatusReserveCompleted?View.VISIBLE:View.GONE);
             btnStartTask.setText(getString(R.string.start_task));
             llExtraFee.setVisibility(View.GONE);
             llDeductionFee.setVisibility(View.GONE);
             llOperateContainer.setVisibility(View.GONE);
-        } else if (mOrderStatus == 3) {
+        }
+        //拒单
+        else if (mOrderStatus == orderStatusHadRefuse) {
             btnStartTask.setVisibility(View.VISIBLE);
             btnStartTask.setText(getString(R.string.accept_again));
             llExtraFee.setVisibility(View.GONE);
@@ -251,7 +264,7 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderContract.Presenter
         }
 
         //已完成(正常或者异常)
-        else if (mOrderStatus == 6 || mOrderStatus == 7) {
+        else if (mOrderStatus == orderStatusNormalCompleted || mOrderStatus == orderStatusUnNormalCompleted) {
             btnStartTask.setVisibility(View.VISIBLE);
             btnStartTask.setText(getString(R.string.history_list));
             setCoast(order.getCoasts());
@@ -363,8 +376,7 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderContract.Presenter
      */
     private void addCardView(Flow flow) {
         TextView textView = (TextView) LayoutInflater.from(getApplicationContext()).inflate(R.layout.order_view_text_view, null);
-//        setTextStyle(textView, flow.getCardName() + "：", amountWithUnit(flow.getPayableAmount()));
-        setTextStyle(textView, "中石油"+ "：", amountWithUnit(flow.getPayableAmount()));
+        setTextStyle(textView, "中石油" + "：", amountWithUnit(flow.getPayableAmount()));
         llOilFee.addView(textView);
     }
 
@@ -392,18 +404,17 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderContract.Presenter
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btn_start_task) {
-            if (mOrderStatus == 2) {
+            if (mOrderStatus == orderStatusReserveCompleted) {
                 mPresent.checkHasProcessingOrder();
-
-            } else if (mOrderStatus == 6 || mOrderStatus == 7) {
+            } else if (mOrderStatus == orderStatusNormalCompleted || mOrderStatus == orderStatusUnNormalCompleted) {
                 StepRecordActivity.start(this, mOrderCode);
-            } else if (mOrderStatus == 3) {
-                setOrderStatusAndPop(2);
             }
+
         } else if (id == R.id.tv_positive) {
-            setOrderStatusAndPop(2);
+            setOrderStatusAndPop(orderStatusHadAccept);
+            mPresent.setOrderStatus(mOrderCode, orderStatusHadAccept);
         } else if (id == R.id.tv_negative) {
-            setOrderStatusAndPop(3);
+            mPresent.setOrderStatus(mOrderCode, orderStatusHadRefuse);
         }
     }
 
@@ -412,7 +423,7 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderContract.Presenter
     }
 
     private void setOrderStatusAndPop(int status) {
-        mPresent.setOrderStatus(mOrderCode, status);
+
         postEvent();
         finish();
     }

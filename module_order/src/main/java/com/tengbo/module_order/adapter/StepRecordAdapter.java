@@ -19,12 +19,10 @@ import java.util.List;
 public class StepRecordAdapter extends BaseQuickAdapter<Step, BaseViewHolder> {
 
 
-    private Context context;
     private OnImageClickListener listener;
 
     public StepRecordAdapter(Context context, List<Step> data) {
         super(R.layout.order_item_step_record, data);
-        this.context = context;
     }
 
     /**
@@ -55,17 +53,6 @@ public class StepRecordAdapter extends BaseQuickAdapter<Step, BaseViewHolder> {
 
         nineGridImageView.setImagesData(step.getAttachs());
 
-        //debug
-//        int stepType = step.getStepType();
-//        String stepName = step.getStepName();
-//        if (stepType == 6
-//                || stepType == 7
-//                || TextUtils.equals("靠台", stepName)
-//                ) {
-//            helper.getView(R.id.next).setVisibility(View.VISIBLE);
-//        }else {
-//            helper.getView(R.id.next).setVisibility(View.GONE);
-//        }
 
     }
 

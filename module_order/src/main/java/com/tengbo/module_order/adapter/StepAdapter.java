@@ -34,7 +34,7 @@ public class StepAdapter extends QuickAdapter<Step> {
             tvName.setBackgroundResource(step.getNodeType() == 2 ? R.drawable.step_unprocess_auto : R.drawable.step_unprocess);
         }
 
-        boolean  needShowLine =  helper.getLayoutPosition()%4!=0;
+        boolean  needShowLine =  (helper.getLayoutPosition()-1)%4!=0;
         if(needShowLine){
             helper.getView(R.id.line).setVisibility(View.VISIBLE);
         }else {

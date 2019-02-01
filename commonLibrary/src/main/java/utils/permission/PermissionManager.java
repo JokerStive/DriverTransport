@@ -16,29 +16,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author yk_de
+ */
 public class PermissionManager {
     private static final int REQUEST_CODE = 2018;
     private HashMap<String, Integer> hashmap;
     private Activity targetActivity;
     private List<String> currentRequestPermissions = new ArrayList<>();
     private RequestPermissionResult listener;
+    private Context sContext;
 
-    private static class Holder {
-        public static final PermissionManager MANAGER = new PermissionManager();
-    }
-
-    private static Context sContext;
-
-    private PermissionManager() {
-    }
-
-    /**
-     * 单例获取对象
-     */
-    public static PermissionManager getInstance(Context context) {
-        sContext = context.getApplicationContext();
-        return Holder.MANAGER;
-    }
+//    private static PermissionManager instance;
+//
+//
+//
+//    private PermissionManager() {
+//
+//    }
+//
+//    /**
+//     * 单例获取对象
+//     */
+//    public static PermissionManager getInstance(Context context) {
+//        if(){
+//
+//        }
+//        sContext = context.getApplicationContext();
+//        return Holder.MANAGER;
+//    }
 
 
     /**
@@ -73,6 +79,8 @@ public class PermissionManager {
             throw new RuntimeException("the target must be Activity or Fragment");
         }
 
+        assert targetActivity != null;
+        sContext = targetActivity.getApplicationContext();
 
     }
 

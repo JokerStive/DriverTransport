@@ -90,8 +90,8 @@ public class OrderListFragment extends BaseMvpFragment<OrderContract.Presenter> 
                 Order order = (Order) adapter.getItem(position);
                 assert order != null;
                 String orderCode = order.getOrderCode();
-                int orderStatusHadAccept = 2;
                 int orderStatusHadRefuse = 3;
+                int orderStatusHadAccept = 2;
                 int orderStatusReserveCompleted = 8;
                 int id = view.getId();
                 if (id == R.id.btn_accept_task) {
@@ -102,12 +102,7 @@ public class OrderListFragment extends BaseMvpFragment<OrderContract.Presenter> 
                     mClickCardId = order.getVehicleHead();
                     mClickOrderCode = orderCode;
                     int orderStatus = order.getOrderStatus();
-
-                    if (orderStatus == orderStatusHadAccept) {
-                        // 已接单，提醒等待预约完成
-                        mPresent.checkHasProcessingOrder();
-                        ToastUtils.show(getContext(), getString(R.string.please_wait_order_reserve_complete));
-                    } else if (orderStatus == orderStatusReserveCompleted) {
+                    if (orderStatus == orderStatusReserveCompleted) {
                         //预约完成，检查是否有正在进行的订单
                         mPresent.checkHasProcessingOrder();
                     } else if (orderStatus == orderStatusHadRefuse) {
@@ -224,7 +219,7 @@ public class OrderListFragment extends BaseMvpFragment<OrderContract.Presenter> 
         if (!hasProcessingOrder) {
             InspectionActivity.start(getActivity(), mClickOrderCode, mClickCardId);
         } else {
-            ToastUtils.show(getContext(), getString(R.string.has_processing_order));
+            ToastUtils.show(_mActivity.getApplicationContext(), getString(R.string.has_processing_order));
         }
     }
 

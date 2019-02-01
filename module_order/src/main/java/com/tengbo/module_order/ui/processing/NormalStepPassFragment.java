@@ -113,9 +113,9 @@ public class NormalStepPassFragment extends DialogFragment implements View.OnCli
         tvContactPhone.setText(mStep.getExcuterCellPhone());
 
         TextView tvPositionName = view.findViewById(R.id.tv_position_name);
+        String positionName = mStep.getPositionName();
         tvPositionName.setText(mStep.getPositionName());
-
-
+        tvContactName.setVisibility(TextUtils.isEmpty(positionName) ? View.GONE : View.VISIBLE);
 
         stepRv = view.findViewById(R.id.rv_picture);
         view.findViewById(R.id.tv_positive).setOnClickListener(this);
@@ -210,7 +210,7 @@ public class NormalStepPassFragment extends DialogFragment implements View.OnCli
         MultipartBody multipartBody = RetrofitUtils.createMultipartBody(paths);
         return NetHelper.getInstance()
                 .getRetrofit().create(ApiOrder.class)
-                .uploadMultiFiles( multipartBody)
+                .uploadMultiFiles(multipartBody)
                 .compose(RxUtils.handleResult());
 
     }

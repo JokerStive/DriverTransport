@@ -10,7 +10,7 @@
         <activity android:name=".ui.inspection.InspectionActivity" />
         <activity android:name=".ui.processing.TroubleActivity" />
         <activity android:name=".ui.history.StepRecordActivity" />
-        <activity android:name=".ui.history.DebugStepRecordActivity" />
+        <activity android:name=".ui.history.StepRecordDetailActivity" />
         <activity
             android:name=".ui.processing.TakeStepPictureActivity"
             android:launchMode="singleTask"

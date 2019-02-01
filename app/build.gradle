@@ -5,10 +5,10 @@ apply from: rootProject.file('global_settings.gradle')
 android {
     signingConfigs {
         release {
-            keyAlias 'adylkeystore'
-            keyPassword 'adyl123'
-            storeFile file('E:/工作需要的文件和工具/key_store/adyl.jks')
-            storePassword 'adyl123'
+//            keyAlias 'adylkeystore'
+//            keyPassword 'adyl123'
+//            storeFile file('E:/工作需要的文件和工具/key_store/adyl.jks')
+//            storePassword 'adyl123'
         }
     }
 

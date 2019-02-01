@@ -81,6 +81,11 @@ dependencies {
 
     api 'com.tencent:mmkv:1.0.16'
 
+    debugApi 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    // Optional, if you use support library fragments:
+    debugApi 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+
 
 
 

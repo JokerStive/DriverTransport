@@ -87,6 +87,8 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
     private SwipeRefreshLayout srl;
     private View emptyView;
     private MaterialDialog troubleDialog;
+    private LocateService locateService;
+    private ServiceConnection locateServiceConn;
 
 
     public static ProcessingOrderFragment newInstance() {
@@ -169,7 +171,7 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
                 if (ivTroubleWarm.getVisibility() == View.INVISIBLE) {
                     Step latestProcessedStep = mAdapter.getLatestProcessedStep();
                     if (latestProcessedStep == null) {
-                        ToastUtils.show(getContext(), "最后一个执行的步骤不存在");
+                        ToastUtils.show(_mActivity.getApplicationContext(), "最后一个执行的步骤不存在");
                     } else {
                         latestProcessedStep.setVehicleHead(mOrder.getVehicleHead());
                         TroubleActivity.start(getActivity(), latestProcessedStep);
@@ -287,17 +289,16 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
      * 跟定位服务建立连接，当位置刷新时，通知该页面，根据位置操作自动通过的步骤
      */
     private void startNecessaryService() {
-        ServiceConnection locateServiceConn = new ServiceConnection() {
+        locateServiceConn = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                LocateService locateService = ((LocateService.LocateBinder) service).getService();
+                locateService = ((LocateService.LocateBinder) service).getService();
                 locateService.setOnLocationChangeCallback(ProcessingOrderFragment.this);
 
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-
             }
         };
         Intent locationIntent = new Intent(_mActivity, LocateService.class);
@@ -566,7 +567,7 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
      * 显示订单信息
      */
     private void showOrderInfo() {
-        setText(tv_order_id, R.string.order_id, mOrder.getOrderCode());
+        setText(tv_order_id, R.string.order_id, mOrder.getPlanCode());
         tv_departure.setText(mOrder.getStartNodeName());
         tv_destination.setText(mOrder.getEndNodeName());
 
@@ -605,7 +606,6 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
             setOrderStatusError();
             showErrorDialog();
         } else {
-//            int position = uploadTrouble.getPosition();
             ivTroubleWarm.setVisibility(View.VISIBLE);
             LogUtil.d("异常上传失败，添加感叹号");
         }
@@ -627,6 +627,10 @@ public class ProcessingOrderFragment extends BaseMvpFragment<ProcessingOrderCont
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if(locateServiceConn!=null){
+            _mActivity.unbindService(locateServiceConn);
+            locateServiceConn=null;
+        }
     }
 
     /**

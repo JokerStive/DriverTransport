@@ -27,10 +27,11 @@ import java.util.List;
 
 import utils.RequestUtils;
 
+/**
+ * @author yk_de
+ */
 public class StepRecordActivity extends BaseActivity {
 
-    //    private int page = 0;
-//    private boolean isEnd;
     private String mOrderCode;
     private StepRecordAdapter mAdapter;
 
@@ -72,15 +73,8 @@ public class StepRecordActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Step step = (Step) adapter.getItem(position);
-//                assert step != null;
-//                int stepType = step.getStepType();
-//                if (stepType == 6
-//                        || stepType == 7
-//                        || TextUtils.equals("靠台", step.getStepName())
-//                        ) {
-//                    DebugStepRecordActivity.start(StepRecordActivity.this, step);
-//                }
+                Step step = (Step) adapter.getItem(position);
+                StepRecordDetailActivity.start(StepRecordActivity.this, step);
             }
         });
         rvStepRecord.setAdapter(mAdapter);
@@ -110,7 +104,6 @@ public class StepRecordActivity extends BaseActivity {
                         mAdapter.setNewData(steps);
                     }
                 });
-
     }
 
     private ArrayList<Step> generateData(List<Node> nodes) {

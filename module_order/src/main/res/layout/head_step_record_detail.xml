@@ -1,0 +1,167 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+
+
+    <TextView
+        android:textStyle="bold"
+        style="@style/tv_10sp_blue_bold"
+        android:text="节点信息"
+        android:textSize="@dimen/sp_12" />
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_13"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_13"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+        <View
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@color/basic_blue" />
+
+
+        <TextView
+            android:id="@+id/tv_step_name"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="卸货" />
+
+        <TextView
+            android:id="@+id/tv_step_address"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="重庆富士康" />
+
+        <TextView
+            android:id="@+id/tv_step_time"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="2011-01-32" />
+
+        <TextView
+            android:id="@+id/tv_executor_Name"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="执行人：尼玛" />
+
+        <TextView
+            android:id="@+id/tv_executor_phone"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="执行人电话：13211111111" />
+
+        <TextView
+            android:id="@+id/tv_position_name"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="作业位置： 靠台3" />
+
+        <TextView
+            android:id="@+id/tv_transport_enterprise_name"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="承运单位： 腾博物流" />
+
+        <TextView
+            android:id="@+id/tv_vehicle_head"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="车头车牌号： 渝A 8983" />
+
+        <TextView
+            android:id="@+id/tv_vehicle_trailer"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="车尾车牌号： 渝A 8983" />
+
+        <TextView
+            android:id="@+id/tv_driver_name"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="驾驶员姓名：牟勇" />
+
+        <TextView
+            android:id="@+id/tv_driver_phone"
+            style="@style/tv_10sp_blue_bold"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dp_14"
+            android:textStyle="normal"
+            tools:text="驾驶员电话：139010101010" />
+
+
+        <com.tengbo.basiclibrary.widget.ninegridimageview.NineGridImageView
+            android:id="@+id/nine_image"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="@dimen/dp_10"
+            app:imgGap="3dp"
+            app:showStyle="grid" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:background="@color/basic_white"
+            android:id="@+id/ll_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginBottom="@dimen/dp_10"
+                android:textStyle="bold"
+                style="@style/tv_10sp_blue_bold"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="货物信息"
+                android:textSize="@dimen/sp_12" />
+
+
+            <View
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:background="@color/basic_blue" />
+
+        </LinearLayout>
+
+
+</LinearLayout>

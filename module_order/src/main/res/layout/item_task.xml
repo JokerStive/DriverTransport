@@ -6,8 +6,8 @@
     android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/dp_25"
-    android:paddingRight="@dimen/dp_25"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10"
     android:paddingBottom="@dimen/dp_20">
 
 
@@ -107,8 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_18"
-                android:layout_marginRight="@dimen/dp_18"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
                 android:src="@drawable/truck" />
 
             <TextView
@@ -116,15 +116,17 @@
                 style="@style/tv_10sp_blue_bold"
                 android:layout_toLeftOf="@id/iv_car"
                 android:maxLength="4"
+                android:maxLines="1"
                 android:textSize="@dimen/sp_16"
                 tools:text="额" />
 
             <TextView
+                android:maxLines="1"
                 android:id="@+id/tv_destination"
                 style="@style/tv_10sp_blue_bold"
                 android:layout_toRightOf="@id/iv_car"
                 android:textSize="@dimen/sp_16"
-                tools:text="重战" />
+                tools:text="的额嗯嗯额嗯嗯额d" />
 
         </RelativeLayout>
 

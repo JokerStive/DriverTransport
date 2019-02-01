@@ -2,11 +2,11 @@ package com.tengbo.drivertransport;
 
 
 import com.billy.cc.core.component.CC;
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.commonlibrary.BuildConfig;
 import com.tengbo.commonlibrary.base.BaseApplication;
-import com.zxy.tiny.Tiny;
 
 import org.litepal.LitePal;
 
@@ -14,6 +14,9 @@ import cn.jpush.android.api.JPushInterface;
 import me.yokeyword.fragmentation.Fragmentation;
 import me.yokeyword.fragmentation.helper.ExceptionHandler;
 
+/**
+ * @author yk_de
+ */
 public class App extends BaseApplication {
 
     @Override
@@ -25,6 +28,14 @@ public class App extends BaseApplication {
         initPush();
         initLogger();
         initBugly();
+        initLeakCanary();
+    }
+
+    private void initLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     private void initBugly() {

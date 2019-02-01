@@ -1,8 +1,5 @@
 package com.tengbo.module_personal_center.activity;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -11,44 +8,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adyl.ocr.ui.camera.CameraActivity;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baidu.ocr.sdk.OCR;
-import com.baidu.ocr.sdk.OnResultListener;
-import com.baidu.ocr.sdk.exception.OCRError;
-import com.baidu.ocr.sdk.model.AccessToken;
-import com.tamic.novate.util.FileUtil;
 import com.tengbo.basiclibrary.utils.CodeGeneUtils;
-import com.tengbo.basiclibrary.utils.LogUtil;
 import com.tengbo.commonlibrary.base.BaseActivity;
 import com.tengbo.commonlibrary.base.BaseApplication;
 import com.tengbo.commonlibrary.common.User;
 import com.tengbo.commonlibrary.net.ApiException;
-import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.NetHelper;
+import com.tengbo.commonlibrary.net.ProgressSubscriber;
 import com.tengbo.commonlibrary.net.RxUtils;
+import com.tengbo.commonlibrary.widget.TitleBar;
 import com.tengbo.module_personal_center.R;
 import com.tengbo.module_personal_center.utils.BankCardValidUtils;
-import com.tengbo.module_personal_center.utils.ToastUtils;
 
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import utils.RequestUtils;
-
-import com.tengbo.commonlibrary.widget.TitleBar;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import utils.ToastUtils;
 
 /**
  * author WangChenchen
@@ -206,41 +181,21 @@ public class AddBankCardInfoActivity extends BaseActivity implements View.OnClic
         // 点击取消
         else if (id == R.id.btn_cancel) {
             // 处理取消，关闭本页面
-                finish();
+            finish();
         }
         // 点击验证码图片或者刷新
         else if (id == R.id.tv_refresh_valid_code || id == R.id.iv_valid_code) {
             // 处理刷新验证码
 
-                refreshValidCode();
+            refreshValidCode();
         }
     }
-
-
-
-
 
 
     /**
      * 用明文ak，sk初始化
      */
     String token;
-
-    private void initAccessTokenWithAkSk() {
-        OCR.getInstance(getApplicationContext()).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
-            @Override
-            public void onResult(AccessToken result) {
-                token = result.getAccessToken();
-                LogUtil.d("token已经获取成功");
-            }
-
-            @Override
-            public void onError(OCRError error) {
-                error.printStackTrace();
-            }
-        }, getApplicationContext(), "0lWO6xHhyMNKQVgITugBMSiN", "XTjVDh5KUdpU5fk2yrkOFgxf9ZY0e9sT");
-    }
-
 
 
     /**
@@ -254,7 +209,7 @@ public class AddBankCardInfoActivity extends BaseActivity implements View.OnClic
     }
 
     private void showToast(String s) {
-        ToastUtils.show(this, s);
+        ToastUtils.show(getApplicationContext(), s);
     }
 
     /**
@@ -274,7 +229,6 @@ public class AddBankCardInfoActivity extends BaseActivity implements View.OnClic
         et_valid_code.setText("");
         iv_valid_code.setImageBitmap(mCodeGeneUtils.createBitmap());
     }
-
 
 
 }

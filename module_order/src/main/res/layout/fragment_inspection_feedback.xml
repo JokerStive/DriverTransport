@@ -9,6 +9,7 @@
 
 
     <EditText
+        android:maxLength="200"
         android:textColor="@color/basic_blue"
         android:id="@+id/et_inspection_desc"
         android:layout_width="match_parent"
@@ -53,8 +54,6 @@
             android:textColor="@color/basic_blue"
             android:textSize="@dimen/sp_14"
             android:textStyle="normal" />
-
-
     </LinearLayout>
 
 </LinearLayout>

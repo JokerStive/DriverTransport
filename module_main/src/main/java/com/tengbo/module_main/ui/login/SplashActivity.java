@@ -13,6 +13,7 @@ import utils.permission.PermissionManager;
 
 public class SplashActivity extends BaseActivity {
 
+    private PermissionManager permissionManager;
 
     private String[] needPermissions = new String[]{
             Manifest.permission.READ_PHONE_STATE,
@@ -39,8 +40,8 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        PermissionManager.getInstance(getApplicationContext())
-                .setOnRequestPermissionResult(new PermissionManager.RequestPermissionResult() {
+        permissionManager = new PermissionManager();
+        permissionManager.setOnRequestPermissionResult(new PermissionManager.RequestPermissionResult() {
                     @Override
                     public void onGranted() {
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
@@ -68,7 +69,6 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionManager.getInstance(getApplicationContext())
-                .onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
